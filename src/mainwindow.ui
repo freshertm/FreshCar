@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>462</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="graphWidget" native="true"/>
+    </item>
+    <item>
+     <widget class="QWidget" name="parametersWidget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="gbParameters">
+         <property name="title">
+          <string>Общие</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>популяция</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="sbPopulation">
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>коэф. трения рамы</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_8">
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Колесо</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>мин. радиус</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>макс. радиус</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>мин. скорость</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>макс. скорость</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>мин. момент</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>макс. момент</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <double>10000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>коэф. трения</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>400</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Добавить</string>
+    </property>
+    <addaction name="addRandomCar"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Параметры Мира</string>
+    </property>
+    <widget class="QMenu" name="menuWorld_physics">
+     <property name="title">
+      <string>World physics</string>
+     </property>
+     <addaction name="actionBody_friction_2"/>
+     <addaction name="actionWheel_friction"/>
+     <addaction name="actionGround_friction"/>
+     <addaction name="actionWheel_torque"/>
+    </widget>
+    <widget class="QMenu" name="menuGenome_mixing">
+     <property name="title">
+      <string>Genome mixing</string>
+     </property>
+     <addaction name="actionPart"/>
+     <addaction name="actionCar_mix_count"/>
+    </widget>
+    <widget class="QMenu" name="menuGenome_mutation">
+     <property name="title">
+      <string>Genome mutation</string>
+     </property>
+     <addaction name="actionMax_mutation_genome_count"/>
+     <addaction name="actionWheel_mutation_rate"/>
+    </widget>
+    <widget class="QMenu" name="menuWheel_genome">
+     <property name="title">
+      <string>Wheel genome</string>
+     </property>
+     <addaction name="actionMin_radius"/>
+     <addaction name="actionMax_radius"/>
+     <addaction name="actionWheel_min_speed"/>
+     <addaction name="actionWheel_speed"/>
+    </widget>
+    <addaction name="menuWorld_physics"/>
+    <addaction name="menuGenome_mixing"/>
+    <addaction name="menuGenome_mutation"/>
+    <addaction name="menuWheel_genome"/>
+    <addaction name="actionTrianglePower"/>
+    <addaction name="actionCar_die_time"/>
+    <addaction name="actionPopulation"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="addRandomCar">
+   <property name="text">
+    <string>Машинку</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionWheel_friction">
+   <property name="text">
+    <string>wheel friction</string>
+   </property>
+  </action>
+  <action name="actionGround_friction">
+   <property name="text">
+    <string>ground friction</string>
+   </property>
+  </action>
+  <action name="actionBody_friction_2">
+   <property name="text">
+    <string>body friction</string>
+   </property>
+  </action>
+  <action name="actionPart">
+   <property name="text">
+    <string>part</string>
+   </property>
+  </action>
+  <action name="actionDynasties">
+   <property name="text">
+    <string>dynasties</string>
+   </property>
+  </action>
+  <action name="actionCrosses">
+   <property name="text">
+    <string>crosses</string>
+   </property>
+  </action>
+  <action name="actionMax_mutation_genome_count">
+   <property name="text">
+    <string>max mutation genome count</string>
+   </property>
+  </action>
+  <action name="actionWheel_mutation_rate">
+   <property name="text">
+    <string>wheel mutation rate</string>
+   </property>
+  </action>
+  <action name="actionMin_radius">
+   <property name="text">
+    <string>min radius</string>
+   </property>
+  </action>
+  <action name="actionMax_radius">
+   <property name="text">
+    <string>max radius</string>
+   </property>
+  </action>
+  <action name="actionCar_die_time">
+   <property name="text">
+    <string>Car die time</string>
+   </property>
+  </action>
+  <action name="actionPopulation">
+   <property name="text">
+    <string>Population</string>
+   </property>
+  </action>
+  <action name="actionWheel_torque">
+   <property name="text">
+    <string>wheel torque</string>
+   </property>
+  </action>
+  <action name="actionWheel_speed">
+   <property name="text">
+    <string>max speed</string>
+   </property>
+  </action>
+  <action name="actionWheel_min_speed">
+   <property name="text">
+    <string>min speed</string>
+   </property>
+  </action>
+  <action name="actionMin_torque">
+   <property name="text">
+    <string>min torque</string>
+   </property>
+  </action>
+  <action name="actionMax_torque">
+   <property name="text">
+    <string>max torque</string>
+   </property>
+  </action>
+  <action name="actionCar_mix_count">
+   <property name="text">
+    <string>car mix count</string>
+   </property>
+  </action>
+  <action name="actionTrianglePower">
+   <property name="text">
+    <string>trianglePower</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
