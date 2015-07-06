@@ -6,14 +6,18 @@
 #include <QTime>
 #include "carbodycreator.h" //for createRandomGenome
 
+#include "Serializer"
+#include "Parser"
+#include <QFile>
+
 const quint16 wheelGenomes = 4;
 
-World::World():properties("settings.ini"),
+World::World(long seed):properties("settings.ini"),
     _generationNumber(0),
     _generationNumberTopRecord(0),
     _topRecord(0)
 {
-    qsrand(QTime::currentTime().msec());
+    qsrand(seed);
     world = new b2World(b2Vec2(0,-10));
 
 
@@ -108,6 +112,53 @@ void World::addRandomCar()
     addCarFromGenome(genome);
 }
 
+void World::saveState(const QString &filename)
+{
+
+    QVariantMap map;
+    map["generation"] = _generationNumber;
+    map["generation_top_rec"] = _generationNumberTopRecord;
+    map["world_top_rec"] = _topRecord;
+
+    map["world_properties"] = properties.serialize();
+
+    QVariantList carGenomes;
+
+    foreach (Car * c, _carList) {
+        CarGenome g = c->genome();
+        QVariantList genome;
+        foreach (QVariant v, g) genome.push_back(v);
+        carGenomes.push_back(genome);
+    }
+
+    QVariantList topList;
+    foreach (GenomeTopListRecord record, _topList) {
+        QVariantMap topListRecord;
+        topListRecord["achievement"] = record.first;
+        QVariantList genomeV;
+        foreach (QVariant g, record.second) genomeV.push_back(g);
+        topListRecord["genome"] = genomeV;
+        topList.push_back(topListRecord);
+    }
+
+    map["current_cars"] = carGenomes;
+    QFile f(filename);
+    if (!f.open(QIODevice::WriteOnly))
+    {
+        return;
+    };
+
+    bool ok;
+    QJson::Serializer serializer;
+    serializer.serialize(map,&f,&ok);
+    f.close();
+}
+
+void World::loadState(const QString &filename)
+{
+
+}
+
 void World::addToTopList(double result, const CarGenome &genome)
 {
     GenomeTopListRecord rec;
@@ -147,6 +198,7 @@ void World::createRandomGround()
         b2PolygonShape box1;
         double halfWidth = width / 2.0;
         box1.SetAsBox(halfWidth, 0.2f);
+
 
         b2FixtureDef gfd;
         gfd.shape = &box1;
@@ -221,8 +273,12 @@ void World::sex()
 
         //mixGenome(parentA,parentB,childA, childB);
         mutateGenome(child);
+        mutateGenome(parentA);
+        mutateGenome(parentB);
         //mutateGenome(childB);
         addCarFromGenome(child);
+        addCarFromGenome(parentA);
+        addCarFromGenome(parentB);
         //addCarFromGenome(childB);
 
         mutateGenome(parentA);
@@ -294,21 +350,19 @@ CarGenome World::createRandomGenome()
 
     for (int i=0; i< properties.genomeMaxWheels(); ++i)
     {
-
-        int vertex;
         if (i<carWheels)
         {
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 0] = qrand() % creator.verticeList().count();
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 1] = createRandomDouble(properties.wheelMinRadius(),properties.wheelMinRadius() / properties.genomeMutateRate());
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 2] = createRandomDouble(properties.wheelMinSpeed(),properties.wheelMinSpeed() / properties.genomeMutateRate());
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 3] = createRandomDouble(0,1); //torque coeff
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelVertice    ] = qrand() % creator.verticeList().count();
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelRadius     ] = createRandomDouble(properties.wheelMinRadius(),properties.wheelMinRadius() / properties.genomeMutateRate());
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelSpeed      ] = createRandomDouble(properties.wheelMinSpeed(),properties.wheelMinSpeed() / properties.genomeMutateRate());
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelTorqueCoeff] = createRandomDouble(0,1); //torque coeff
         }
         else
         {
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 0] = vertex;
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 1] = properties.wheelMinRadius();
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 2] = properties.wheelMinSpeed();
-            genome[properties.genomeBodyLength() + i * wheelGenomes + 3] = createRandomDouble(0,1);
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelVertice    ] = 0;
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelRadius     ] = properties.wheelMinRadius();
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelSpeed      ] = properties.wheelMinSpeed();
+            genome[properties.genomeBodyLength() + i * wheelGenomes + WheelTorqueCoeff] = createRandomDouble(0,1);
         }
     }
 
@@ -356,10 +410,10 @@ CarGenome World::validateGenome(const CarGenome & in)
         if (!ok) wheelTorqueCoeff = 0;
         wheelTorqueCoeff = validateDouble(wheelTorqueCoeff, 0, 1);
 
-        genome[properties.genomeBodyLength() + i * wheelGenomes + 0] = vertice;
-        genome[properties.genomeBodyLength() + i * wheelGenomes + 1] = radius;
-        genome[properties.genomeBodyLength() + i * wheelGenomes + 2] = wheelSpeed;
-        genome[properties.genomeBodyLength() + i * wheelGenomes + 3] = wheelTorqueCoeff;
+        genome[properties.genomeBodyLength() + i * wheelGenomes + WheelVertice    ] = vertice;
+        genome[properties.genomeBodyLength() + i * wheelGenomes + WheelRadius     ] = radius;
+        genome[properties.genomeBodyLength() + i * wheelGenomes + WheelSpeed      ] = wheelSpeed;
+        genome[properties.genomeBodyLength() + i * wheelGenomes + WheelTorqueCoeff] = wheelTorqueCoeff;
     }
     return genome;
 }
@@ -556,7 +610,7 @@ void World::mutateGenome(CarGenome &genome)
             continue;
         }
 
-        if ((position - properties.genomeBodyLength()) %wheelGenomes == 0) //wheel position
+        if ((position - properties.genomeBodyLength()) %wheelGenomes == WheelVertice) //wheel position
         {
             int current = genome[position].toDouble();
             int range = properties.genomeMutateRate() * (double)properties.genomeBodyLength();
@@ -576,19 +630,19 @@ void World::mutateGenome(CarGenome &genome)
 
             continue;
         }
-        if ((position - properties.genomeBodyLength()) % wheelGenomes == 1) //wheel radius
+        if ((position - properties.genomeBodyLength()) % wheelGenomes == WheelRadius) //wheel radius
         {
             //изменяем диаметр колеса
             genome[position] = mutateDouble(genome[position].toDouble(),properties.wheelMinRadius(), properties.wheelMaxRadius(),properties.genomeMutateRate());
             continue;
         }
-        if ((position - properties.genomeBodyLength()) % wheelGenomes == 2) //wheel speed
+        if ((position - properties.genomeBodyLength()) % wheelGenomes == WheelSpeed) //wheel speed
         {
             genome[position] = mutateDouble(genome[position].toDouble(),properties.wheelMinSpeed(), properties.wheelMaxSpeed(),properties.genomeMutateRate());
             continue;
         }
 
-        if ((position - properties.genomeBodyLength()) % wheelGenomes == 3) //wheel torque
+        if ((position - properties.genomeBodyLength()) % wheelGenomes == WheelTorqueCoeff) //wheel torque
         {
             genome[position] = mutateDouble(genome[position].toDouble(),0, 1,properties.genomeMutateRate());
             continue;

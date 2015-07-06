@@ -35,6 +35,9 @@ public:
 
     double trianglePower() const;
 
+    QVariantMap serialize();
+    void parse(const QVariantMap &);
+
 public slots:
     void setPopulation(quint16);
 

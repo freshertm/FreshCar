@@ -2,15 +2,38 @@
 #include "ui_mainwindow.h"
 #include <QVBoxLayout>
 #include <QInputDialog>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    widget = new RenderWidget();
 
-    world = widget->world();
+    bool ok=false;
+    QString seedStr = QInputDialog::getText(this,"Enter seed",QString(),QLineEdit::Normal,QString("habrahabr.ru"),&ok);
+
+    long seed =1;
+    if (!ok){
+        QTime dayEnd = QTime(23,59,59,999);
+        seed = QTime::currentTime().msecsTo(dayEnd);
+        seedStr = "<random> "+QString::number(seed);
+    }
+    else
+    {
+        for (int i=0; i< seedStr.length(); ++i)
+            seed *= seedStr.at(i).toAscii();
+
+        seedStr += QString(" (%1)").arg(seed);
+    }
+
+    setWindowTitle(QString("FreshCar - ")+seedStr);
+
+    world = new World(seed);
+
+    widget = new RenderWidget(world);
 
     //ui->centralWidget->layout()->addWidget(widget);
     QLayout *lay = new QVBoxLayout();
@@ -21,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->parametersWidget->setVisible(false);
 
     connect(this->ui->addRandomCar,SIGNAL(triggered()),world,SLOT(addRandomCar()));
+    connect(ui->actionDrawHistoryGraph, SIGNAL(triggered(bool)), widget, SLOT(setDrawGraphs(bool)));
+    ui->actionDrawHistoryGraph->setChecked(widget->drawHistoryGraphs());
 }
 
 
@@ -102,4 +127,11 @@ void MainWindow::on_actionCar_mix_count_triggered()
 void MainWindow::on_actionTrianglePower_triggered()
 {
     world->worldPropertiesForChange()->setTrianglePower(QInputDialog::getDouble(NULL,QString(),QString(),world->worldProperties()->trianglePower(),0,1000000));
+}
+
+void MainWindow::on_save_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName();
+    if (filename.isEmpty()) return;
+    world->saveState(filename);
 }

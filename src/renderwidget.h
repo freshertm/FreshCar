@@ -13,7 +13,7 @@ class RenderWidget : public QGLWidget, public b2Draw
 {
     Q_OBJECT
 public:
-    explicit RenderWidget(QWidget *parent = 0);
+    explicit RenderWidget(World * world, QWidget *parent = 0);
 
 
 
@@ -40,8 +40,10 @@ public:
 
 
     void drawGL();
+    bool drawHistoryGraphs();
 
-
+public slots:
+    void setDrawGraphs(bool enabled);
 
 protected:
     virtual void initializeGL();
@@ -56,6 +58,7 @@ protected:
 private:
     World* _world;
     Renderer * renderer;
+    bool _drawHistoryGraph;
     double xShift;
     double yShift;
     double scale;

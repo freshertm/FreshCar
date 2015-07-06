@@ -14,7 +14,14 @@ class World: public QObject
     Q_OBJECT
 public:
 
-    World();
+    enum WheelGenomeIndexes{
+        WheelVertice =0,
+        WheelRadius  =1,
+        WheelSpeed   =2,
+        WheelTorqueCoeff = 3
+    };
+
+    World(long seed);
 
     typedef QVector<Car*> CarList;
     void step();
@@ -45,6 +52,9 @@ public:
 
 public slots:
     void addRandomCar();
+
+    void saveState(const QString & filename);
+    void loadState(const QString & filename);
 
 signals:
     void newGeneration();

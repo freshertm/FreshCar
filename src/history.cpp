@@ -14,7 +14,7 @@ const History::HistoryStore History::history() const
 void History::onNewGeneration()
 {
     HistoryRecord rec;
-    if (_world->topList().isEmpty())
+    /*if (_world->topList().isEmpty())
     {
         if (_world->carList().isEmpty()) return;
         double pos = -1000;
@@ -25,7 +25,8 @@ void History::onNewGeneration()
         rec.worldCurrentRecord = pos;
     }
     else
-        rec.worldCurrentRecord = _world->topList()[0].first;
+        rec.worldCurrentRecord = _world->topList()[0].first;*/
+    rec.worldCurrentRecord = _world->currentTopCarPosition();
     rec.worldTopRecord = _world->absoluteMaxDistance();
     rec.avgWheelsCount = _world->averageWheelsInCar();
     rec.avgTriangles = _world->averageTrianglesInCar();

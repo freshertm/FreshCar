@@ -5,7 +5,7 @@ WorldProperties::WorldProperties(const QString &iniFileName)
     settings = new QSettings(iniFileName,QSettings::IniFormat);
     _genomeMaxWheels = settings->value("genome/max_wheels",5).toUInt();
     _wheelMaxRadius = settings->value("genome/wheel_max_radius", 5).toDouble();
-    _wheelMinRadius = settings->value("genome/wheel_min_radius", 0.3).toDouble();
+    _wheelMinRadius = settings->value("genome/wheel_min_radius", 0.2).toDouble();
     _wheelMaxSpeed = settings->value("genome/wheel_max_speed",50).toDouble();
     _wheelMinSpeed = settings->value("genome/wheel_min_speed",1).toDouble();
     _genomeBodyLength = settings->value("genome/body_length",300).toUInt();
@@ -17,16 +17,16 @@ WorldProperties::WorldProperties(const QString &iniFileName)
     _population = settings->value("world/population",50).toUInt();
     _timeMultiplier = settings->value("world/time_multiplier",1.0).toDouble();
     _carDieTime = settings->value("world/car_die_time",20).toDouble();
-    _groundMultiplier = settings->value("world/ground_multiplier",1.1).toDouble();
+    _groundMultiplier = settings->value("world/ground_multiplier",1.007).toDouble();
     _groundPlateLength = settings->value("world/ground_plate_length",5).toDouble();
-    _trianglePower = settings->value("world/triangle_power",5.0).toDouble();
+    _trianglePower = settings->value("world/triangle_power",20.0).toDouble();
 
     _genomeMixPart = settings->value("mix/part", 5).toUInt();
 
-    _genomeMutateMaxCount = settings->value("mutate/max_count",5).toUInt();
-    _genomeMutateRate = settings->value("mutate/rate",0.2).toDouble();
+    _genomeMutateMaxCount = settings->value("mutate/max_count",3).toUInt();
+    _genomeMutateRate = settings->value("mutate/rate",0.1).toDouble();
 
-    _mixCarsCount = settings->value("mix/cars_count",30).toUInt();
+    _mixCarsCount = settings->value("mix/cars_count",8).toUInt();
 
 
 
@@ -136,6 +136,36 @@ double WorldProperties::groundPlateLength() const
 double WorldProperties::trianglePower() const
 {
     return _trianglePower;
+}
+
+QVariantMap WorldProperties::serialize()
+{
+    QVariantMap p;
+    p["genome_max_wheels"] = _genomeMaxWheels;
+    p["wheel_max_radius"] = _wheelMaxRadius;
+    p["wheel_min_radius"] = _wheelMinRadius;
+    p["wheel_max_speed"] = _wheelMaxSpeed;
+    p["wheel_min_speed"] = _wheelMinSpeed;
+    p["wheel_max_torque"] = _wheelMaxTorque;
+    p["wheel_min_torque"] = _wheelMinTorque;
+    p["genome_body_length"] = _genomeBodyLength;
+
+    p["body_friction"] = _bodyFriction;
+    p["wheel_friction"] = _wheelFriction;
+    p["ground_friction"] = _groundFriction;
+    p["body_edge_length"] = _bodyEdgeLength;
+    p["population"] = _population;
+    p["time_multiplier"] = _timeMultiplier;
+    p["car_die_time"] = _carDieTime;
+    p["ground_multiplier"] = _groundMultiplier;
+    p["ground_plate_length"] = _groundPlateLength;
+    p["triangle_power"] = _trianglePower;
+    p["genome_mix_part"] =_genomeMixPart;
+    p["genome_mutate_max_count"] = _genomeMutateMaxCount;
+    p["genome_mutate_rate"] = _genomeMutateRate;
+    p["mix_cars_count"] = _mixCarsCount;
+
+    return p;
 }
 
 void WorldProperties::setPopulation(quint16 v)

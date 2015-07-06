@@ -10,6 +10,8 @@ TARGET = mycar
 TEMPLATE = app
 
 INCLUDEPATH += Box2D
+INCLUDEPATH += QJson/include/QJson
+INCLUDEPATH += QJson/src
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -68,7 +70,15 @@ SOURCES += main.cpp\
     contactfilter.cpp \
     history.cpp \
     historygraph.cpp \
-    glthread.cpp
+    glthread.cpp \
+    QJson/src/json_parser.cc \
+    QJson/src/json_scanner.cc \
+    QJson/src/json_scanner.cpp \
+    QJson/src/parser.cpp \
+    QJson/src/parserrunnable.cpp \
+    QJson/src/qobjecthelper.cpp \
+    QJson/src/serializer.cpp \
+    QJson/src/serializerrunnable.cpp
 
 HEADERS  += mainwindow.h \
     Box2D/Box2D.h \
@@ -128,6 +138,23 @@ HEADERS  += mainwindow.h \
     contactfilter.h \
     history.h \
     historygraph.h \
-    glthread.h
+    glthread.h \
+    QJson/include/QJson/Parser \
+    QJson/include/QJson/QObjectHelper \
+    QJson/include/QJson/Serializer \
+    QJson/src/FlexLexer.h \
+    QJson/src/json_parser.hh \
+    QJson/src/json_scanner.h \
+    QJson/src/location.hh \
+    QJson/src/parser.h \
+    QJson/src/parser_p.h \
+    QJson/src/parserrunnable.h \
+    QJson/src/position.hh \
+    QJson/src/qjson_debug.h \
+    QJson/src/qjson_export.h \
+    QJson/src/qobjecthelper.h \
+    QJson/src/serializer.h \
+    QJson/src/serializerrunnable.h \
+    QJson/src/stack.hh
 
 FORMS    += mainwindow.ui

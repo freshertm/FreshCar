@@ -5,12 +5,12 @@
 #include <QMouseEvent>
 
 
-RenderWidget::RenderWidget(QWidget *parent) :
+RenderWidget::RenderWidget(World *world, QWidget *parent) :
     QGLWidget(parent),
     xShift(0),
     yShift(0),
     scale(1.0),
-    _world(new World())
+    _world(world)
 {
     /*
         enum
@@ -153,6 +153,16 @@ void RenderWidget::drawGL()
 
 }
 
+void RenderWidget::setDrawGraphs(bool enabled)
+{
+    _drawHistoryGraph = enabled;
+}
+
+bool RenderWidget::drawHistoryGraphs()
+{
+    return _drawHistoryGraph;
+}
+
 void RenderWidget::initializeGL()
 {
     glDisable(GL_DEPTH_TEST);
@@ -206,7 +216,8 @@ void RenderWidget::paintGL()
         renderText(car->position().x, car->position().y-10,0,QString::number(car->triangles()));
     }*/
 
-    paintHistory();
+    if (_drawHistoryGraph)
+        paintHistory();
 
     glFinish();
     glFlush();

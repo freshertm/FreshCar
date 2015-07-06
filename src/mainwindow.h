@@ -52,6 +52,8 @@ private slots:
 
     void on_actionTrianglePower_triggered();
 
+    void on_save_triggered();
+
 private:
     Ui::MainWindow *ui;
     RenderWidget *widget;
