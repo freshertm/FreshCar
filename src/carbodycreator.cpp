@@ -53,18 +53,21 @@ CarBodyCreator::CarBodyCreator(const CarGenome& carGenome, const World * world)
             continue;
         }
 
-        while (genome > freeEdges.count()) genome -= freeEdges.count();
-        //genome %= freeEdges.count();
+        genome -= 1;
 
-        int edgeId = freeEdges[genome-1];
+        if (genome >= freeEdges.count())
+            genome = genome % freeEdges.count();
+
+        int edgeId = freeEdges[genome];
         Edge edge = edges[ edgeId ].swapped();
-        freeEdges.removeAt(genome - 1);
+        freeEdges.removeAt(genome);
 
         b2Vec2 a = vertices[edge.verticeA];
         b2Vec2 b = vertices[edge.verticeB];
         b2Vec2 c(cos60 * (a.x - b.x) + sin60 * (a.y - b.y) + b.x,
                  cos60 * (a.y - b.y) - sin60 * (a.x - b.x) + b.y);
 
+        //Проверяем что такой вершины нет в конструкции.
         int verticeId;
         if (!hasVertice(c, &verticeId))
         {
@@ -72,7 +75,7 @@ CarBodyCreator::CarBodyCreator(const CarGenome& carGenome, const World * world)
             vertices.push_back(c);
         }
 
-
+        //Проверяем что такого треугольника нет в конструкции.
 
         Triangle triangle(edge.verticeA, edge.verticeB,verticeId);
         if (!hasTriangle(triangle))
