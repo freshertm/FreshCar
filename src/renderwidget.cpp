@@ -194,6 +194,8 @@ void RenderWidget::paintGL()
     glLoadIdentity();
     _world->b2world()->DrawDebugData();
 
+    glColor3f(1,1,0);
+
     renderText(10,15,"World top record: "+QString::number(_world->absoluteMaxDistance(),'f',1));
 
     renderText(10,30,"World current record: "+QString::number(_world->currentTopCarPosition(),'f',1));

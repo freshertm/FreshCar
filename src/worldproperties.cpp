@@ -26,7 +26,7 @@ WorldProperties::WorldProperties(const QString &iniFileName)
     _genomeMutateMaxCount = settings->value("mutate/max_count",3).toUInt();
     _genomeMutateRate = settings->value("mutate/rate",0.1).toDouble();
 
-    _mixCarsCount = settings->value("mix/cars_count",8).toUInt();
+    _mixCarsCount = settings->value("mix/cars_count",30).toUInt();
 
 
 

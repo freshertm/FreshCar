@@ -17,17 +17,20 @@ World::World(long seed):properties("settings.ini"),
     _generationNumberTopRecord(0),
     _topRecord(0)
 {
-    qsrand(seed);
     world = new b2World(b2Vec2(0,-10));
 
-
-    createRandomGround();
+    qsrand(seed);
 
 
     for (int i =0; i< properties.population(); i++)
     {
         addRandomCar();
     }
+
+    createRandomGround();
+
+
+
     timer.start();
 
 }
@@ -222,7 +225,7 @@ void World::createRandomGround()
 
 void World::sex()
 {
-    const int divider = 100;
+    const int divider = 10;
     if ((_topList.length() + carList().count()) <= properties.mixCarsCount() )
     {
         for (int i =0; i< properties.population(); ++i)
@@ -256,9 +259,6 @@ void World::sex()
     for (qint16 i=0; i< properties.mixCarsCount(); ++i)
     {
         for (quint16 j=0; j<(quint16)(currentTopList[i].first / divider); ++j)
-            if (j==0)
-                for (quint16 k =0; k< 4; ++k)
-                    sexCarList.push_back(i);  //first genome - alpha dog
             sexCarList.push_back(i);
     }
 
@@ -346,7 +346,7 @@ CarGenome World::createRandomGenome()
     CarBodyCreator creator(genome,this);
 
 
-    int carWheels = qrand() %3;// qrand() % (properties.genomeMaxWheels()+1);
+    int carWheels = qrand() % (properties.genomeMaxWheels()+1);
 
     for (int i=0; i< properties.genomeMaxWheels(); ++i)
     {
