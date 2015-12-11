@@ -162,6 +162,7 @@ HEADERS  += mainwindow.h \
     QJson/src/stack.hh \
     carfactory.h \
     worldobject.h \
-    imodule.h
+    imodule.h \
+    geometry.h
 
 FORMS    += mainwindow.ui

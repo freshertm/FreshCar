@@ -10,6 +10,8 @@
 #include "Parser"
 #include <QFile>
 
+#include "imodule.h"
+
 const quint16 wheelGenomes = 4;
 
 World::World(long seed):properties("settings.ini"),

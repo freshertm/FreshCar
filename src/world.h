@@ -8,7 +8,9 @@
 #include <QHash>
 #include "worldproperties.h"
 #include <QObject>
+#include <QList>
 
+class IModule;
 class World: public QObject
 {
     Q_OBJECT
@@ -95,6 +97,8 @@ private:
     qint64 _physicTime;
     qint64 _worldTime;
 
+
+    QList<IModule*> _modules;
 };
 
 #endif // WORLD_H
