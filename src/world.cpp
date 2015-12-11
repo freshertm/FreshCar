@@ -11,6 +11,7 @@
 #include <QFile>
 
 #include "imodule.h"
+#include "renderer.h"
 
 const quint16 wheelGenomes = 4;
 
@@ -19,10 +20,12 @@ World::World(long seed):properties("settings.ini"),
     _generationNumberTopRecord(0),
     _topRecord(0)
 {
+    //Инициализируем графическую подсистему v2.0
+    _modules.append(new Renderer());
+
     world = new b2World(b2Vec2(0,-10));
 
     qsrand(seed);
-
 
     for (int i =0; i< properties.population(); i++)
     {
