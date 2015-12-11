@@ -5,6 +5,12 @@ Renderer::Renderer(RenderWidget *widget): widget(widget)
 {
 }
 
-void Renderer::renderWorld(World *world)
+ObjectData *Renderer::createObjectData(WorldObject *)
 {
+    return nullptr;
+}
+
+void Renderer::processObject(WorldObject *)
+{
+
 }

@@ -188,11 +188,20 @@ void RenderWidget::paintGL()
 {
 
     _world->step();
+    QElapsedTimer t;
+    t.start();
 
     glClear(GL_COLOR_BUFFER_BIT);
 
     glLoadIdentity();
     _world->b2world()->DrawDebugData();
+
+    glFinish();
+    glFlush();
+
+    qint64  worldRendertime = t.elapsed();
+    t.start();
+
 
     glColor3f(1,1,0);
 
@@ -223,6 +232,19 @@ void RenderWidget::paintGL()
 
     glFinish();
     glFlush();
+
+    qint64 uiRenderTime = t.elapsed();
+
+    renderText(10,120,"World time: "+ QString::number(_world->worldTime()));
+    renderText(10,135,"Geometry render time: "+ QString::number(worldRendertime));
+    renderText(10,150,"UI render time: "+ QString::number(uiRenderTime));
+    renderText(10,165,"Physic time: "+ QString::number(_world->physicTime()));
+    renderText(10,180,"Tree quality: " + QString::number(_world->b2world()->GetTreeQuality(),'f',1));
+    renderText(10,195,"Proxy count: " + QString::number(_world->b2world()->GetProxyCount()));
+    renderText(10,210,"Body count: " + QString::number(_world->b2world()->GetBodyCount()));
+    renderText(10,225,"Tree balance: " + QString::number(_world->b2world()->GetTreeBalance()));
+    renderText(10,240,"Tree height: " + QString::number(_world->b2world()->GetTreeHeight()));
+
 
     //QTimer::singleShot(50,this,SLOT(updateGL()));
     QTimer::singleShot(50,this,SLOT(update()));

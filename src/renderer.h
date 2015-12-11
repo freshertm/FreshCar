@@ -2,15 +2,20 @@
 #define RENDERER_H
 
 #include "world.h"
+#include "imodule.h"
 
+class WorldObject;
 class RenderWidget;
-class Renderer
+class Renderer: public IModule
 {
 public:
     Renderer(RenderWidget* widget);
-    void renderWorld(World* world);
 
 private:
+private:
+    virtual ObjectData *createObjectData(WorldObject*);
+    virtual void processObject(WorldObject*);
+
     RenderWidget *widget;
 };
 

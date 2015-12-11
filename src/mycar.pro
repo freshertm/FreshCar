@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui opengl
+QT += core gui
+QT += opengl openglextensions
 
 TARGET = mycar
 TEMPLATE = app
@@ -78,7 +79,10 @@ SOURCES += main.cpp\
     QJson/src/parserrunnable.cpp \
     QJson/src/qobjecthelper.cpp \
     QJson/src/serializer.cpp \
-    QJson/src/serializerrunnable.cpp
+    QJson/src/serializerrunnable.cpp \
+    carfactory.cpp \
+    worldobject.cpp \
+    imodule.cpp
 
 HEADERS  += mainwindow.h \
     Box2D/Box2D.h \
@@ -155,6 +159,9 @@ HEADERS  += mainwindow.h \
     QJson/src/qobjecthelper.h \
     QJson/src/serializer.h \
     QJson/src/serializerrunnable.h \
-    QJson/src/stack.hh
+    QJson/src/stack.hh \
+    carfactory.h \
+    worldobject.h \
+    imodule.h
 
 FORMS    += mainwindow.ui

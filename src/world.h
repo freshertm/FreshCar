@@ -50,6 +50,9 @@ public:
     typedef QList< GenomeTopListRecord > GenomeTopList;
     const GenomeTopList topList() const;
 
+    qint64 physicTime();
+    qint64 worldTime();
+
 public slots:
     void addRandomCar();
 
@@ -58,6 +61,7 @@ public slots:
 
 signals:
     void newGeneration();
+    void newCar(const Car* car);
 
 private:
     void addToTopList(double result, const CarGenome &genome);
@@ -87,6 +91,9 @@ private:
     quint32 _generationNumber;
     quint32 _generationNumberTopRecord;
     double  _topRecord;
+
+    qint64 _physicTime;
+    qint64 _worldTime;
 
 };
 

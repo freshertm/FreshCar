@@ -159,10 +159,6 @@ Car::Car(const CarGenome& genome,World * world, const b2Vec2 &position, double a
 
 Car::~Car()
 {
-    foreach(b2Joint *j, jointList)
-    {
-        world->b2world()->DestroyJoint(j);
-    }
     foreach(b2Body * b, bodyList)
     {
         world->b2world()->DestroyBody(b);

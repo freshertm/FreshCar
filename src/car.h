@@ -4,12 +4,13 @@
 #include "cargenome.h"
 #include "Box2D.h"
 #include <QList>
+#include <QObject>
 class World;
-
 struct Edge;
 
-class Car
+class Car: public QObject
 {
+    Q_OBJECT
 public:
     Car(const CarGenome&,World * world, const b2Vec2 &position, double angle, quint32 generation);
     ~Car();

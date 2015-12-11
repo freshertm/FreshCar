@@ -26,23 +26,28 @@ World::World(long seed):properties("settings.ini"),
     {
         addRandomCar();
     }
-
     createRandomGround();
-
-
-
     timer.start();
-
 }
 
 void World::step()
 {
-    const int32 velocityIterations = 6;
-    const int32 positionIterations = 2;
+
+    QElapsedTimer t;
+
+    t.start();
+
+    const int32 velocityIterations = 50;
+    const int32 positionIterations = 50;
 
     double sec = ((double)timer.elapsed() * properties.timeMultiplier()) / 1000.0f;
     timer.start();
+
+
     world->Step(sec,velocityIterations,positionIterations);
+
+    _physicTime = t.elapsed();
+    t.start();
 
     for (CarList::Iterator i = _carList.begin();
          i!=_carList.end();
@@ -71,6 +76,8 @@ void World::step()
 
         }
     }
+
+    _worldTime = t.elapsed();
 }
 
 World::CarList World::carList()
@@ -300,6 +307,7 @@ void World::addCarFromGenome(const CarGenome &genome)
     Car * car = new Car(gen,this,b2Vec2(x,y),
                         (rand() % 3600) / 10.0,_generationNumber);
     _carList.push_back(car);
+    emit newCar(car);
 }
 
 double World::createRandomDouble(double min, double max)
@@ -576,6 +584,16 @@ CarGenome World::topGenome()
 const World::GenomeTopList World::topList() const
 {
     return _topList;
+}
+
+qint64 World::physicTime()
+{
+    return _physicTime;
+}
+
+qint64 World::worldTime()
+{
+    return _worldTime;
 }
 
 void World::mutateGenome(CarGenome &genome)

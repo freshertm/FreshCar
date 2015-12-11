@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     else
     {
         for (int i=0; i< seedStr.length(); ++i)
-            seed *= seedStr.at(i).toAscii();
+            seed *= seedStr.at(i).toLatin1();
 
         seedStr += QString(" (%1)").arg(seed);
     }
