@@ -55,6 +55,8 @@ public:
     qint64 physicTime();
     qint64 worldTime();
 
+    void addModule(IModule *);
+
 public slots:
     void addRandomCar();
 

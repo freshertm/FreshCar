@@ -1,11 +1,29 @@
 #include "renderer.h"
 #include "renderwidget.h"
+#include "worldobject.h"
 
-Renderer::Renderer(RenderWidget *widget): widget(widget)
+class RenderData: public ObjectData
+{
+public:
+    RenderData(const Geometry &);
+};
+
+Renderer::Renderer(): IModule()
 {
 }
 
-ObjectData *Renderer::createObjectData(WorldObject *)
+void Renderer::resize(int width, int height)
+{
+    glDisable(GL_DEPTH_TEST);
+    glClearColor(0,0,0,1);
+}
+
+void Renderer::init()
+{
+
+}
+
+ObjectData *Renderer::createObjectData(WorldObject *obj)
 {
     return nullptr;
 }

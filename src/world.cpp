@@ -20,14 +20,11 @@ World::World(long seed):properties("settings.ini"),
     _generationNumberTopRecord(0),
     _topRecord(0)
 {
-    //Инициализируем графическую подсистему v2.0
-    _modules.append(new Renderer());
-
     world = new b2World(b2Vec2(0,-10));
 
     qsrand(seed);
 
-    for (int i =0; i< properties.population(); i++)
+    for (unsigned int i =0; i< properties.population(); i++)
     {
         addRandomCar();
     }
@@ -240,7 +237,7 @@ void World::sex()
     const int divider = 10;
     if ((_topList.length() + carList().count()) <= properties.mixCarsCount() )
     {
-        for (int i =0; i< properties.population(); ++i)
+        for (unsigned int i =0; i< properties.population(); ++i)
             addRandomCar();
         return;
     }
@@ -601,6 +598,11 @@ qint64 World::worldTime()
     return _worldTime;
 }
 
+void World::addModule(IModule *m)
+{
+    _modules.append(m);
+}
+
 void World::mutateGenome(CarGenome &genome)
 {
     int mutateCount = 1 + qrand() % properties.genomeMutateMaxCount();
@@ -625,6 +627,7 @@ void World::mutateGenome(CarGenome &genome)
             }*/
 
             int range = ((double)properties.genomeBodyLength()) * properties.genomeMutateRate();
+            if (range == 0) range = 1;
 
             int increment = (qrand() % range) - (range / 2);
             current += increment;
@@ -637,6 +640,7 @@ void World::mutateGenome(CarGenome &genome)
         {
             int current = genome[position].toDouble();
             int range = properties.genomeMutateRate() * (double)properties.genomeBodyLength();
+            if (range == 0) range = 1;
 
             if (current == 0)
             {

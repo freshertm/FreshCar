@@ -9,9 +9,10 @@ class RenderWidget;
 class Renderer: public IModule
 {
 public:
-    Renderer(RenderWidget* widget);
+    Renderer();
 
-private:
+    void resize(int width, int height);
+    void init();
 private:
     virtual ObjectData *createObjectData(WorldObject*);
     virtual void processObject(WorldObject*);

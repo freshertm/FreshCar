@@ -5,12 +5,13 @@
 #include <QMouseEvent>
 
 
-RenderWidget::RenderWidget(World *world, QWidget *parent) :
+RenderWidget::RenderWidget(World *world, Renderer *render, QWidget *parent) :
     QGLWidget(parent),
     xShift(0),
     yShift(0),
     scale(1.0),
-    _world(world)
+    _world(world),
+    _render(render)
 {
     /*
         enum

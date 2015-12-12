@@ -14,12 +14,13 @@ public:
     void addObject(WorldObject*);
     void removeObject(WorldObject*);
 
-    void processing();
+    virtual void processing();
 
 private:
     virtual ObjectData *createObjectData(WorldObject*)=0;
     virtual void processObject(WorldObject*)=0;
 
+protected:
     QList<WorldObject*> _objects;
 };
 

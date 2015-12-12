@@ -166,3 +166,5 @@ HEADERS  += mainwindow.h \
     geometry.h
 
 FORMS    += mainwindow.ui
+
+DESTDIR = ../../

@@ -24,8 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
     else
     {
         for (int i=0; i< seedStr.length(); ++i)
-            seed *= seedStr.at(i).toLatin1();
-
+#if QT_VERSION >= 0x050000
+			seed *= seedStr.at(i).unicode();
+#else
+            seed *= seedStr.at(i).toAscii();
+#endif
         seedStr += QString(" (%1)").arg(seed);
     }
 
@@ -33,7 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     world = new World(seed);
 
-    widget = new RenderWidget(world);
+    Renderer *render = new Renderer();
+
+    world->addModule(render);
+
+    widget = new RenderWidget(world, render);
 
     //ui->centralWidget->layout()->addWidget(widget);
     QLayout *lay = new QVBoxLayout();
