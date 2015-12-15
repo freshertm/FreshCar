@@ -61,7 +61,7 @@ SOURCES += main.cpp\
     Box2D/Dynamics/Joints/b2FrictionJoint.cpp \
     Box2D/Dynamics/Joints/b2DistanceJoint.cpp \
     Box2D/Rope/b2Rope.cpp \
-    renderer.cpp \
+    V2/renderer.cpp \
     world.cpp \
     renderwidget.cpp \
     car.cpp \
@@ -81,8 +81,8 @@ SOURCES += main.cpp\
     QJson/src/serializer.cpp \
     QJson/src/serializerrunnable.cpp \
     carfactory.cpp \
-    worldobject.cpp \
-    imodule.cpp
+    V2/worldobject.cpp \
+    V2/imodule.cpp
 
 HEADERS  += mainwindow.h \
     Box2D/Box2D.h \
@@ -131,7 +131,7 @@ HEADERS  += mainwindow.h \
     Box2D/Dynamics/Joints/b2FrictionJoint.h \
     Box2D/Dynamics/Joints/b2DistanceJoint.h \
     Box2D/Rope/b2Rope.h \
-    renderer.h \
+    V2/renderer.h \
     world.h \
     renderwidget.h \
     cargenome.h \
@@ -162,8 +162,8 @@ HEADERS  += mainwindow.h \
     QJson/src/stack.hh \
     carfactory.h \
     worldobject.h \
-    imodule.h \
-    geometry.h
+    V2/imodule.h \
+    V2/geometry.h
 
 FORMS    += mainwindow.ui
 
