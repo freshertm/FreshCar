@@ -4,8 +4,7 @@
 
 void IModule::addObject(WorldObject *obj)
 {
-    ObjectData * objData = createObjectData(obj);
-    obj->setModuleData(this,objData);
+    _objects.push_back(obj);
 }
 
 void IModule::removeObject(WorldObject * obj)

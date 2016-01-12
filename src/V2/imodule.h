@@ -5,6 +5,10 @@
 
 class ObjectData;
 class WorldObject;
+
+
+class ModuleData{};
+
 class IModule
 {
 public:
@@ -17,7 +21,7 @@ public:
     virtual void processing();
 
 private:
-    virtual ObjectData *createObjectData(WorldObject*)=0;
+    virtual ObjectData *createObjectData(ModuleData*) const =0;
     virtual void processObject(WorldObject*)=0;
 
 protected:

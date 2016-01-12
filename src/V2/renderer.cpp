@@ -23,7 +23,7 @@ void Renderer::init()
 
 }
 
-ObjectData *Renderer::createObjectData(WorldObject *obj)
+ObjectData *Renderer::createObjectData(ModuleData *obj) const
 {
     return nullptr;
 }

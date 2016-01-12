@@ -13,6 +13,9 @@ TEMPLATE = app
 INCLUDEPATH += Box2D
 INCLUDEPATH += QJson/include/QJson
 INCLUDEPATH += QJson/src
+INCLUDEPATH += V2
+
+QMAKE_LFLAGS+=/INCREMENTAL:NO
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -161,7 +164,7 @@ HEADERS  += mainwindow.h \
     QJson/src/serializerrunnable.h \
     QJson/src/stack.hh \
     carfactory.h \
-    worldobject.h \
+    V2/worldobject.h \
     V2/imodule.h \
     V2/geometry.h
 
