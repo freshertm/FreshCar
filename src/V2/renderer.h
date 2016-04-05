@@ -14,8 +14,8 @@ public:
     void resize(int width, int height);
     void init();
 private:
-    virtual ObjectData *createObjectData(ModuleData*) const;
-    virtual void processObject(WorldObject*);
+    virtual void initObjectData(WorldObject * object);
+    virtual void processObject(WorldObject*obj);
 
     RenderWidget *widget;
 };

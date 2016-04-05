@@ -12,6 +12,8 @@ struct CarWheel
 };
 
 
+
+
 Car::Car(const CarGenome& genome,World * world, const b2Vec2 &position, double angle, quint32 generation):
     body(NULL),
     carGenome(genome),
@@ -36,7 +38,7 @@ Car::Car(const CarGenome& genome,World * world, const b2Vec2 &position, double a
 
     bodyList.push_back(body);
     _triangles = creator.triangleList().count();
-    foreach(CarBodyCreator::Triangle triangle, creator.triangleList())
+    foreach(Triangle triangle, creator.triangleList())
     {
         b2PolygonShape dynamicBox;
         //dynamicBox.SetAsBox(genome[0].toDouble(),genome[1].toDouble());
@@ -57,7 +59,6 @@ Car::Car(const CarGenome& genome,World * world, const b2Vec2 &position, double a
         fixtureDef.filter.maskBits = 2;
         body->CreateFixture(&fixtureDef);
     }
-
 
 
     QVector<CarWheel> wheelsArray;

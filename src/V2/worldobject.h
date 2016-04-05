@@ -3,10 +3,22 @@
 
 #include <QMap>
 #include "geometry.h"
+#include "engineresource.h"
+
+class WorldObject;
 class ObjectData
 {
+    //for setParent() function only which called from setModuleData();
+    friend class WorldObject;
 public:
+    ObjectData(){}
     virtual ~ObjectData(){}
+    virtual void process(){}
+
+    WorldObject * parent(){return _parent;}
+private:
+    void setParent(WorldObject* parent) {_parent = parent;}
+    WorldObject *_parent;
 };
 
 
@@ -20,12 +32,16 @@ public:
     Vector3 position;
     Vector3 rotation;
     Vector3 scale;
-    const Geometry &geometryData() const;
+
+    const EngineResource * getEngineResource(EngineResource::Type resourceType);
+    void setEngineResource(EngineResource::Type resourceType, EngineResource *res);
+    void destroyEngineResource(EngineResource::Type resourceType);
 
     void setModuleData(IModule*, ObjectData*);
     ObjectData *moduleData(IModule*);
 
 private:
+    QMap<EngineResource::Type, EngineResource *> _resources;
     QMap<IModule*, ObjectData*> _moduleData;
     Geometry _geometry;
 };

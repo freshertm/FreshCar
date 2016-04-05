@@ -7,39 +7,12 @@
 #include <QList>
 #include <QVector>
 
+#include "geometry.h"
 
 
 class CarBodyCreator
 {
 public:
-
-    struct Edge
-    {
-        quint32 verticeA;
-        quint32 verticeB;
-        Edge(quint32 verticeA, quint32 verticeB): verticeA(verticeA), verticeB(verticeB){}
-        Edge():verticeA(0),verticeB(0){}
-        Edge swapped() const;
-    };
-
-    struct Triangle
-    {
-        union{
-            struct{
-                quint32 verticeA;
-                quint32 verticeB;
-                quint32 verticeC;
-            };
-            quint32 verticesID[3];
-        };
-
-        Edge edgeA() const {return Edge(verticeA, verticeB);}
-        Edge edgeB() const {return Edge(verticeB, verticeC);}
-        Edge edgeC() const {return Edge(verticeC, verticeA);}
-        Triangle(quint32 va, quint32 vb, quint32 vc): verticeA(va), verticeB(vb),verticeC(vc){}
-        Triangle():verticeA(0),verticeB(0),verticeC(0){}
-    };
-
     typedef QVector<b2Vec2> VerticeList;
     typedef QVector<Triangle> TriangleList;
     typedef QList<quint32> FreeEdgeList;
@@ -49,6 +22,9 @@ public:
     inline const VerticeList& verticeList(){return vertices;}
     inline const TriangleList& triangleList(){return triangles;}
     inline const FreeEdgeList& freeEdgeList(){return freeEdges;}
+
+    Geometry* createGeometry();
+
 
 private:
     QList<Edge> edges;

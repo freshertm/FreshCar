@@ -85,7 +85,9 @@ SOURCES += main.cpp\
     QJson/src/serializerrunnable.cpp \
     carfactory.cpp \
     V2/worldobject.cpp \
-    V2/imodule.cpp
+    V2/imodule.cpp \
+    V2/renderdata.cpp \
+    V2/geometry.cpp
 
 HEADERS  += mainwindow.h \
     Box2D/Box2D.h \
@@ -166,7 +168,9 @@ HEADERS  += mainwindow.h \
     carfactory.h \
     V2/worldobject.h \
     V2/imodule.h \
-    V2/geometry.h
+    V2/geometry.h \
+    V2/engineresource.h \
+    V2/renderdata.h
 
 FORMS    += mainwindow.ui
 

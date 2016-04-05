@@ -1,12 +1,9 @@
 #include "renderer.h"
 #include "renderwidget.h"
 #include "worldobject.h"
+#include <QOpenGLFunctions>
+#include "renderdata.h"
 
-class RenderData: public ObjectData
-{
-public:
-    RenderData(const Geometry &);
-};
 
 Renderer::Renderer(): IModule()
 {
@@ -20,15 +17,20 @@ void Renderer::resize(int width, int height)
 
 void Renderer::init()
 {
-
 }
 
-ObjectData *Renderer::createObjectData(ModuleData *obj) const
+void Renderer::initObjectData(WorldObject *object)
 {
-    return nullptr;
+    const Geometry * geometry =
+            static_cast<const Geometry*> (object->getEngineResource(EngineResource::GeometryData));
+    if (!geometry) {
+        return;
+    }
+    object->setModuleData(this, new RenderData(geometry));
 }
 
-void Renderer::processObject(WorldObject *)
+void Renderer::processObject(WorldObject * obj)
 {
-
+    obj->moduleData(this)->process();
 }
+

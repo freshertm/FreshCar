@@ -5,8 +5,14 @@
 #include "Box2D.h"
 #include <QList>
 #include <QObject>
+#include "worldobject.h"
 class World;
 struct Edge;
+
+
+class CarPhysicData : public ObjectData {
+
+};
 
 class Car: public QObject
 {
@@ -44,5 +50,8 @@ private:
     quint16 _triangles;
     quint16 _vertices;
 };
+
+
+
 
 #endif // CAR_H

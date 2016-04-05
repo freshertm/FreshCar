@@ -21,7 +21,7 @@ public:
     virtual void processing();
 
 private:
-    virtual ObjectData *createObjectData(ModuleData*) const =0;
+    virtual void initObjectData(WorldObject *)=0;
     virtual void processObject(WorldObject*)=0;
 
 protected:

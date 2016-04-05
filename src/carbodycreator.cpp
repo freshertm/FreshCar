@@ -85,7 +85,18 @@ CarBodyCreator::CarBodyCreator(const CarGenome& carGenome, const World * world)
             putEdge(triangle.edgeC());
         }
     }
+}
 
+Geometry *CarBodyCreator::createGeometry()
+{
+    Geometry::Vertexes vertexes;
+    vertexes.reserve(verticeList().size());
+    foreach(b2Vec2 b2vec, verticeList()){
+        Vector3 v3(b2vec.x, b2vec.y, 0);
+        vertexes.append(v3);
+    }
+
+    return new Geometry(vertexes, Geometry::Vertexes(), triangleList(), Geometry::TexCoords());
 }
 
 void CarBodyCreator::putEdge(const Edge &edge)
@@ -126,7 +137,7 @@ bool CarBodyCreator::hasVertice(const b2Vec2 &v, int * id) const
     return false;
 }
 
-bool CarBodyCreator::hasEdge(const CarBodyCreator::Edge &e, int *id) const
+bool CarBodyCreator::hasEdge(const Edge &e, int *id) const
 {
     //foreach(Edge edge, edges)
     for (int i=0; i<edges.count(); ++i)
@@ -144,7 +155,7 @@ bool CarBodyCreator::hasEdge(const CarBodyCreator::Edge &e, int *id) const
     return false;
 }
 
-bool CarBodyCreator::hasTriangle(const CarBodyCreator::Triangle &triangle)
+bool CarBodyCreator::hasTriangle(const Triangle &triangle)
 {
     foreach(Triangle t, triangles)
     {
@@ -175,9 +186,4 @@ bool CarBodyCreator::hasTriangle(const CarBodyCreator::Triangle &triangle)
                (t.verticeC == triangle.verticeB)))return true;
     }
     return false;
-}
-
-CarBodyCreator::Edge CarBodyCreator::Edge::swapped() const
-{
-    return Edge(verticeB, verticeA);
 }
