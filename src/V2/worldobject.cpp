@@ -43,3 +43,14 @@ ObjectData *WorldObject::moduleData(IModule *m)
     return _moduleData[m];
 }
 
+
+
+QList<ModuleClass> ObjectData::moduleClasses()
+{
+    return _moduleClasses;
+}
+
+void ObjectData::setModuleClasses(const QList<ModuleClass> &classes)
+{
+    _moduleClasses = classes;
+}

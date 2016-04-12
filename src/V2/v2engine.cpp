@@ -10,3 +10,13 @@ Engine::~Engine()
 
 }
 
+void Engine::registerModule(IModule *)
+{
+
+}
+
+void Engine::unregisterModule(IModule *)
+{
+
+}
+

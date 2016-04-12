@@ -6,8 +6,15 @@
 class ObjectData;
 class WorldObject;
 
-
 class ModuleData{};
+
+enum ModuleClass {
+    ModuleClassUnknown = 0,
+    ModuleClassRenderer,
+    ModuleClassPhysics,
+
+    ModuleClassCustom = 1000
+};
 
 class IModule
 {
@@ -19,6 +26,8 @@ public:
     void removeObject(WorldObject*);
 
     virtual void processing();
+
+    virtual ModuleClass moduleClass(){return ModuleClassUnknown;}
 
 private:
     virtual void initObjectData(WorldObject *)=0;

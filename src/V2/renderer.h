@@ -13,6 +13,9 @@ public:
 
     void resize(int width, int height);
     void init();
+
+    virtual getModuleClass(){return ModuleClassRenderer;}
+
 private:
     virtual void initObjectData(WorldObject * object);
     virtual void processObject(WorldObject*obj);
