@@ -2,8 +2,10 @@
 #define WORLDOBJECT_H
 
 #include <QMap>
+#include <QList>
 #include "geometry.h"
 #include "engineresource.h"
+#include "imodule.h"
 
 class WorldObject;
 class ObjectData
@@ -14,11 +16,15 @@ public:
     ObjectData(){}
     virtual ~ObjectData(){}
     virtual void process(){}
+    QList<ModuleClass> moduleClasses();
 
     WorldObject * parent(){return _parent;}
+protected:
+    void setModuleClasses(const QList<ModuleClass> & classes);
 private:
     void setParent(WorldObject* parent) {_parent = parent;}
     WorldObject *_parent;
+    QList<ModuleClass> _moduleClasses;
 };
 
 
