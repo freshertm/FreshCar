@@ -5,19 +5,22 @@
 
 class IModule;
 class WorldObject;
-class Engine
+
+class V2Scene;
+class V2Engine
 {
 public:
-    Engine();
-    ~Engine();
+    V2Engine();
+    ~V2Engine();
     void registerModule(IModule *);
     void unregisterModule(IModule *);
 
-    void addObject(WorldObject *);
-    void removeObject(WorldObject *);
+    void addObject(WorldObject * object);
+    //void setScene(const V2Scene &scene);
 
 private:
     QList<IModule*> _modules;
+    QList<WorldObject*> _scene;
 
 };
 
