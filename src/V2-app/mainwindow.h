@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "v2engine.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,8 @@ signals:
 
 public slots:
 private:
-    Ui::MainWindow* ui;
+    Ui::MainWindow* _ui;
+    V2Engine _engine;
 };
 
 #endif // V2MAINWINDOW_H

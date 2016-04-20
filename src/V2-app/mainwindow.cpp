@@ -1,10 +1,16 @@
 #include "mainwindow.h"
+#include "renderer.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    _ui(new Ui::MainWindow),
+    _engine()
 {
-    ui->setupUi(this);
+    _ui->setupUi(this);
+    Renderer *render = new Renderer();
+
+    _engine.registerModule(render);
+
 }
 
 V2MainWindow::~V2MainWindow()
