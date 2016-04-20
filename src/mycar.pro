@@ -176,6 +176,9 @@ SOURCES+= \
 
 HEADERS += \
     V2-app/mainwindow.h
+
+FORMS += \
+    V2-app/mainwindow.ui
 }
 
 cars_app {
@@ -211,3 +214,4 @@ FORMS    += mainwindow.ui
 }
 
 DESTDIR = ../../
+

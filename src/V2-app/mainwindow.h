@@ -2,6 +2,11 @@
 #define V2MAINWINDOW_H
 
 #include <QMainWindow>
+#include "ui_mainwindow.h"
+
+namespace Ui {
+class MainWindow;
+}
 
 class V2MainWindow : public QMainWindow
 {
@@ -13,6 +18,8 @@ public:
 signals:
 
 public slots:
+private:
+    Ui::MainWindow* ui;
 };
 
 #endif // V2MAINWINDOW_H
