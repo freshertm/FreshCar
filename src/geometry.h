@@ -3,7 +3,6 @@
 
 #include <QtCore/qtypeinfo.h>
 #include <QVector>
-#include "engineresource.h"
 
 struct Vector3
 {
@@ -53,16 +52,15 @@ struct texcoord_t
     qint32 u,v;
 };
 
-class Geometry : public EngineResource
+class Geometry
 {
 public:
-    Geometry(): EngineResource(EngineResource::GeometryData){}
+    Geometry(){}
 
     Geometry(QVector<Vector3> vertexes,
              QVector<Vector3> normals,
              QVector<Triangle> triangles,
              QVector<TexCoord> texture_coords):
-        EngineResource(EngineResource::GeometryData),
         _vertexes(vertexes),
         _normals(normals),
         _triangles(triangles),

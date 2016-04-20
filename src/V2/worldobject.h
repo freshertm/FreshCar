@@ -46,6 +46,8 @@ public:
     void setModuleData(IModule*, ObjectData*);
     ObjectData *moduleData(IModule*);
 
+    const Geometry * geometry();
+
 private:
     QMap<EngineResource::Type, EngineResource *> _resources;
     QMap<IModule*, ObjectData*> _moduleData;

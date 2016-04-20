@@ -1,7 +1,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "world.h"
 #include "imodule.h"
 
 class WorldObject;

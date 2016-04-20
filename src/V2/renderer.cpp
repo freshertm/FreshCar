@@ -1,5 +1,4 @@
 #include "renderer.h"
-#include "renderwidget.h"
 #include "worldobject.h"
 #include <QOpenGLFunctions>
 #include "renderdata.h"
@@ -13,6 +12,7 @@ void Renderer::resize(int width, int height)
 {
     glDisable(GL_DEPTH_TEST);
     glClearColor(0,0,0,1);
+    glViewport(0,0,width, height);
 }
 
 void Renderer::init()
@@ -21,8 +21,8 @@ void Renderer::init()
 
 void Renderer::initObjectData(WorldObject *object)
 {
-    const Geometry * geometry =
-            static_cast<const Geometry*> (object->getEngineResource(EngineResource::GeometryData));
+    const Geometry * geometry = object->geometry();
+
     if (!geometry) {
         return;
     }

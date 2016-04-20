@@ -10,16 +10,20 @@ QT += opengl openglextensions
 TARGET = mycar
 TEMPLATE = app
 
-INCLUDEPATH += Box2D
-INCLUDEPATH += QJson/include/QJson
-INCLUDEPATH += QJson/src
-INCLUDEPATH += V2
+
+
+
 
 QMAKE_LFLAGS+=/INCREMENTAL:NO
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    Box2D/Collision/b2TimeOfImpact.cpp \
+#default
+#CONFIG += box2d_lib qjson_lib cars_app
+#v2 app
+CONFIG += v2_engine v2_test_app
+
+box2d_lib {
+INCLUDEPATH += Box2D
+SOURCES+=  Box2D/Collision/b2TimeOfImpact.cpp \
     Box2D/Collision/b2DynamicTree.cpp \
     Box2D/Collision/b2Distance.cpp \
     Box2D/Collision/b2Collision.cpp \
@@ -63,36 +67,9 @@ SOURCES += main.cpp\
     Box2D/Dynamics/Joints/b2GearJoint.cpp \
     Box2D/Dynamics/Joints/b2FrictionJoint.cpp \
     Box2D/Dynamics/Joints/b2DistanceJoint.cpp \
-    Box2D/Rope/b2Rope.cpp \
-    V2/renderer.cpp \
-    world.cpp \
-    renderwidget.cpp \
-    car.cpp \
-    ground.cpp \
-    worldproperties.cpp \
-    carbodycreator.cpp \
-    contactfilter.cpp \
-    history.cpp \
-    historygraph.cpp \
-    glthread.cpp \
-    QJson/src/json_parser.cc \
-    QJson/src/json_scanner.cc \
-    QJson/src/json_scanner.cpp \
-    QJson/src/parser.cpp \
-    QJson/src/parserrunnable.cpp \
-    QJson/src/qobjecthelper.cpp \
-    QJson/src/serializer.cpp \
-    QJson/src/serializerrunnable.cpp \
-    carfactory.cpp \
-    V2/worldobject.cpp \
-    V2/imodule.cpp \
-    V2/renderdata.cpp \
-    V2/geometry.cpp \
-    V2/v2engine.cpp \
-    V2/v2scene.cpp
+    Box2D/Rope/b2Rope.cpp
 
-HEADERS  += mainwindow.h \
-    Box2D/Box2D.h \
+HEADERS+=  Box2D/Box2D.h \
     Box2D/Collision/b2TimeOfImpact.h \
     Box2D/Collision/b2DynamicTree.h \
     Box2D/Collision/b2Distance.h \
@@ -137,20 +114,22 @@ HEADERS  += mainwindow.h \
     Box2D/Dynamics/Joints/b2GearJoint.h \
     Box2D/Dynamics/Joints/b2FrictionJoint.h \
     Box2D/Dynamics/Joints/b2DistanceJoint.h \
-    Box2D/Rope/b2Rope.h \
-    V2/renderer.h \
-    world.h \
-    renderwidget.h \
-    cargenome.h \
-    car.h \
-    ground.h \
-    worldproperties.h \
-    carbodycreator.h \
-    contactfilter.h \
-    history.h \
-    historygraph.h \
-    glthread.h \
-    QJson/include/QJson/Parser \
+    Box2D/Rope/b2Rope.h
+}
+
+qjson_lib {
+INCLUDEPATH += QJson/include/QJson
+INCLUDEPATH += QJson/src
+SOURCES+= QJson/src/json_parser.cc \
+    QJson/src/json_scanner.cc \
+    QJson/src/json_scanner.cpp \
+    QJson/src/parser.cpp \
+    QJson/src/parserrunnable.cpp \
+    QJson/src/qobjecthelper.cpp \
+    QJson/src/serializer.cpp \
+    QJson/src/serializerrunnable.cpp
+
+HEADERS+= QJson/include/QJson/Parser \
     QJson/include/QJson/QObjectHelper \
     QJson/include/QJson/Serializer \
     QJson/src/FlexLexer.h \
@@ -166,16 +145,69 @@ HEADERS  += mainwindow.h \
     QJson/src/qobjecthelper.h \
     QJson/src/serializer.h \
     QJson/src/serializerrunnable.h \
-    QJson/src/stack.hh \
-    carfactory.h \
-    V2/worldobject.h \
+    QJson/src/stack.hh
+}
+
+v2_engine {
+DEFINES += USE_V2
+INCLUDEPATH += V2
+SOURCES += V2/renderer.cpp \
+    V2/worldobject.cpp \
+    V2/imodule.cpp \
+    V2/renderdata.cpp \
+    V2/v2engine.cpp \
+    V2/v2scene.cpp
+
+HEADERS += V2/worldobject.h \
     V2/imodule.h \
     V2/geometry.h \
     V2/engineresource.h \
     V2/renderdata.h \
     V2/v2engine.h \
-    V2/v2scene.h
+    V2/v2scene.h \
+    V2/renderer.h
+}
 
+v2_test_app{
+INCLUDEPATH += V2-app
+SOURCES+= \
+    V2-app/v2main.cpp \
+    V2-app/mainwindow.cpp
+
+HEADERS += \
+    V2-app/mainwindow.h
+}
+
+cars_app {
+INCLUDEPATH += V1
+SOURCES+=V1/main.cpp\
+    V1/mainwindow.cpp \
+    V1/world.cpp \
+    V1/renderwidget.cpp \
+    V1/car.cpp \
+    V1/ground.cpp \
+    V1/worldproperties.cpp \
+    V1/carbodycreator.cpp \
+    V1/contactfilter.cpp \
+    V1/history.cpp \
+    V1/historygraph.cpp \
+    V1/glthread.cpp \
+    V1/carfactory.cpp
+
+HEADERS+=V1/mainwindow.h \
+    V1/world.h \
+    V1/renderwidget.h \
+    V1/cargenome.h \
+    V1/car.h \
+    V1/ground.h \
+    V1/worldproperties.h \
+    V1/carbodycreator.h \
+    V1/contactfilter.h \
+    V1/history.h \
+    V1/historygraph.h \
+    V1/glthread.h \
+    V1/carfactory.h
 FORMS    += mainwindow.ui
+}
 
 DESTDIR = ../../

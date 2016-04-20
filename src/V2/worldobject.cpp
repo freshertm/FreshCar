@@ -43,6 +43,12 @@ ObjectData *WorldObject::moduleData(IModule *m)
     return _moduleData[m];
 }
 
+const Geometry *WorldObject::geometry()
+{
+    //return static_cast<const Geometry*> (getEngineResource(EngineResource::GeometryData));
+    return nullptr;
+}
+
 
 
 QList<ModuleClass> ObjectData::moduleClasses()

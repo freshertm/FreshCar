@@ -6,9 +6,7 @@
 #include "world.h"
 #include <QList>
 #include <QVector>
-
 #include "geometry.h"
-
 
 class CarBodyCreator
 {
@@ -22,9 +20,7 @@ public:
     inline const VerticeList& verticeList(){return vertices;}
     inline const TriangleList& triangleList(){return triangles;}
     inline const FreeEdgeList& freeEdgeList(){return freeEdges;}
-
     Geometry* createGeometry();
-
 
 private:
     QList<Edge> edges;

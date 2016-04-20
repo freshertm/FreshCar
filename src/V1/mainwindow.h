@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QGLWidget>
-#include "renderer.h"
 #include "renderwidget.h"
-
+#ifdef USE_V2
+#include "renderer.h"
+#endif
 
 class World;
 

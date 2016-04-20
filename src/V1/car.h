@@ -5,15 +5,15 @@
 #include "Box2D.h"
 #include <QList>
 #include <QObject>
-#include "worldobject.h"
+//#include "worldobject.h"
 class World;
 struct Edge;
 
 
-class CarPhysicData : public ObjectData {
+/*class CarPhysicData : public ObjectData {
 
 };
-
+*/
 class Car: public QObject
 {
     Q_OBJECT

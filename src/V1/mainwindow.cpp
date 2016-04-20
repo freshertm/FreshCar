@@ -36,11 +36,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     world = new World(seed);
 
-    Renderer *render = new Renderer();
+    //Renderer *render = new Renderer();
 
-    world->addModule(render);
+    //world->addModule(render);
 
-    widget = new RenderWidget(world, render);
+    widget = new RenderWidget(world);
 
     //ui->centralWidget->layout()->addWidget(widget);
     QLayout *lay = new QVBoxLayout();
