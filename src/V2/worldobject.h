@@ -4,8 +4,8 @@
 #include <QMap>
 #include <QList>
 #include "geometry.h"
-#include "engineresource.h"
 #include "imodule.h"
+#include "v2resource.h"
 
 class WorldObject;
 class ObjectData
@@ -30,7 +30,7 @@ private:
 
 
 class IModule;
-class WorldObject
+class WorldObject: public V2ResourceContainer
 {
 public:
     WorldObject();
@@ -39,19 +39,13 @@ public:
     Vector3 rotation;
     Vector3 scale;
 
-    const EngineResource * getEngineResource(EngineResource::Type resourceType);
-    void setEngineResource(EngineResource::Type resourceType, EngineResource *res);
-    void destroyEngineResource(EngineResource::Type resourceType);
-
     void setModuleData(IModule*, ObjectData*);
     ObjectData *moduleData(IModule*);
 
     const Geometry * geometry();
 
-private:
-    QMap<EngineResource::Type, EngineResource *> _resources;
+private:   
     QMap<IModule*, ObjectData*> _moduleData;
-    Geometry _geometry;
 };
 
 #endif // WORLDOBJECT_H

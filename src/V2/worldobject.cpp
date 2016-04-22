@@ -15,23 +15,6 @@ WorldObject::~WorldObject()
     }
 }
 
-const EngineResource *WorldObject::getEngineResource(EngineResource::Type resourceType)
-{
-    return _resources[resourceType];
-}
-
-void WorldObject::setEngineResource(EngineResource::Type resourceType, EngineResource *res)
-{
-    _resources.insert(resourceType, res);
-}
-
-void WorldObject::destroyEngineResource(EngineResource::Type resourceType)
-{
-    EngineResource * res = _resources[resourceType];
-    _resources.remove(resourceType);
-    delete res;
-}
-
 void WorldObject::setModuleData(IModule *m, ObjectData *d)
 {
     d->setParent(this);

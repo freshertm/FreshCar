@@ -215,3 +215,17 @@ FORMS    += mainwindow.ui
 
 DESTDIR = ../../
 
+HEADERS += \
+    V2/v2resource.h \
+    V2/v2event.h \
+    V2/v2window.h \
+    V2-app/v2appglwindow.h \
+    V2/v2event_classes.h \
+    V2/v2eventhandler.h
+
+SOURCES += \
+    V2/v2event.cpp \
+    V2/v2window.cpp \
+    V2-app/v2appglwindow.cpp \
+    V2/v2eventhandler.cpp
+

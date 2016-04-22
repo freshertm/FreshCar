@@ -8,7 +8,6 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
 {
     _ui->setupUi(this);
     Renderer *render = new Renderer();
-
     _engine.registerModule(render);
 
 }
