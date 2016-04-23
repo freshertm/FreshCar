@@ -2,10 +2,13 @@
 #include "worldobject.h"
 #include <QOpenGLFunctions>
 #include "renderdata.h"
+#include "v2event.h"
 
 
 Renderer::Renderer(): IModule(ModuleClassRenderer)
 {
+    V2EventSystem::addHandler(V2WindowResizeEventType, *this);
+    V2EventSystem::addHandler(V2ActiveCameraChangedType, *this);
 }
 
 void Renderer::init()
@@ -27,7 +30,7 @@ void Renderer::v2windowPaintReady(const V2Event *)
     }
 }
 
-void Renderer::v2resizeEvent(const V2ResizeEvent *event)
+void Renderer::v2resizeEvent(const V2WindowResizeEvent *event)
 {
     glDisable(GL_DEPTH_TEST);
     glClearColor(0,0,0,1);

@@ -2,13 +2,13 @@
 #define V2EVENT_CLASSES
 #include "v2event.h"
 
-class V2ResizeEvent: public V2Event{
-    V2ResizeEvent(int width, int height):
+class V2WindowResizeEvent: public V2Event{
+    V2WindowResizeEvent(int width, int height):
         V2Event(V2WindowResizeEventType),
         _width(width),
         _height(height){}
 
-    ~V2ResizeEvent(){}
+    ~V2WindowResizeEvent(){}
 public:
     int width()  const {return _width;}
     int heigth() const {return _height;}

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "renderer.h"
+#include "v2appglwindow.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,6 +11,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     Renderer *render = new Renderer();
     _engine.registerModule(render);
 
+    V2Window * window = new v2appGLWindow();
+    _engine.registerModule(window);
 }
 
 V2MainWindow::~V2MainWindow()
