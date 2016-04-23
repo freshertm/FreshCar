@@ -33,7 +33,7 @@ void v2appGLWindow::initializeGL()
 
 void v2appGLWindow::resizeGL(int w, int h)
 {
-    V2EventSystem::sendEvent(new V2ResizeEvent(w,h));
+    V2EventSystem::sendEvent(new V2WindowResizeEvent(w,h));
 }
 
 void v2appGLWindow::paintGL()

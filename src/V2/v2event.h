@@ -52,7 +52,7 @@ template<class T>
 static void V2EventSystem::addHandler<T>(V2EventHandler &handler)
 {
     T t;
-    instance()->addHandlerImpl(t.type());
+    instance()->addHandlerImpl(t.type(), );
 }
 
 #endif // V2EVENT_H

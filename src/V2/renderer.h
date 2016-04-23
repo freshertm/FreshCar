@@ -15,7 +15,7 @@ public:
 protected:
     void v2windowInitialized(const V2Event*);
     void v2windowPaintReady(const V2Event *);
-    void v2resizeEvent(const V2ResizeEvent* event);
+    void v2resizeEvent(const V2WindowResizeEvent* event);
 
 private:
     virtual void initObjectData(WorldObject * object);
