@@ -2,7 +2,6 @@
 
 V2Engine::V2Engine()
 {
-
 }
 
 V2Engine::~V2Engine()

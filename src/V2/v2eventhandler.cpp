@@ -9,10 +9,3 @@ V2EventHandler::~V2EventHandler()
 {
 
 }
-
-
-
-void V2EventHandler::sendEvent(const V2Event *e)
-{
-    switch()
-}

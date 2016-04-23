@@ -4,22 +4,25 @@
 #include <QVector>
 #include <QMap>
 
-enum V2EventType
-{
-    V2WheelEventType,
-    V2MouseEventType,
-    V2WindowResizeEventType,
-    V2WindowInitializedType
-};
-
 class V2Event{
 public:
-    V2Event(V2EventType type);
+    enum Type
+    {
+        V2WheelEventType,
+        V2MouseEventType,
+        V2WindowResizeEventType,
+        V2WindowInitializedType,
+        V2WindowPaintReadyType,
+        V2ActiveCameraChangedType
+    };
+public:
+    V2Event(Type type);
     virtual ~V2Event();
 
-    V2EventType type();
+    Type type();
 private:
-    V2EventType _type;
+    Type _type;
+
 };
 
 
@@ -27,10 +30,10 @@ class V2EventHandler;
 class V2EventSystem
 {
 public:
-    static void addHandler(V2EventType eventType, V2EventHandler &handler);
+    static void addHandler(V2Event::Type eventType, V2EventHandler &handler);
     static void sendEvent(V2Event *event);
 private:
-     typedef QMultiMap< V2EventType, V2EventHandler* > Handlers;
+     typedef QMultiMap< V2Event::Type, V2EventHandler* > Handlers;
      Handlers _handlers;
      V2EventSystem();
 

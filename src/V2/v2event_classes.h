@@ -10,8 +10,8 @@ class V2ResizeEvent: public V2Event{
 
     ~V2ResizeEvent(){}
 public:
-    int width(){return _width;}
-    int heigth(){return _height;}
+    int width()  const {return _width;}
+    int heigth() const {return _height;}
 private:
     int _width;
     int _height;
@@ -25,7 +25,7 @@ class V2WheelEvent: public V2Event{
 
     ~V2WheelEvent(){}
 public:
-    int shift(){return _shift;}
+    int shift() const {return _shift;}
 private:
     int _shift;
 };
@@ -39,11 +39,23 @@ class V2MouseEvent: public V2Event{
 
     ~V2MouseEvent(){}
 public:
-    int x(){return _x;}
-    int y(){return _y;}
+    int x() const {return _x;}
+    int y() const {return _y;}
 private:
     int _x;
     int _y;
+};
+
+
+class V2Camera;
+class V2ActiveCameraChanged: public V2Event {
+public:
+    V2ActiveCameraChanged(V2Camera* camera):
+        V2Event(V2ActiveCameraChangedType),
+        _camera(camera){}
+    V2Camera * camera() const {return _camera;}
+private:
+    V2Camera * _camera;
 };
 
 #endif // V2EVENT_CLASSES

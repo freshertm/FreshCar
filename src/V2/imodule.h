@@ -19,7 +19,7 @@ enum ModuleClass {
 class IModule
 {
 public:
-    IModule(){}
+    IModule(ModuleClass moduleClass):_class(moduleClass){}
     virtual ~IModule(){}
 
     void addObject(WorldObject*);
@@ -27,7 +27,7 @@ public:
 
     virtual void processing();
 
-    virtual ModuleClass moduleClass(){return ModuleClassUnknown;}
+    virtual ModuleClass moduleClass(){return _class;}
 
 private:
     virtual void initObjectData(WorldObject *)=0;
@@ -35,6 +35,7 @@ private:
 
 protected:
     QList<WorldObject*> _objects;
+    ModuleClass _class;
 };
 
 #endif // IMODULE_H
