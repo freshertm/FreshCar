@@ -22,8 +22,7 @@ protected:
     virtual void wheelEvent(QWheelEvent *);
     virtual void mousePressEvent(QMouseEvent *);
     virtual void mouseMoveEvent(QMouseEvent *);
-    virtual void mouseReleaseEvent(QMouseEvent *);
-    virtual void resizeEvent(QResizeEvent *);
+    virtual void mouseReleaseEvent(QMouseEvent *);   
 };
 
 #endif // V2APPGLWINDOW_H
