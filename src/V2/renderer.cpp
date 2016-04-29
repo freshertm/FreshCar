@@ -49,3 +49,8 @@ void Renderer::onCameraChanged(const V2Camera &newCamera)
 
 }
 
+void Renderer::getWindow()
+{
+
+}
+
