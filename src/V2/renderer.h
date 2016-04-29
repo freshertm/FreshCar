@@ -1,17 +1,18 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "imodule.h"
+#include "v2renderer.h"
 #include "v2eventhandler.h"
 #include <QObject>
 
 class WorldObject;
 class V2Camera;
-class Renderer:  public QObject, public IModule
+class Renderer: public V2Renderer
 {
     Q_OBJECT
 public:
     Renderer();
+    virtual ~Renderer(){}
 
 private slots:
     void windowPaintReady();

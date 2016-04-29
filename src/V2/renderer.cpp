@@ -5,7 +5,7 @@
 #include "v2event.h"
 
 
-Renderer::Renderer(): IModule(ModuleClassRenderer)
+Renderer::Renderer(): V2Renderer()
 {
 }
 

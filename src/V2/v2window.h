@@ -1,7 +1,8 @@
 #ifndef V2WINDOW_H
 #define V2WINDOW_H
 
-class V2Window
+#include "imodule.h"
+class V2Window: public IModule
 {
 public:
     V2Window();

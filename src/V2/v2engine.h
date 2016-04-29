@@ -20,6 +20,9 @@ public:
     void registerModule(IModule *);
     void unregisterModule(IModule *);
 
+    template <class T>
+    T* module();
+
     void addObject(WorldObject * object);
     //void setScene(const V2Scene &scene)
 private:
@@ -27,5 +30,19 @@ private:
     QList<WorldObject*> _scene;
 
 };
+
+template <class T>
+T* V2Engine::module()
+{
+    foreach(IModule* module, _modules)
+    {
+        T* specificModule = dynamic_cast<T*>(module);
+        if (specificModule)
+        {
+            return specificModule;
+        }
+    }
+    return nullptr;
+}
 
 #endif // ENGINE_H

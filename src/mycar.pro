@@ -222,12 +222,14 @@ HEADERS += \
     V2-app/v2appglwindow.h \
     V2/v2event_classes.h \
     V2/v2eventhandler.h \
-    V2/v2camera.h
+    V2/v2camera.h \
+    V2/v2renderer.h
 
 SOURCES += \
     V2/v2event.cpp \
     V2/v2window.cpp \
     V2-app/v2appglwindow.cpp \
     V2/v2eventhandler.cpp \
-    V2/v2camera.cpp
+    V2/v2camera.cpp \
+    V2/v2renderer.cpp
 
