@@ -7,12 +7,14 @@ class ObjectData;
 class WorldObject;
 
 class ModuleData{};
-
+class V2Engine;
 class IModule
 {
 public:
     IModule(){}
     virtual ~IModule(){}
+
+    virtual void init(V2Engine*){}
 
     void addObject(WorldObject*);
     void removeObject(WorldObject*);
