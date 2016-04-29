@@ -2,36 +2,41 @@
 #define V2RESOURCE
 
 #include <QMap>
+#include <QDebug>
+#include <typeinfo>
 
 typedef int V2ResourceClass;
+
 class V2Resource{
 public:
-    V2Resource(V2ResourceClass type):_type(type){}
     virtual ~V2Resource(){}
-    V2ResourceClass type(){return _type;}
-private:
-    V2ResourceClass _type;
 };
 
 
 class V2ResourceContainer{
 public:
+    virtual ~V2ResourceContainer(){}
 
-    void setResource(V2ResourceClass resourceType, V2Resource* res) { _resources[resourceType] = res; }
-    V2Resource  * resource(V2ResourceClass resourceType){return _resources[resourceType];}
-    //void destroyResource(V2ResourceType resourceType){}
+    void setResource(V2Resource* res) {
+        _resources[typeid(*res).hash_code()] = res;
+    }
+
+    template <class T>
+    T* resource();
 private:
-    QMap<V2ResourceClass, V2Resource*> _resources;
+    QHash<size_t, V2Resource*> _resources;
 };
 
 
-enum V2CommonResources{
-    V2Geometry = 0,
-    V2OutputWindow,
-
-    V2UserResource=1000
-};
-
+template <class T>
+T* V2ResourceContainer::resource()
+{
+    size_t hashCode = typeid(T).hash_code();
+    if (!_resources.contains(hashCode)) {
+        return nullptr;
+    }
+    return dynamic_cast<T*>(_resources[hashCode]);
+}
 
 #endif // V2RESOURCE
 

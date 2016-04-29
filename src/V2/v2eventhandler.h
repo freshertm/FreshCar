@@ -2,7 +2,7 @@
 #define V2EVENTHANDLER_H
 #include "v2event.h"
 #include "v2event_classes.h"
-
+/*
 class V2EventHandler
 {
     friend class V2EventSystem;
@@ -15,6 +15,6 @@ protected:
     virtual void v2mouseEvent(const V2MouseEvent *){}
 public:
     virtual ~V2EventHandler(){}
-};
+};*/
 
 #endif // V2EVENTHANDLER_H

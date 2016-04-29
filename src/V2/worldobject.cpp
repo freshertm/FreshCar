@@ -6,30 +6,45 @@ WorldObject::WorldObject()
 }
 
 WorldObject::~WorldObject()
-{
-    QList<IModule*> keys = _moduleData.keys();
-    foreach(IModule* m, keys)
-    {
-        m->removeObject(this);
-        delete moduleData(m);
-    }
-}
-
-void WorldObject::setModuleData(IModule *m, ObjectData *d)
-{
-    d->setParent(this);
-    _moduleData.insert(m,d);
-}
-
-ObjectData *WorldObject::moduleData(IModule *m)
-{
-    return _moduleData[m];
+{   
 }
 
 const Geometry *WorldObject::geometry()
 {
-    //return static_cast<const Geometry*> (getEngineResource(EngineResource::GeometryData));
-    return nullptr;
+    return resource<Geometry>();
+}
+
+void WorldObject::setPosition(const Vector3 &newPosition)
+{
+    _position = newPosition;
+    emit positionChanged(_position);
+}
+
+void WorldObject::setRotation(const Vector3 &newRotation)
+{
+    _rotation = newRotation;
+    emit rotationChanged(newRotation);
+}
+
+void WorldObject::setScale(const Vector3 &newScale)
+{
+    _scale = newScale;
+    emit scaleChanged(_scale);
+}
+
+const Vector3 &WorldObject::position()
+{
+    return _position;
+}
+
+const Vector3 &WorldObject::rotation()
+{
+    return _rotation;
+}
+
+const Vector3 &WorldObject::scale()
+{
+    return _scale;
 }
 
 

@@ -28,22 +28,22 @@ void v2appGLWindow::swapBuffers()
 
 void v2appGLWindow::initializeGL()
 {
-    V2EventSystem::sendEvent(new V2Event(V2WindowInitializedType));
+    //V2EventSystem::sendEvent(new V2Event(V2WindowInitializedType));
 }
 
 void v2appGLWindow::resizeGL(int w, int h)
 {
-    V2EventSystem::sendEvent(new V2WindowResizeEvent(w,h));
+    //V2EventSystem::sendEvent(new V2WindowResizeEvent(w,h));
 }
 
 void v2appGLWindow::paintGL()
 {
-    V2EventSystem::sendEvent(new V2Event(V2WindowPaintReadyType));
+    //V2EventSystem::sendEvent(new V2Event(V2WindowPaintReadyType));
 }
 
 void v2appGLWindow::wheelEvent(QWheelEvent * w)
 {
-    V2EventSystem::sendEvent(new V2WheelEvent(w->delta()));
+    //V2EventSystem::sendEvent(new V2WheelEvent(w->delta()));
 }
 
 void v2appGLWindow::mousePressEvent(QMouseEvent *)

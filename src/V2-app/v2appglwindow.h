@@ -4,7 +4,7 @@
 #include "v2window.h"
 #include <QGLWidget>
 
-class v2appGLWindow : public V2Window, public QGLWidget
+class v2appGLWindow : public QGLWidget, public V2Window
 {
     Q_OBJECT
 public:

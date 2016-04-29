@@ -3,25 +3,28 @@
 
 #include "imodule.h"
 #include "v2eventhandler.h"
+#include <QObject>
 
 class WorldObject;
-class RenderWidget;
-class Renderer: public IModule, public V2EventHandler
+class V2Camera;
+class Renderer:  public QObject, public IModule
 {
+    Q_OBJECT
 public:
     Renderer();
 
-    void init();
-protected:
-    void v2windowInitialized(const V2Event*);
-    void v2windowPaintReady(const V2Event *);
-    void v2resizeEvent(const V2WindowResizeEvent* event);
+private slots:
+    void windowPaintReady();
+    void resizeEvent(int width, int height);
 
-private:
+protected:
     virtual void initObjectData(WorldObject * object);
     virtual void processObject(WorldObject*obj);
+private slots:
+    void onCameraChanged(const V2Camera& newCamera);
+private:
 
-    RenderWidget *widget;
+    V2Camera *_camera;
 };
 
 #endif // RENDERER_H

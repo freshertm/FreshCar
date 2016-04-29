@@ -5,7 +5,7 @@
 #include "geometry.h"
 #include "worldobject.h"
 
-class RenderData: public ObjectData
+class RenderData: public V2Resource
 {
 public:
     RenderData(const Geometry * geometry);

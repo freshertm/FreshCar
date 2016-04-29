@@ -1,8 +1,7 @@
 #ifndef V2WINDOW_H
 #define V2WINDOW_H
 
-#include "v2resource.h"
-class V2Window: public V2Resource
+class V2Window
 {
 public:
     V2Window();

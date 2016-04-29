@@ -1,7 +1,7 @@
 #include "renderdata.h"
 
 
-RenderData::RenderData(const Geometry *geometry): ObjectData(){
+RenderData::RenderData(const Geometry *geometry){
     gl.initializeOpenGLFunctions();
 
     // push indices

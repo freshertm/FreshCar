@@ -12,7 +12,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _engine.registerModule(render);
 
     V2Window * window = new v2appGLWindow();
-    _engine.registerModule(window);
+    //_engine.registerModule(window);
 }
 
 V2MainWindow::~V2MainWindow()

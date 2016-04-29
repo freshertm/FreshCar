@@ -1,7 +1,7 @@
 #ifndef V2EVENT_CLASSES
 #define V2EVENT_CLASSES
 #include "v2event.h"
-
+/*
 class V2WindowResizeEvent: public V2Event{
     V2WindowResizeEvent(int width, int height):
         V2Event(V2WindowResizeEventType),
@@ -57,6 +57,6 @@ public:
 private:
     V2Camera * _camera;
 };
-
+*/
 #endif // V2EVENT_CLASSES
 

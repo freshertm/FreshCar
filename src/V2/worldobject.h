@@ -6,11 +6,11 @@
 #include "geometry.h"
 #include "imodule.h"
 #include "v2resource.h"
+#include <QObject>
 
 class WorldObject;
 class ObjectData
 {
-    //for setParent() function only which called from setModuleData();
     friend class WorldObject;
 public:
     ObjectData(){}
@@ -30,22 +30,30 @@ private:
 
 
 class IModule;
-class WorldObject: public V2ResourceContainer
+class WorldObject: public QObject, public V2ResourceContainer
 {
+    Q_OBJECT
 public:
     WorldObject();
     ~WorldObject();
-    Vector3 position;
-    Vector3 rotation;
-    Vector3 scale;
-
-    void setModuleData(IModule*, ObjectData*);
-    ObjectData *moduleData(IModule*);
 
     const Geometry * geometry();
 
+    void setPosition(const Vector3& newPosition);
+    void setRotation(const Vector3& newRotation);
+    void setScale(const Vector3& newScale);
+    const Vector3& position();
+    const Vector3& rotation();
+    const Vector3& scale();
+signals:
+    void positionChanged(const Vector3 & newPosition);
+    void rotationChanged(const Vector3 & newRotation);
+    void scaleChanged(const Vector3 & newScale);
+
 private:   
-    QMap<IModule*, ObjectData*> _moduleData;
+    Vector3 _position;
+    Vector3 _rotation;
+    Vector3 _scale;
 };
 
 #endif // WORLDOBJECT_H

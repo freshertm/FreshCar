@@ -7,34 +7,22 @@
 
 Renderer::Renderer(): IModule(ModuleClassRenderer)
 {
-    V2EventSystem::addHandler(V2WindowResizeEventType, *this);
-    V2EventSystem::addHandler(V2ActiveCameraChangedType, *this);
 }
 
-void Renderer::init()
-{
-}
-
-void Renderer::v2windowInitialized(const V2Event *)
-{
-
-}
-
-void Renderer::v2windowPaintReady(const V2Event *)
+void Renderer::windowPaintReady()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     foreach(WorldObject *object, _objects){
         glLoadIdentity();
-        RenderData * renderData = dynamic_cast<RenderData*>(object->moduleData(this));
-        renderData->process();
+        processObject(object);
     }
 }
 
-void Renderer::v2resizeEvent(const V2WindowResizeEvent *event)
+void Renderer::resizeEvent(int width, int height)
 {
     glDisable(GL_DEPTH_TEST);
     glClearColor(0,0,0,1);
-    glViewport(0,0,event->width(), event->heigth());
+    glViewport(0,0,width, height);
 }
 
 void Renderer::initObjectData(WorldObject *object)
@@ -44,11 +32,20 @@ void Renderer::initObjectData(WorldObject *object)
     if (!geometry) {
         return;
     }
-    object->setModuleData(this, new RenderData(geometry));
+    object->setResource(new RenderData(geometry));
 }
 
 void Renderer::processObject(WorldObject * obj)
 {
-    obj->moduleData(this)->process();
+    RenderData* data = obj->resource<RenderData>();
+    if (data == nullptr){
+        return;
+    }
+    data->process();
+}
+
+void Renderer::onCameraChanged(const V2Camera &newCamera)
+{
+
 }
 
