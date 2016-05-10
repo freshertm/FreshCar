@@ -14,18 +14,36 @@ public:
     IModule(){}
     virtual ~IModule(){}
 
-    virtual void init(V2Engine*){}
+    /**
+     * Tries to initialize module.
+     * @returns true if successfully initialized.
+     * */
+    virtual bool init(V2Engine*){return true;}
+    /**
+     * Tries to stop module.
+     * @returns true if module successfully deactivated.
+     * */
+    virtual bool stop(V2Engine*){return true;}
+
+    /** Add reference to module to prevent unloading. */
+    void addRef();
+
+    /** release reference. */
+    void release();
+
+    /** get current reference counter. **/
+    quint32 refs();
 
     void addObject(WorldObject*);
     void removeObject(WorldObject*);
 
-    virtual void processing();
 private:
     virtual void initObjectData(WorldObject *){}
-    virtual void processObject(WorldObject*){}
 
 protected:
     QList<WorldObject*> _objects;
+private:
+    quint32 _refs;
 };
 
 #endif // IMODULE_H

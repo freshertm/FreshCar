@@ -8,11 +8,11 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _engine()
 {
     _ui->setupUi(this);
+    v2appGLWindow *glWindow = new v2appGLWindow();
+    _engine.registerModule(glWindow);
     _engine.registerModule(new Renderer());
-    _engine.registerModule(new v2appGLWindow());
 
-    _engine.module<V2Window>()->init();
-
+    setCentralWidget(glWindow);
 }
 
 V2MainWindow::~V2MainWindow()

@@ -1,4 +1,5 @@
 #include "v2engine.h"
+#include "imodule.h"
 
 V2Engine::V2Engine()
 {
@@ -9,13 +10,24 @@ V2Engine::~V2Engine()
 
 }
 
-void V2Engine::registerModule(IModule * module)
+bool V2Engine::registerModule(IModule * module)
 {
+    if (!module->init(this))
+    {
+        return false;
+    }
+
     _modules.append(module);
+    return true;
 }
 
-void V2Engine::unregisterModule(IModule *modulePtr)
+bool V2Engine::unregisterModule(IModule *modulePtr)
 {
+    if (0 != modulePtr->refs())
+    {
+        return false;
+    }
+
     QMutableListIterator<IModule*> i(_modules);
     while (i.hasNext())
     {

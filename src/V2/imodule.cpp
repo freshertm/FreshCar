@@ -2,6 +2,23 @@
 
 #include "worldobject.h"
 
+void IModule::addRef()
+{
+    ++_refs;
+}
+
+void IModule::release()
+{
+    if (_refs) {
+        --refs;
+    }
+}
+
+quint32 IModule::refs()
+{
+    return _refs;
+}
+
 void IModule::addObject(WorldObject *obj)
 {
     _objects.push_back(obj);

@@ -17,8 +17,8 @@ class V2Engine: public V2ResourceContainer
 public:
     V2Engine();
     ~V2Engine();
-    void registerModule(IModule *);
-    void unregisterModule(IModule *);
+    bool registerModule(IModule *);
+    bool unregisterModule(IModule *);
 
     template <class T>
     T* module();

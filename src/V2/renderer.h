@@ -15,6 +15,8 @@ class Renderer: public V2Renderer
 public:
     Renderer();
     virtual ~Renderer(){}
+    virtual bool init(V2Engine*);
+    virtual bool stop(V2Engine *);
 
 private slots:
     void windowPaintReady();
@@ -22,11 +24,10 @@ private slots:
 
 protected:
     virtual void initObjectData(WorldObject * object);
-    virtual void processObject(WorldObject*obj);
+    void processObject(WorldObject*obj);
+
 private slots:
     void onCameraChanged(const V2Camera& newCamera);
-private:
-    void getWindow();
 
     V2Window * _window;
     V2Camera *_camera;
