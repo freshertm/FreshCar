@@ -2,7 +2,6 @@
 #include "worldobject.h"
 #include <QOpenGLFunctions>
 #include "renderdata.h"
-#include "v2event.h"
 #include "v2engine.h"
 #include "v2window.h"
 #include <QDebug>
@@ -28,7 +27,7 @@ bool Renderer::init(V2Engine * engine)
     return true;
 }
 
-bool Renderer::stop(V2Engine *)
+bool Renderer::stop(V2Engine *engine)
 {
     V2Window * window = engine->module<V2Window>();
     disconnect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);

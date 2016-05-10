@@ -1,6 +1,4 @@
 #include "v2appglwindow.h"
-#include "v2event.h"
-#include "v2event_classes.h"
 #include <QWheelEvent>
 
 v2appGLWindow::v2appGLWindow()

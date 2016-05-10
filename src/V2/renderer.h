@@ -2,7 +2,6 @@
 #define RENDERER_H
 
 #include "v2renderer.h"
-#include "v2eventhandler.h"
 #include <QObject>
 
 class V2Window;
@@ -29,6 +28,7 @@ protected:
 private slots:
     void onCameraChanged(const V2Camera& newCamera);
 
+private:
     V2Window * _window;
     V2Camera *_camera;
 };

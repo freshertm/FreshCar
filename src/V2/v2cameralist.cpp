@@ -1,11 +1,11 @@
-#include "cameralist.h"
+#include "v2cameralist.h"
 
-CameraList::CameraList()
+V2CameraList::V2CameraList()
 {
 
 }
 
-CameraList::~CameraList()
+V2CameraList::~V2CameraList()
 {
 
 }

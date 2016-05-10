@@ -10,7 +10,7 @@ void IModule::addRef()
 void IModule::release()
 {
     if (_refs) {
-        --refs;
+        --_refs;
     }
 }
 
@@ -21,6 +21,7 @@ quint32 IModule::refs()
 
 void IModule::addObject(WorldObject *obj)
 {
+    initObjectData(obj);
     _objects.push_back(obj);
 }
 
@@ -32,10 +33,4 @@ void IModule::removeObject(WorldObject * obj)
             _objects.erase(i);
             return;
         }
-}
-
-void IModule::processing()
-{
-    foreach(WorldObject * obj, _objects)
-        processObject(obj);
 }

@@ -3,9 +3,6 @@
 
 #include <QList>
 #include "v2resource.h"
-#include "v2event.h"
-#include "v2eventhandler.h"
-//#include <QObject>
 
 class IModule;
 class WorldObject;
@@ -24,11 +21,10 @@ public:
     T* module();
 
     void addObject(WorldObject * object);
-    //void setScene(const V2Scene &scene)
+    void setScene(const V2Scene &scene);
+
 private:
     QList<IModule*> _modules;
-    QList<WorldObject*> _scene;
-
 };
 
 template <class T>

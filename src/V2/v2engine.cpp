@@ -33,13 +33,14 @@ bool V2Engine::unregisterModule(IModule *modulePtr)
     {
         if (i.next() == modulePtr) {
             i.remove();
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void V2Engine::addObject(WorldObject *object)
 {
-    _scene.append(object);
+    //_scene.append(object);
 }
 
