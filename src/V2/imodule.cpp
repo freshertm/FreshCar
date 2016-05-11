@@ -2,6 +2,36 @@
 
 #include "worldobject.h"
 
+bool IModule::enable(V2Engine * engine)
+{
+    if (enabled()) {
+        return true;
+    }
+    if (enableModule(engine)) {
+        _enabled = true;
+        return true;
+    }
+    return false;
+}
+
+bool IModule::disable(V2Engine * engine)
+{
+    if (!enabled()) {
+        return true;
+    }
+
+    if (disableModule(engine)) {
+        _enabled = false;
+        return true;
+    }
+    return false;
+}
+
+bool IModule::enabled()
+{
+    return _enabled;
+}
+
 void IModule::addRef()
 {
     ++_refs;
@@ -18,7 +48,7 @@ quint32 IModule::refs()
 {
     return _refs;
 }
-
+/*
 void IModule::addObject(WorldObject *obj)
 {
     initObjectData(obj);
@@ -33,4 +63,4 @@ void IModule::removeObject(WorldObject * obj)
             _objects.erase(i);
             return;
         }
-}
+}*/

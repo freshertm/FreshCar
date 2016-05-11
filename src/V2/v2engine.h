@@ -3,28 +3,34 @@
 
 #include <QList>
 #include "v2resource.h"
+#include <QObject>
+#include "v2scene.h"
 
 class IModule;
 class WorldObject;
 
-class V2Scene;
-class V2Engine: public V2ResourceContainer
+class V2Engine: public QObject/*,  public V2ResourceContainer*/
 {
-    //Q_OBJECT
+    Q_OBJECT
 public:
     V2Engine();
     ~V2Engine();
+    template <class T> T* module();
+
+    V2Scene * scene();
+
+public slots:
+    void addObject(WorldObject * object);
+    void setScene(V2Scene *scene);
+
     bool registerModule(IModule *);
     bool unregisterModule(IModule *);
-
-    template <class T>
-    T* module();
-
-    void addObject(WorldObject * object);
-    void setScene(const V2Scene &scene);
+signals:
+    void sceneChanged(V2Scene *scene);
 
 private:
     QList<IModule*> _modules;
+    V2Scene *_scene;
 };
 
 template <class T>

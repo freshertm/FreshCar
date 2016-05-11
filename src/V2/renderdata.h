@@ -18,7 +18,6 @@ private:
     GLuint _vertexBufferId;
     GLuint _textcoordBufferId;
     GLuint _normalsBufferId;
-    QOpenGLFunctions gl;
 
     typedef QVector<quint16> Indices;
     Indices *getIndices(Geometry::Triangles triangles);

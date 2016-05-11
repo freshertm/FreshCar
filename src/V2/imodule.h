@@ -25,6 +25,10 @@ public:
      * */
     virtual bool stop(V2Engine*){return true;}
 
+    bool enable(V2Engine*);
+    bool disable(V2Engine*);
+    bool enabled();
+
     /** Add reference to module to prevent unloading. */
     void addRef();
 
@@ -33,17 +37,12 @@ public:
 
     /** get current reference counter. **/
     quint32 refs();
-
-    void addObject(WorldObject*);
-    void removeObject(WorldObject*);
-
-private:
-    virtual void initObjectData(WorldObject *){}
-
 protected:
-    QList<WorldObject*> _objects;
+    virtual bool enableModule(V2Engine*){return true;}
+    virtual bool disableModule(V2Engine*){return true;}
 private:
     quint32 _refs;
+    bool _enabled;
 };
 
 #endif // IMODULE_H

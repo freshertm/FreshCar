@@ -1,13 +1,20 @@
 #include "v2engine.h"
 #include "imodule.h"
+#include "v2scene.h"
 
 V2Engine::V2Engine()
 {
+    setScene(0);
 }
 
 V2Engine::~V2Engine()
 {
 
+}
+
+V2Scene *V2Engine::scene()
+{
+    return _scene;
 }
 
 bool V2Engine::registerModule(IModule * module)
@@ -42,5 +49,14 @@ bool V2Engine::unregisterModule(IModule *modulePtr)
 void V2Engine::addObject(WorldObject *object)
 {
     //_scene.append(object);
+}
+
+void V2Engine::setScene(V2Scene *scene)
+{
+    if (scene == nullptr){
+        scene = new V2Scene();
+    }
+    _scene = scene;
+    emit sceneChanged(_scene);
 }
 
