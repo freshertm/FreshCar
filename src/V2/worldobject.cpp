@@ -1,7 +1,7 @@
 #include "worldobject.h"
 #include "imodule.h"
 
-WorldObject::WorldObject()
+WorldObject::WorldObject(): _scale(1,1,1)
 {
 }
 

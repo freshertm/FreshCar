@@ -69,6 +69,17 @@ void Renderer::processObject(WorldObject * obj)
         data = new RenderData(geometry);
         _cachedObjectData[obj] = data;
     }
+
+    Vector3 position = obj->position();
+    glTranslatef(position.x, position.y, position.z);
+    Vector3 rotation = obj->rotation();
+    glRotatef(rotation.x, 1,0,0);
+    glRotatef(rotation.y, 0,1,0);
+    glRotatef(rotation.z, 0,0,1);
+
+    Vector3 scale = obj->scale();
+    glScalef(scale.x, scale.y, scale.z);
+
     data->process();
 }
 
