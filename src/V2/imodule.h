@@ -2,14 +2,16 @@
 #define IMODULE_H
 
 #include <QList>
+#include <QObject>
 
 class ObjectData;
 class WorldObject;
 
 class ModuleData{};
 class V2Engine;
-class IModule
+class IModule: public QObject
 {
+    Q_OBJECT
 public:
     IModule(){}
     virtual ~IModule(){}

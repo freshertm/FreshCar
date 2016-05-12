@@ -7,19 +7,21 @@ class V2Camera;
 
 class V2CameraList : public IModule
 {
+    Q_OBJECT
 public:
     V2CameraList();
     ~V2CameraList();
 
 
-    V2Camera * current();
+    V2Camera * currentCamera();
 
 public slots:
-    void setCurrent();
+    void setCurrent(V2Camera *);
 
 signals:
     void newCameraSelected(V2Camera *);
-
+private:
+    V2Camera* _current;
 
 };
 

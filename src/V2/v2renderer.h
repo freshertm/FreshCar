@@ -4,11 +4,11 @@
 #include <QObject>
 #include "imodule.h"
 
-class V2Renderer : public QObject, public IModule
+class V2Renderer : public IModule
 {
     Q_OBJECT
 public:
-    explicit V2Renderer(QObject *parent = 0);
+    explicit V2Renderer();
     virtual ~V2Renderer();
 signals:
 

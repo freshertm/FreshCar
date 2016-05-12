@@ -4,26 +4,8 @@
 #include <QMap>
 #include <QList>
 #include "geometry.h"
-#include "imodule.h"
 #include "v2resource.h"
 #include <QObject>
-
-class WorldObject;
-class ObjectData
-{
-    friend class WorldObject;
-public:
-    ObjectData(){}
-    virtual ~ObjectData(){}
-    virtual void process(){}
-
-    WorldObject * parent(){return _parent;}
-private:
-    void setParent(WorldObject* parent) {_parent = parent;}
-    WorldObject *_parent;
-};
-
-
 
 class IModule;
 class WorldObject: public QObject, public V2ResourceContainer

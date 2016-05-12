@@ -6,6 +6,61 @@
 #include "v2window.h"
 #include <QDebug>
 #include "v2scene.h"
+#include "v2cameralist.h"
+#include "v2camera.h"
+
+
+void
+gluLookAt(const Vector3& eye, const Vector3& center, const Vector3& up)
+{
+    //int i;
+    //float forward[3], side[3], up[3];
+    //GLfloat m[4][4];
+
+    Vector3 forward = center - eye;
+    /*forward[0] = centerx - eyex;
+    forward[1] = centery - eyey;
+    forward[2] = centerz - eyez;
+
+    up[0] = upx;
+    up[1] = upy;
+    up[2] = upz;*/
+    //forward = forward.normalized();
+
+    //normalize(forward);
+
+    /* Side = forward x up */
+    //Vector3 side = forward.cross(up);
+    //cross(forward, up, side);
+    //side = side.normalized;
+    //normalize(side);
+
+    /* Recompute up as: up = side x forward */
+    //up = side.cross(forward);
+    //cross(side, forward, up);
+    //Matrix4 matrix;
+    //matrix.setIdentity();
+    //__gluMakeIdentityf(&m[0][0]);
+
+    /*m[0][0] = side[0];
+    m[1][0] = side[1];
+    m[2][0] = side[2];
+
+    m[0][1] = up[0];
+    m[1][1] = up[1];
+    m[2][1] = up[2];
+
+    m[0][2] = -forward[0];
+    m[1][2] = -forward[1];
+    m[2][2] = -forward[2];*/
+
+    /*
+
+    */
+
+    /*glMultMatrixf(&m[0][0]);
+    glTranslated(-eyex, -eyey, -eyez);*/
+}
 
 Renderer::Renderer(): V2Renderer()
 {
@@ -19,6 +74,11 @@ bool Renderer::init(V2Engine * engine)
         return false;
     }
     window->addRef(); // window can't be unloaded until render is working.
+
+    V2CameraList * camList = new V2CameraList();
+    camList->addRef();
+    engine->registerModule(camList);
+    _currentCamera = camList->currentCamera();
 
     connect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);
     connect(window, &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
@@ -38,6 +98,13 @@ bool Renderer::stop(V2Engine *engine)
     disconnect(window, &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
     disconnect(engine, &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
     window->release();
+
+    V2CameraList * camList = engine->module<V2CameraList>();
+    Q_ASSERT(camList != nullptr);
+    camList->release();
+    if (engine->unregisterModule(camList)){
+        delete camList;
+    }
 
     qDebug() << "Renderer stop() complete.";
     return true;
@@ -83,9 +150,24 @@ void Renderer::processObject(WorldObject * obj)
     data->process();
 }
 
-void Renderer::onCameraChanged(const V2Camera &newCamera)
+void Renderer::onCameraChanged(const V2Camera *newCamera)
 {
+    disconnect(_currentCamera, &V2Camera::positionChanged, this, &Renderer::onCameraMove);
+    disconnect(_currentCamera, &V2Camera::lookPointChanged, this, &Renderer::onCameraMove);
+    //disconnect(newCamera, &V2Camera::rotationChanged,  this, &Renderer::onCameraMove);
 
+    _currentCamera = newCamera;
+    connect(newCamera, &V2Camera::positionChanged,  this, &Renderer::onCameraMove);
+    connect(newCamera, &V2Camera::lookPointChanged, this, &Renderer::onCameraMove);
+    //connect(newCamera, &V2Camera::rotationChanged,  this, &Renderer::onCameraMove);
+
+    onCameraMove();
+}
+
+void Renderer::onCameraMove()
+{
+    glMatrixMode(GL_PROJECTION_MATRIX);
+    glLoadIdentity();
 }
 
 void Renderer::onSceneChanged(V2Scene *scene)

@@ -9,6 +9,7 @@ bool IModule::enable(V2Engine * engine)
     }
     if (enableModule(engine)) {
         _enabled = true;
+        blockSignals(false);
         return true;
     }
     return false;
@@ -22,6 +23,7 @@ bool IModule::disable(V2Engine * engine)
 
     if (disableModule(engine)) {
         _enabled = false;
+        blockSignals(true);
         return true;
     }
     return false;

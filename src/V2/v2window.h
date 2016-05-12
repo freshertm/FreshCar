@@ -3,11 +3,10 @@
 
 #include "imodule.h"
 #include "qdebug.h"
-#include <QObject>
 
 class QMouseEvent;
 class QWheelEvent;
-class V2Window: public QObject, public IModule
+class V2Window: public IModule
 {
     Q_OBJECT
 public:

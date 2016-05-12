@@ -24,25 +24,23 @@ private slots:
     void windowPaintReady();
     void resizeEvent(int width, int height);
 
-protected:
-    //virtual void initObjectData(WorldObject * object);
-    //void processObject(WorldObject*obj);
-
-private slots:
-    void onCameraChanged(const V2Camera& newCamera);
+private slots:   
     void onSceneChanged(V2Scene *);
     void onObjectAddedToScene(WorldObject *);
+
+    void onCameraChanged(const V2Camera* newCamera);
+    void onCameraMove();
 
 private:
     V2Window * _window;
     V2Camera *_camera;
 
-    QMetaObject::Connection _sceneConnection;
-
     QHash<WorldObject*, RenderData *> _cachedObjectData;
 
 private:
     void processObject(WorldObject *);
+
+    V2Camera* _currentCamera;
 };
 
 #endif // RENDERER_H
