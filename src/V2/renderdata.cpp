@@ -20,7 +20,7 @@ RenderData::RenderData(const Geometry *geometry){
     // push vertexes
     gl->glGenBuffers(1, &_vertexBufferId);
     gl->glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferId);
-    gl->glBufferData(GL_ARRAY_BUFFER,sizeof (Vector3) * geometry->vertexes().size(),
+    gl->glBufferData(GL_ARRAY_BUFFER,sizeof (glm::vec3) * geometry->vertexes().size(),
                     geometry->vertexes().data(), GL_STATIC_DRAW);
     gl->glBindBuffer(GL_ARRAY_BUFFER,0);
 
@@ -36,7 +36,7 @@ RenderData::RenderData(const Geometry *geometry){
     // push normals
     gl->glGenBuffers(1, &_normalsBufferId);
     gl->glBindBuffer(GL_ARRAY_BUFFER, _normalsBufferId);
-    gl->glBufferData(GL_ARRAY_BUFFER, sizeof (Vector3) * geometry->normals().size(),
+    gl->glBufferData(GL_ARRAY_BUFFER, sizeof (glm::vec3) * geometry->normals().size(),
                     geometry->normals().data(), GL_STATIC_DRAW);
     gl->glBindBuffer(GL_ARRAY_BUFFER,0);
 }

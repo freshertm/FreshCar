@@ -9,19 +9,19 @@ V2APPCube::~V2APPCube()
 V2APPCube::V2APPCube(float size): WorldObject()
 {
     float halfSize = size / 2.0f;
-    QVector<Vector3> vertices;
-    vertices.push_back(Vector3(-halfSize, -halfSize, halfSize)); //0
-    vertices.push_back(Vector3( halfSize, -halfSize, halfSize)); //1
-    vertices.push_back(Vector3(-halfSize,  halfSize, halfSize)); //2
-    vertices.push_back(Vector3( halfSize,  halfSize, halfSize)); //3
+    QVector<glm::vec3> vertices;
+    vertices.push_back(glm::vec3(-halfSize, -halfSize, halfSize)); //0
+    vertices.push_back(glm::vec3( halfSize, -halfSize, halfSize)); //1
+    vertices.push_back(glm::vec3(-halfSize,  halfSize, halfSize)); //2
+    vertices.push_back(glm::vec3( halfSize,  halfSize, halfSize)); //3
 
-    vertices.push_back(Vector3(-halfSize, -halfSize, -halfSize)); //4
-    vertices.push_back(Vector3( halfSize, -halfSize, -halfSize)); //5
-    vertices.push_back(Vector3( halfSize,  halfSize, -halfSize)); //6
-    vertices.push_back(Vector3(-halfSize,  halfSize, -halfSize)); //7
+    vertices.push_back(glm::vec3(-halfSize, -halfSize, -halfSize)); //4
+    vertices.push_back(glm::vec3( halfSize, -halfSize, -halfSize)); //5
+    vertices.push_back(glm::vec3( halfSize,  halfSize, -halfSize)); //6
+    vertices.push_back(glm::vec3(-halfSize,  halfSize, -halfSize)); //7
 
 
-    QVector<Vector3> normals;
+    QVector<glm::vec3> normals;
 
     QVector<Triangle> triangles;
     //front

@@ -9,59 +9,41 @@
 #include "v2cameralist.h"
 #include "v2camera.h"
 
+#include <glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+/*
 
 void
-gluLookAt(const Vector3& eye, const Vector3& center, const Vector3& up)
+gluLookAt(const glm::vec3& eye, const  glm::vec3& center, const  glm::vec3& up)
 {
-    //int i;
-    //float forward[3], side[3], up[3];
-    //GLfloat m[4][4];
 
-    Vector3 forward = center - eye;
-    /*forward[0] = centerx - eyex;
-    forward[1] = centery - eyey;
-    forward[2] = centerz - eyez;
+    glm::vec3 forward = center - eye;
+    glm::normalize(forward);
 
-    up[0] = upx;
-    up[1] = upy;
-    up[2] = upz;*/
-    //forward = forward.normalized();
+    glm::vec3 side = glm::cross(forward,up);
+    glm::normalize(side);
 
-    //normalize(forward);
+    glm::vec3 up2 = glm::cross(side, forward);
 
-    /* Side = forward x up */
-    //Vector3 side = forward.cross(up);
-    //cross(forward, up, side);
-    //side = side.normalized;
-    //normalize(side);
-
-    /* Recompute up as: up = side x forward */
-    //up = side.cross(forward);
-    //cross(side, forward, up);
-    //Matrix4 matrix;
-    //matrix.setIdentity();
-    //__gluMakeIdentityf(&m[0][0]);
-
-    /*m[0][0] = side[0];
+    glm::mat4 m;
+    m[0][0] = side[0];
     m[1][0] = side[1];
     m[2][0] = side[2];
 
-    m[0][1] = up[0];
-    m[1][1] = up[1];
-    m[2][1] = up[2];
+    m[0][1] = up2[0];
+    m[1][1] = up2[1];
+    m[2][1] = up2[2];
 
     m[0][2] = -forward[0];
     m[1][2] = -forward[1];
-    m[2][2] = -forward[2];*/
+    m[2][2] = -forward[2];
 
-    /*
 
-    */
-
-    /*glMultMatrixf(&m[0][0]);
-    glTranslated(-eyex, -eyey, -eyez);*/
+    glMultMatrixf(m.);
+    glTranslated(-eyex, -eyey, -eyez);
 }
-
+*/
 Renderer::Renderer(): V2Renderer()
 {
 }
@@ -137,37 +119,36 @@ void Renderer::processObject(WorldObject * obj)
         _cachedObjectData[obj] = data;
     }
 
-    Vector3 position = obj->position();
+    glm::vec3 position = obj->position();
     glTranslatef(position.x, position.y, position.z);
-    Vector3 rotation = obj->rotation();
+    glm::vec3 rotation = obj->rotation();
     glRotatef(rotation.x, 1,0,0);
     glRotatef(rotation.y, 0,1,0);
     glRotatef(rotation.z, 0,0,1);
 
-    Vector3 scale = obj->scale();
+    glm::vec3 scale = obj->scale();
     glScalef(scale.x, scale.y, scale.z);
 
     data->process();
 }
 
-void Renderer::onCameraChanged(const V2Camera *newCamera)
+void Renderer::onCameraChanged(V2Camera *newCamera)
 {
-    disconnect(_currentCamera, &V2Camera::positionChanged, this, &Renderer::onCameraMove);
-    disconnect(_currentCamera, &V2Camera::lookPointChanged, this, &Renderer::onCameraMove);
-    //disconnect(newCamera, &V2Camera::rotationChanged,  this, &Renderer::onCameraMove);
+    disconnect(_currentCamera, &V2Camera::cameraChanged, this, &Renderer::onCameraMove);
 
     _currentCamera = newCamera;
-    connect(newCamera, &V2Camera::positionChanged,  this, &Renderer::onCameraMove);
-    connect(newCamera, &V2Camera::lookPointChanged, this, &Renderer::onCameraMove);
-    //connect(newCamera, &V2Camera::rotationChanged,  this, &Renderer::onCameraMove);
+    connect(newCamera, &V2Camera::cameraChanged,  this, &Renderer::onCameraMove);
 
-    onCameraMove();
+
+    onCameraMove(newCamera);
 }
 
-void Renderer::onCameraMove()
+void Renderer::onCameraMove(V2Camera* camera)
 {
-    glMatrixMode(GL_PROJECTION_MATRIX);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+    glLoadMatrixf(glm::value_ptr(camera->matrix()));
+    glMatrixMode(GL_MODELVIEW);
 }
 
 void Renderer::onSceneChanged(V2Scene *scene)

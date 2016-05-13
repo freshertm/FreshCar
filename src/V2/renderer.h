@@ -28,8 +28,8 @@ private slots:
     void onSceneChanged(V2Scene *);
     void onObjectAddedToScene(WorldObject *);
 
-    void onCameraChanged(const V2Camera* newCamera);
-    void onCameraMove();
+    void onCameraChanged(V2Camera *newCamera);
+    void onCameraMove(V2Camera *);
 
 private:
     V2Window * _window;

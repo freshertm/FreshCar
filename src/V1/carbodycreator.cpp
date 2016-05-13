@@ -92,7 +92,7 @@ Geometry *CarBodyCreator::createGeometry()
     Geometry::Vertexes vertexes;
     vertexes.reserve(verticeList().size());
     foreach(b2Vec2 b2vec, verticeList()){
-        Vector3 v3(b2vec.x, b2vec.y, 0);
+        glm::vec3 v3(b2vec.x, b2vec.y, 0);
         vertexes.append(v3);
     }
 

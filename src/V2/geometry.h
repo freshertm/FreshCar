@@ -4,13 +4,7 @@
 #include <QtCore/qtypeinfo.h>
 #include <QVector>
 #include "v2resource.h"
-
-struct Vector3
-{
-    qreal x,y,z;
-    Vector3(qreal x,qreal y,qreal z):x(x),y(y),z(z){}
-    Vector3():x(0),y(0),z(0){}
-};
+#include <glm.hpp>
 
 struct TexCoord
 {
@@ -58,8 +52,8 @@ class Geometry: public V2Resource
 public:
     Geometry(){}
 
-    Geometry(const QVector<Vector3> &vertexes,
-             const QVector<Vector3> &normals,
+    Geometry(const QVector<glm::vec3> &vertexes,
+             const QVector<glm::vec3> &normals,
              const QVector<Triangle> &triangles,
              const QVector<TexCoord> &texture_coords):
         _vertexes(vertexes),
@@ -68,7 +62,7 @@ public:
         _texcoords(texture_coords)
     {}
 
-    typedef QVector<Vector3> Vertexes;
+    typedef QVector<glm::vec3> Vertexes;
     typedef QVector<Triangle> Triangles;
     typedef QVector<TexCoord> TexCoords;
 

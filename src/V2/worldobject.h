@@ -6,6 +6,7 @@
 #include "geometry.h"
 #include "v2resource.h"
 #include <QObject>
+#include <glm.hpp>
 
 class IModule;
 class WorldObject: public QObject, public V2ResourceContainer
@@ -17,21 +18,21 @@ public:
 
     const Geometry * geometry();
 
-    void setPosition(const Vector3& newPosition);
-    void setRotation(const Vector3& newRotation);
-    void setScale(const Vector3& newScale);
-    const Vector3& position();
-    const Vector3& rotation();
-    const Vector3& scale();
+    void setPosition(const glm::vec3& newPosition);
+    void setRotation(const glm::vec3& newRotation);
+    void setScale(const glm::vec3& newScale);
+    const glm::vec3& position();
+    const glm::vec3& rotation();
+    const glm::vec3& scale();
 signals:
-    void positionChanged(const Vector3 & newPosition);
-    void rotationChanged(const Vector3 & newRotation);
-    void scaleChanged(const Vector3 & newScale);
+    void positionChanged(const glm::vec3 & newPosition);
+    void rotationChanged(const glm::vec3 & newRotation);
+    void scaleChanged(const glm::vec3 & newScale);
 
 private:   
-    Vector3 _position;
-    Vector3 _rotation;
-    Vector3 _scale;
+    glm::vec3 _position;
+    glm::vec3 _rotation;
+    glm::vec3 _scale;
 };
 
 #endif // WORLDOBJECT_H

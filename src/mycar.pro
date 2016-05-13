@@ -19,7 +19,11 @@ QMAKE_LFLAGS+=/INCREMENTAL:NO
 #default
 #CONFIG += box2d_lib qjson_lib cars_app
 #v2 app
-CONFIG += v2_engine v2_test_app
+CONFIG += v2_engine v2_test_app glm_lib
+
+glm_lib {
+INCLUDEPATH += glm
+}
 
 box2d_lib {
 INCLUDEPATH += Box2D
