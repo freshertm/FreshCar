@@ -39,6 +39,6 @@ V2MainWindow::~V2MainWindow()
 
 void V2MainWindow::onFrame()
 {
-    _camera->setPosition(_camera->position() + glm::vec3(0,0,-1));
+    _camera->setPosition(_camera->position() + glm::vec3(0,0,-0.01));
 }
 
