@@ -42,7 +42,7 @@ glm::mat4 V2Camera::getPojectionMatrix()
 void V2Camera::updateCamera()
 {
     glm::mat4 matrix = glm::lookAt(_position, _lookPoint, _upVector);
-    _cameraMatrix = matrix * getPojectionMatrix();
+    _cameraMatrix = getPojectionMatrix() *  matrix;
     emit cameraChanged(this);
 }
 

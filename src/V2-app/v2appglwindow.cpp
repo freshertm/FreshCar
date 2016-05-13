@@ -15,54 +15,18 @@ v2appGLWindow::~v2appGLWindow()
 
 }
 
+int v2appGLWindow::width()
+{
+    return pImpl->width();
+}
+
+int v2appGLWindow::height()
+{
+    return pImpl->height();
+}
+
 QWidget *v2appGLWindow::widget()
 {
     return pImpl;
 }
-/*
-void v2appGLWindow::init()
-{
-}
-
-void v2appGLWindow::finalize()
-{
-}
-
-void v2appGLWindow::swapBuffers()
-{
-    QGLWidget::swapBuffers();
-}
-
-void v2appGLWindow::initializeGL()
-{
-    emit showSignal();
-}
-
-void v2appGLWindow::resizeGL(int w, int h)
-{
-
-}
-
-void v2appGLWindow::paintGL()
-{
-
-}
-
-void v2appGLWindow::wheelEvent(QWheelEvent * w)
-{
-    emit wheelSignal(w);
-}
-
-void v2appGLWindow::mousePressEvent(QMouseEvent *)
-{   
-}
-
-void v2appGLWindow::mouseMoveEvent(QMouseEvent * event)
-{
-    emit mouseMoveEvent(event);
-}
-
-void v2appGLWindow::mouseReleaseEvent(QMouseEvent *)
-{
-}*/
 

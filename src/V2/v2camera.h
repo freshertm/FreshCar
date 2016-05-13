@@ -11,6 +11,9 @@ public:
     V2Camera();
     virtual ~V2Camera();
 
+    virtual bool enable(){return true;}
+    virtual bool disable(){return true;}
+
     const glm::mat4 &matrix();
 
     glm::vec3 position() { return _position;}
@@ -34,7 +37,6 @@ private:
     glm::vec3 _position;
     glm::vec3 _lookPoint;
     glm::vec3 _upVector;
-
 };
 
 #endif // V2CAMERA_H

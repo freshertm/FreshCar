@@ -19,7 +19,10 @@ V2Camera *V2CameraList::currentCamera()
 void V2CameraList::setCurrent(V2Camera * camera)
 {
     Q_ASSERT(camera != nullptr);
+    _current->disable();
     _current = camera;
+
+    camera->enable();
     emit newCameraSelected(camera);
 }
 

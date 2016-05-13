@@ -16,7 +16,9 @@ public:
     virtual void init(){}
     virtual void finalize(){}
     virtual void swapBuffers(){}
-    virtual void setSize(int width, int height){}
+
+    virtual int width()=0;
+    virtual int height()=0;
 
 signals:
     void resizeSignal(int width, int height);

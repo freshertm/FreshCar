@@ -7,6 +7,9 @@
 class v2appGLWindowImpl: public QGLWidget
 {
     Q_OBJECT
+public:
+    //int width();
+    //int height();
 signals:
     void resizeSignal(int width, int height);
     //void closeSignal();
@@ -26,6 +29,9 @@ class v2appGLWindow :public V2Window
 public:
     v2appGLWindow();
     virtual ~v2appGLWindow();
+
+    virtual int width();
+    virtual int height();
 
   /*  virtual void init();
     virtual void finalize();

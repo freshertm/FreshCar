@@ -44,7 +44,7 @@ gluLookAt(const glm::vec3& eye, const  glm::vec3& center, const  glm::vec3& up)
     glTranslated(-eyex, -eyey, -eyez);
 }
 */
-Renderer::Renderer(): V2Renderer()
+Renderer::Renderer(): V2Renderer(), _currentCamera(nullptr)
 {
 }
 
@@ -60,7 +60,8 @@ bool Renderer::init(V2Engine * engine)
     V2CameraList * camList = new V2CameraList();
     camList->addRef();
     engine->registerModule(camList);
-    _currentCamera = camList->currentCamera();
+    onCameraChanged(camList->currentCamera());
+    connect(camList, &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
 
     connect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);
     connect(window, &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
@@ -134,7 +135,9 @@ void Renderer::processObject(WorldObject * obj)
 
 void Renderer::onCameraChanged(V2Camera *newCamera)
 {
-    disconnect(_currentCamera, &V2Camera::cameraChanged, this, &Renderer::onCameraMove);
+    if (_currentCamera != nullptr) {
+        disconnect(_currentCamera, &V2Camera::cameraChanged, this, &Renderer::onCameraMove);
+    }
 
     _currentCamera = newCamera;
     connect(newCamera, &V2Camera::cameraChanged,  this, &Renderer::onCameraMove);

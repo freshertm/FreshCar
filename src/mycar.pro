@@ -226,7 +226,8 @@ HEADERS += \
     V2/v2camera.h \
     V2/v2renderer.h \
     V2/v2cameralist.h \
-    V2-app/appcube.h
+    V2-app/appcube.h \
+    V2/v2perspectivecamera.h
 
 SOURCES += \
     V2/v2window.cpp \
@@ -234,5 +235,6 @@ SOURCES += \
     V2/v2camera.cpp \
     V2/v2renderer.cpp \
     V2/v2cameralist.cpp \
-    V2-app/appcube.cpp
+    V2-app/appcube.cpp \
+    V2/v2perspectivecamera.cpp
 
