@@ -106,6 +106,9 @@ void Renderer::resizeEvent(int width, int height)
 {
     glDisable(GL_DEPTH_TEST);
     glClearColor(0,0,0,1);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_AUTO_NORMAL);
     glViewport(0,0,width, height);
     qDebug() << "Render resize "<<width<<"x"<<height;
 }

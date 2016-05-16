@@ -12,8 +12,8 @@ V2APPCube::V2APPCube(float size): WorldObject()
     QVector<glm::vec3> vertices;
     vertices.push_back(glm::vec3(-halfSize, -halfSize, halfSize)); //0
     vertices.push_back(glm::vec3( halfSize, -halfSize, halfSize)); //1
-    vertices.push_back(glm::vec3(-halfSize,  halfSize, halfSize)); //2
-    vertices.push_back(glm::vec3( halfSize,  halfSize, halfSize)); //3
+    vertices.push_back(glm::vec3( halfSize,  halfSize, halfSize)); //2
+    vertices.push_back(glm::vec3(-halfSize,  halfSize, halfSize)); //3
 
     vertices.push_back(glm::vec3(-halfSize, -halfSize, -halfSize)); //4
     vertices.push_back(glm::vec3( halfSize, -halfSize, -halfSize)); //5

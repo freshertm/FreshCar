@@ -25,6 +25,7 @@ private:
     V2Engine _engine;
 
     V2PerspectiveCamera * _camera;
+    float _cameraAngle;
 };
 
 #endif // V2MAINWINDOW_H

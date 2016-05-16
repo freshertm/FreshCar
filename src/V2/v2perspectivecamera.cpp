@@ -3,7 +3,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "v2window.h"
 
-V2PerspectiveCamera::V2PerspectiveCamera(V2Window * window):_window(window)
+V2PerspectiveCamera::V2PerspectiveCamera(V2Window * window):
+    _window(window), _fov(90.0), _near(0.01), _far(100), _aspect(1.0)
 {
     Q_ASSERT(window != nullptr);
     window->addRef();

@@ -3,6 +3,7 @@
 
 #include "v2window.h"
 #include <QGLWidget>
+#include <QTimer>
 
 class v2appGLWindowImpl: public QGLWidget
 {
@@ -20,7 +21,11 @@ signals:
 protected:
     virtual void initializeGL(){emit showSignal();}
     virtual void resizeGL(int w, int h){ emit resizeSignal(w,h); }
-    virtual void paintGL(){emit paintReadySignal();}
+    virtual void paintGL(){
+        emit paintReadySignal();
+        QTimer::singleShot(1, this, &v2appGLWindowImpl::updateGL);
+    }
+
 };
 
 class v2appGLWindow :public V2Window
