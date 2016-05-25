@@ -4,14 +4,12 @@
 #
 #-------------------------------------------------
 
-QT += core gui
-QT += opengl openglextensions
+QT += core gui widgets
+QT += opengl
+# openglextensions
 
 TARGET = mycar
 TEMPLATE = app
-
-
-
 
 
 QMAKE_LFLAGS+=/INCREMENTAL:NO
@@ -19,7 +17,7 @@ QMAKE_LFLAGS+=/INCREMENTAL:NO
 #default
 #CONFIG += box2d_lib qjson_lib cars_app
 #v2 app
-CONFIG += v2_engine v2_test_app glm_lib
+CONFIG += v2_engine v2_test_app glm_lib box2d_lib
 
 glm_lib {
 INCLUDEPATH += glm
@@ -170,16 +168,23 @@ HEADERS += V2/worldobject.h \
     V2/v2engine.h \
     V2/v2scene.h \
     V2/renderer.h
+
+    LIBS += opengl32.lib
 }
 
 v2_test_app{
 INCLUDEPATH += V2-app
 SOURCES+= \
     V2-app/v2main.cpp \
-    V2-app/mainwindow.cpp
+    V2-app/mainwindow.cpp \
+    V2/carbodycreator.cpp \
+    V2/worldproperties.cpp
 
 HEADERS += \
-    V2-app/mainwindow.h
+    V2-app/mainwindow.h \
+    V2/carbodycreator.h \
+    V2/worldproperties.h \
+    V2/cargenome.h
 
 FORMS += \
     V2-app/mainwindow.ui
@@ -227,7 +232,8 @@ HEADERS += \
     V2/v2renderer.h \
     V2/v2cameralist.h \
     V2-app/appcube.h \
-    V2/v2perspectivecamera.h
+    V2/v2perspectivecamera.h \
+    V2-app/v2car.h
 
 SOURCES += \
     V2/v2window.cpp \
@@ -236,5 +242,6 @@ SOURCES += \
     V2/v2renderer.cpp \
     V2/v2cameralist.cpp \
     V2-app/appcube.cpp \
-    V2/v2perspectivecamera.cpp
+    V2/v2perspectivecamera.cpp \
+    V2-app/v2car.cpp
 

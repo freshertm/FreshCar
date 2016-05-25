@@ -19,6 +19,8 @@ public:
 
 private slots:
     void onFrame();
+    void onNewSliderValue(int value);
+    void onNewSlider2Value(int value);
 
 private:
     Ui::MainWindow* _ui;
@@ -26,6 +28,7 @@ private:
 
     V2PerspectiveCamera * _camera;
     float _cameraAngle;
+    float _cameraRadius;
 };
 
 #endif // V2MAINWINDOW_H

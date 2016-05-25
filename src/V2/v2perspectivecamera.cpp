@@ -35,7 +35,7 @@ glm::mat4 V2PerspectiveCamera::getPojectionMatrix()
 
 void V2PerspectiveCamera::setFOV(float fov)
 {
-    _fov = fov;
+    _fov = fov * 3.1415 / 180.0;
     updateCamera();
 }
 

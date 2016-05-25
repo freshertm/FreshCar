@@ -10,20 +10,25 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
     _ui(new Ui::MainWindow),
     _engine(),
-    _cameraAngle(0.0)
+    _cameraAngle(0.0),
+    _cameraRadius(10.0)
 {
     _ui->setupUi(this);
     v2appGLWindow *glWindow = new v2appGLWindow();
-    setCentralWidget(glWindow->widget());
+    _ui->widget->setLayout(new QVBoxLayout());
+    _ui->widget->layout()->addWidget(glWindow->widget());
+    //setCentralWidget(glWindow->widget());
     _engine.registerModule(glWindow);
     connect(glWindow, &V2Window::paintReadySignal, this, &V2MainWindow::onFrame);
+    connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
+    connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
     _engine.registerModule(new Renderer());
 
     V2CameraList *cameras = _engine.module<V2CameraList>();
     _camera = new V2PerspectiveCamera(glWindow);
 
-    _camera->setFOV(65);
+    _camera->setFOV(30);
     _camera->setClipping(0.1, 1000.0);
     _camera->setPosition(glm::vec3(0,0,-10));
     _camera->setLookPoint(glm::vec3(0,0,0));
@@ -38,12 +43,25 @@ V2MainWindow::~V2MainWindow()
 
 }
 
+
+
 void V2MainWindow::onFrame()
 {
-    const float radius = 10.0;
-    float x = radius * sin(_cameraAngle * 3.14 / 180.0);
-    float y = radius * cos(_cameraAngle * 3.14 / 180.0);
+    //const float radius = 10.0;
+    float x = _cameraRadius * sin(_cameraAngle * 3.14 / 180.0);
+    float y = _cameraRadius * cos(_cameraAngle * 3.14 / 180.0);
     _camera->setPosition(glm::vec3(x,0,y));
     _cameraAngle += 0.1;
+}
+
+void V2MainWindow::onNewSliderValue(int value)
+{
+    //_camera->setFOV(value);
+    _cameraRadius = value;
+}
+
+void V2MainWindow::onNewSlider2Value(int value)
+{
+    _camera->setFOV(value);
 }
 

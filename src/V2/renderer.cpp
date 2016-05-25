@@ -12,38 +12,7 @@
 #include <glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-/*
 
-void
-gluLookAt(const glm::vec3& eye, const  glm::vec3& center, const  glm::vec3& up)
-{
-
-    glm::vec3 forward = center - eye;
-    glm::normalize(forward);
-
-    glm::vec3 side = glm::cross(forward,up);
-    glm::normalize(side);
-
-    glm::vec3 up2 = glm::cross(side, forward);
-
-    glm::mat4 m;
-    m[0][0] = side[0];
-    m[1][0] = side[1];
-    m[2][0] = side[2];
-
-    m[0][1] = up2[0];
-    m[1][1] = up2[1];
-    m[2][1] = up2[2];
-
-    m[0][2] = -forward[0];
-    m[1][2] = -forward[1];
-    m[2][2] = -forward[2];
-
-
-    glMultMatrixf(m.);
-    glTranslated(-eyex, -eyey, -eyez);
-}
-*/
 Renderer::Renderer(): V2Renderer(), _currentCamera(nullptr)
 {
 }

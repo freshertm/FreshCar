@@ -62,15 +62,15 @@ void V2Camera::updateCamera()
 {
     glm::mat4 matrix = glm::lookAt(_position, _lookPoint, _upVector);
 
-    qDebug("lookAt matrix:");
-    printMatrix(matrix);
+    //qDebug("lookAt matrix:");
+    //printMatrix(matrix);
 
     glm::mat4 projectionMatrix = getPojectionMatrix();
 
-    qDebug("projection matrix:");
-    printMatrix(projectionMatrix);
-    _cameraMatrix = projectionMatrix *  matrix;
-
+    //qDebug("projection matrix:");
+    //printMatrix(projectionMatrix);
+    _cameraMatrix = projectionMatrix * matrix;
+    printMatrix(_cameraMatrix);
 
 
     emit cameraChanged(this);

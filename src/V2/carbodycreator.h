@@ -3,10 +3,10 @@
 
 #include "cargenome.h"
 #include "Box2D.h"
-#include "world.h"
 #include <QList>
 #include <QVector>
 #include "geometry.h"
+#include "worldproperties.h"
 
 class CarBodyCreator
 {
