@@ -7,7 +7,7 @@
 
 class V2Window;
 
-class WorldObject;
+class V2Object;
 class V2Camera;
 class V2Scene;
 class RenderData;
@@ -26,7 +26,7 @@ private slots:
 
 private slots:   
     void onSceneChanged(V2Scene *);
-    void onObjectAddedToScene(WorldObject *);
+    void onObjectAddedToScene(V2Object *);
 
     void onCameraChanged(V2Camera *newCamera);
     void onCameraMove(V2Camera *);
@@ -35,10 +35,10 @@ private:
     V2Window * _window;
     V2Camera *_camera;
 
-    QHash<WorldObject*, RenderData *> _cachedObjectData;
+    QHash<V2Object*, RenderData *> _cachedObjectData;
 
 private:
-    void processObject(WorldObject *);
+    void processObject(V2Object *);
 
     V2Camera* _currentCamera;
 };

@@ -5,7 +5,7 @@
 #include <QObject>
 
 
-class WorldObject;
+class V2Object;
 class V2Scene: public QObject
 {
     Q_OBJECT
@@ -13,15 +13,15 @@ public:
     V2Scene();
     ~V2Scene();
 
-    void addObject(WorldObject *);
-    const QList<WorldObject*> objects();
+    void addObject(V2Object *);
+    const QList<V2Object*> objects();
 
 signals:
-    void objectAdded(WorldObject*);
+    void objectAdded(V2Object*);
     //void objectRemoved(WorldObject*);
 
 private:
-    QList<WorldObject*> _objects;
+    QList<V2Object*> _objects;
 };
 
 #endif // V2SCENE_H

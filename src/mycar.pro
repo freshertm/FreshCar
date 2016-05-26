@@ -233,7 +233,10 @@ HEADERS += \
     V2/v2cameralist.h \
     V2-app/appcube.h \
     V2/v2perspectivecamera.h \
-    V2-app/v2car.h
+    V2-app/v2car.h \
+    V2/v2orthocamera.h \
+    V2-app/objects/brick.h \
+    V2-app/logic/appcameracontrol.h
 
 SOURCES += \
     V2/v2window.cpp \
@@ -243,5 +246,8 @@ SOURCES += \
     V2/v2cameralist.cpp \
     V2-app/appcube.cpp \
     V2/v2perspectivecamera.cpp \
-    V2-app/v2car.cpp
+    V2-app/v2car.cpp \
+    V2/v2orthocamera.cpp \
+    V2-app/objects/brick.cpp \
+    V2-app/logic/appcameracontrol.cpp
 

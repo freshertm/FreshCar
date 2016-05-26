@@ -10,13 +10,13 @@ V2Scene::~V2Scene()
 
 }
 
-void V2Scene::addObject(WorldObject *object)
+void V2Scene::addObject(V2Object *object)
 {
     _objects.push_back(object);
     emit objectAdded(object);
 }
 
-const QList<WorldObject *> V2Scene::objects()
+const QList<V2Object *> V2Scene::objects()
 {
     return _objects;
 }

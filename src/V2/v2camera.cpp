@@ -70,8 +70,7 @@ void V2Camera::updateCamera()
     //qDebug("projection matrix:");
     //printMatrix(projectionMatrix);
     _cameraMatrix = projectionMatrix * matrix;
-    printMatrix(_cameraMatrix);
-
+    //printMatrix(_cameraMatrix);
 
     emit cameraChanged(this);
 }

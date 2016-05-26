@@ -5,7 +5,7 @@
 #include <QObject>
 
 class ObjectData;
-class WorldObject;
+class V2Object;
 
 class ModuleData{};
 class V2Engine;

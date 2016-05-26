@@ -9,12 +9,12 @@
 #include <glm.hpp>
 
 class IModule;
-class WorldObject: public QObject, public V2ResourceContainer
+class V2Object: public QObject, public V2ResourceContainer
 {
     Q_OBJECT
 public:
-    WorldObject();
-    ~WorldObject();
+    V2Object();
+    ~V2Object();
 
     const Geometry * geometry();
 

@@ -6,7 +6,7 @@ V2APPCube::~V2APPCube()
 
 }
 
-V2APPCube::V2APPCube(float size): WorldObject()
+V2APPCube::V2APPCube(float size): V2Object()
 {
     float halfSize = size / 2.0f;
     QVector<glm::vec3> vertices;

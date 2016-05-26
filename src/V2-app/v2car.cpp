@@ -1,11 +1,13 @@
 #include "v2car.h"
-#include "V1/carbodycreator.h"
+#include "carbodycreator.h"
+#include "geometry.h"
+#include "cargenome.h"
 
 V2Car::V2Car(const CarGenome & genome, const WorldProperties& properties)
 {
     CarBodyCreator creator(genome, properties);
-    //setResource<Geometry>(creator.createGeometry());
-    //setResource<CarGenome>(&genome);
+    setResource(creator.createGeometry());
+    //setResource(&genome);
 }
 
 V2Car::~V2Car()

@@ -65,7 +65,7 @@ bool Renderer::stop(V2Engine *engine)
 void Renderer::windowPaintReady()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    foreach(WorldObject *object, _cachedObjectData.keys()){
+    foreach(V2Object *object, _cachedObjectData.keys()){
         glLoadIdentity();
         processObject(object);
     }
@@ -82,7 +82,7 @@ void Renderer::resizeEvent(int width, int height)
     qDebug() << "Render resize "<<width<<"x"<<height;
 }
 
-void Renderer::processObject(WorldObject * obj)
+void Renderer::processObject(V2Object * obj)
 {
     RenderData* data = _cachedObjectData[obj];
     if (data == nullptr){
@@ -136,12 +136,12 @@ void Renderer::onSceneChanged(V2Scene *scene)
 
     connect(scene, &V2Scene::objectAdded, this, &Renderer::onObjectAddedToScene);
 
-    foreach(WorldObject *object , scene->objects()){
+    foreach(V2Object *object , scene->objects()){
         onObjectAddedToScene(object);
     }
 }
 
-void Renderer::onObjectAddedToScene(WorldObject * object)
+void Renderer::onObjectAddedToScene(V2Object * object)
 {
     Geometry * geometry = object->resource<Geometry>();
     if (geometry == nullptr) {

@@ -7,9 +7,9 @@
 #include "v2scene.h"
 
 class IModule;
-class WorldObject;
+class V2Object;
 
-class V2Engine: public QObject/*,  public V2ResourceContainer*/
+class V2Engine: public QObject
 {
     Q_OBJECT
 public:
@@ -20,7 +20,6 @@ public:
     V2Scene * scene();
 
 public slots:
-    void addObject(WorldObject * object);
     void setScene(V2Scene *scene);
 
     bool registerModule(IModule *);

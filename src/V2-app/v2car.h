@@ -2,10 +2,10 @@
 #define V2CAR_H
 
 #include "worldobject.h"
-#include "V1/cargenome.h"
-#include "V1/worldproperties.h"
+#include "cargenome.h"
+#include "worldproperties.h"
 
-class V2Car : public WorldObject
+class V2Car : public V2Object
 {
 public:
     V2Car(const CarGenome &, const WorldProperties &);

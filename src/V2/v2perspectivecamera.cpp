@@ -4,7 +4,7 @@
 #include "v2window.h"
 
 V2PerspectiveCamera::V2PerspectiveCamera(V2Window * window):
-    _window(window), _fov(90.0), _near(0.01), _far(100), _aspect(1.0)
+    _window(window), _fov(90.0f), _near(0.01f), _far(100.0f), _aspect(1.0f)
 {
     Q_ASSERT(window != nullptr);
     window->addRef();

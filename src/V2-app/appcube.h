@@ -3,7 +3,7 @@
 
 #include "worldobject.h"
 
-class V2APPCube: public WorldObject
+class V2APPCube: public V2Object
 {
 public:
     V2APPCube(float size);

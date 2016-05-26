@@ -46,11 +46,6 @@ bool V2Engine::unregisterModule(IModule *modulePtr)
     return false;
 }
 
-void V2Engine::addObject(WorldObject *object)
-{
-    //_scene.append(object);
-}
-
 void V2Engine::setScene(V2Scene *scene)
 {
     if (scene == nullptr){
