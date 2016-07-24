@@ -7,6 +7,7 @@ class V2Engine;
 class V2OrthoCamera;
 class V2Window;
 class V2CameraList;
+class V2Camera;
 class AppCameraControl : public QObject
 {
     Q_OBJECT

@@ -4,7 +4,7 @@
 #include "v2orthocamera.h"
 #include "v2window.h"
 
-AppCameraControl::onMouseWheel(int diff)
+void AppCameraControl::onMouseWheel(int diff)
 {
 
 }
