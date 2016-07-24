@@ -7,6 +7,7 @@
 //#include "v2orthocamera.h"
 #include "v2cameralist.h"
 #include "objects/brick.h"
+#include "physics/v2physicsmodule.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,6 +29,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
     _engine.registerModule(new Renderer());
+    _engine.registerModule(new V2PhysicsModule());
 
     V2CameraList *cameras = _engine.module<V2CameraList>();
     _camera = new V2PerspectiveCamera(glWindow);
