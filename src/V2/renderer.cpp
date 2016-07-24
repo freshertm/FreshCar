@@ -8,6 +8,7 @@
 #include "v2scene.h"
 #include "v2cameralist.h"
 #include "v2camera.h"
+#include "renderproperties.h"
 
 #include <glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -102,7 +103,35 @@ void Renderer::processObject(V2Object * obj)
     glm::vec3 scale = obj->scale();
     glScalef(scale.x, scale.y, scale.z);
 
+
+    bool wireFrame = false;
+    bool lighting = glIsEnabled(GL_LIGHTING);
+    RenderProperties * prop = obj->resource<RenderProperties>();
+    if (prop != nullptr){
+        if (prop->isWireframe()){
+            wireFrame = true;
+            glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+        }
+        glColor3ub(prop->color().r(),prop->color().g(),prop->color().b());
+        if (prop->isLightingEnabled()) {
+            glEnable(GL_LIGHTING);
+        } else {
+            glDisable(GL_LIGHTING);
+        }
+    }
+
     data->process();
+
+    if (prop){
+        if (wireFrame){
+            glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+        }
+        if (lighting) {
+            glEnable(GL_LIGHTING);
+        }else {
+            glDisable(GL_LIGHTING);
+        }
+    }
 }
 
 void Renderer::onCameraChanged(V2Camera *newCamera)

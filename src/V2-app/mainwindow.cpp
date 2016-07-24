@@ -6,6 +6,7 @@
 #include "v2perspectivecamera.h"
 //#include "v2orthocamera.h"
 #include "v2cameralist.h"
+#include "objects/brick.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +14,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _engine(),
     _cameraAngle(0.0),
     _cameraRadius(10.0),
-    _cameraSpeed(0)
+    _cameraSpeed(0),
+    _prop(new RenderProperties)
 {
     _ui->setupUi(this);
     v2appGLWindow *glWindow = new v2appGLWindow();
@@ -43,8 +45,10 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _camera->setLookPoint(glm::vec3(0,0,0));
 
     cameras->setCurrent(_camera);
+    //V2APPCube *cube = new V2APPCube(10);
 
-    _engine.scene()->addObject(new V2APPCube(10));
+    V2Object *brick = new Brick(glm::vec2(0,0), 0, 20, 3);
+    _engine.scene()->addObject(brick);
 }
 
 V2MainWindow::~V2MainWindow()
@@ -76,3 +80,13 @@ void V2MainWindow::onNewSlider2Value(int value)
     _cameraRadius = value;
 }
 
+
+void V2MainWindow::on_checkBox_clicked(bool checked)
+{
+   // _prop->setWireframe(checked);
+}
+
+void V2MainWindow::on_checkBox_2_clicked(bool checked)
+{
+    //_prop->setLighting(checked);
+}

@@ -249,3 +249,10 @@ FORMS    += mainwindow.ui
 
 DESTDIR = ../../
 
+HEADERS += \
+    V2/resources/v2color.h \
+    V2-app/objects/ground.h
+
+SOURCES += \
+    V2-app/objects/ground.cpp
+

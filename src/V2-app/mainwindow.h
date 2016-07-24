@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 #include "v2engine.h"
+#include "renderproperties.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,10 @@ private slots:
     void onNewSliderValue(int value);
     void onNewSlider2Value(int value);
 
+    void on_checkBox_clicked(bool checked);
+
+    void on_checkBox_2_clicked(bool checked);
+
 private:
     Ui::MainWindow* _ui;
     V2Engine _engine;
@@ -32,6 +37,7 @@ private:
     float _cameraAngle;
     float _cameraRadius;
     float _cameraSpeed;
+    RenderProperties *_prop;
 };
 
 #endif // V2MAINWINDOW_H
