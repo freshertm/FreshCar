@@ -152,22 +152,37 @@ HEADERS+= QJson/include/QJson/Parser \
 
 v2_engine {
 DEFINES += USE_V2
-INCLUDEPATH += V2
+INCLUDEPATH += V2 V2/resources
 SOURCES += V2/renderer.cpp \
     V2/worldobject.cpp \
     V2/imodule.cpp \
     V2/renderdata.cpp \
     V2/v2engine.cpp \
-    V2/v2scene.cpp
+    V2/v2scene.cpp \
+    V2/v2window.cpp \
+    V2/v2camera.cpp \
+    V2/v2renderer.cpp \
+    V2/v2cameralist.cpp \
+    V2/v2perspectivecamera.cpp \
+    V2/v2orthocamera.cpp \
+    V2/resources/renderproperties.cpp
 
 HEADERS += V2/worldobject.h \
     V2/imodule.h \
-    V2/geometry.h \
+    V2/resources/geometry.h \
     V2/engineresource.h \
     V2/renderdata.h \
     V2/v2engine.h \
     V2/v2scene.h \
-    V2/renderer.h
+    V2/renderer.h \
+    V2/v2resource.h \
+    V2/v2window.h \
+    V2/v2perspectivecamera.h \
+    V2/v2orthocamera.h \
+    V2/v2camera.h \
+    V2/v2renderer.h \
+    V2/v2cameralist.h \
+    V2/resources/renderproperties.h
 
     LIBS += opengl32.lib
 }
@@ -178,13 +193,23 @@ SOURCES+= \
     V2-app/v2main.cpp \
     V2-app/mainwindow.cpp \
     V2/carbodycreator.cpp \
-    V2/worldproperties.cpp
+    V2/worldproperties.cpp \
+    V2-app/v2car.cpp \
+    V2-app/appcube.cpp \
+    V2-app/v2appglwindow.cpp \
+    V2-app/objects/brick.cpp \
+    V2-app/logic/appcameracontrol.cpp
 
 HEADERS += \
     V2-app/mainwindow.h \
     V2/carbodycreator.h \
     V2/worldproperties.h \
-    V2/cargenome.h
+    V2/cargenome.h \
+    V2-app/appcube.h \
+    V2-app/v2appglwindow.h \
+    V2-app/v2car.h \
+    V2-app/objects/brick.h \
+    V2-app/logic/appcameracontrol.h
 
 FORMS += \
     V2-app/mainwindow.ui
@@ -223,31 +248,4 @@ FORMS    += mainwindow.ui
 }
 
 DESTDIR = ../../
-
-HEADERS += \
-    V2/v2resource.h \
-    V2/v2window.h \
-    V2-app/v2appglwindow.h \
-    V2/v2camera.h \
-    V2/v2renderer.h \
-    V2/v2cameralist.h \
-    V2-app/appcube.h \
-    V2/v2perspectivecamera.h \
-    V2-app/v2car.h \
-    V2/v2orthocamera.h \
-    V2-app/objects/brick.h \
-    V2-app/logic/appcameracontrol.h
-
-SOURCES += \
-    V2/v2window.cpp \
-    V2-app/v2appglwindow.cpp \
-    V2/v2camera.cpp \
-    V2/v2renderer.cpp \
-    V2/v2cameralist.cpp \
-    V2-app/appcube.cpp \
-    V2/v2perspectivecamera.cpp \
-    V2-app/v2car.cpp \
-    V2/v2orthocamera.cpp \
-    V2-app/objects/brick.cpp \
-    V2-app/logic/appcameracontrol.cpp
 

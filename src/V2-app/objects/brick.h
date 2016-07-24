@@ -7,6 +7,7 @@ class Brick : public V2Object
 {
 public:
     Brick(const glm::vec2& position, float angle, float width, float height);
+
     ~Brick();
 };
 
