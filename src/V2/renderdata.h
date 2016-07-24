@@ -19,6 +19,9 @@ private:
     GLuint _textcoordBufferId;
     GLuint _normalsBufferId;
 
+    bool _hasNormals;
+    bool _hasTexCoords;
+
     typedef QVector<quint16> Indices;
     Indices *getIndices(Geometry::Triangles triangles);
 };

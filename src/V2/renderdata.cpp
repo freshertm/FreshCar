@@ -1,7 +1,7 @@
 #include "renderdata.h"
 
 
-RenderData::RenderData(const Geometry *geometry){
+RenderData::RenderData(const Geometry *geometry): _hasNormals(false), _hasTexCoords(false){
     QOpenGLContext * context = QOpenGLContext::currentContext();
     QOpenGLFunctions *gl = context->functions();
 
@@ -25,20 +25,26 @@ RenderData::RenderData(const Geometry *geometry){
     gl->glBindBuffer(GL_ARRAY_BUFFER,0);
 
 
-    // push texcoords
-    gl->glGenBuffers(1, &_textcoordBufferId);
-    gl->glBindBuffer(GL_ARRAY_BUFFER, _textcoordBufferId);
-    gl->glBufferData(GL_ARRAY_BUFFER, sizeof (TexCoord) * geometry->texcoords().size(),
-                    geometry->texcoords().data(), GL_STATIC_DRAW);
-    gl->glBindBuffer(GL_ARRAY_BUFFER,0);
+    if (geometry->texcoords().size() > 0){
+        _hasTexCoords = true;
+        // push texcoords
+        gl->glGenBuffers(1, &_textcoordBufferId);
+        gl->glBindBuffer(GL_ARRAY_BUFFER, _textcoordBufferId);
+        gl->glBufferData(GL_ARRAY_BUFFER, sizeof (TexCoord) * geometry->texcoords().size(),
+                        geometry->texcoords().data(), GL_STATIC_DRAW);
+        gl->glBindBuffer(GL_ARRAY_BUFFER,0);
+    }
 
+    if (geometry->normals().size()>0){
+        _hasNormals = true;
 
-    // push normals
-    gl->glGenBuffers(1, &_normalsBufferId);
-    gl->glBindBuffer(GL_ARRAY_BUFFER, _normalsBufferId);
-    gl->glBufferData(GL_ARRAY_BUFFER, sizeof (glm::vec3) * geometry->normals().size(),
-                    geometry->normals().data(), GL_STATIC_DRAW);
-    gl->glBindBuffer(GL_ARRAY_BUFFER,0);
+        // push normals
+        gl->glGenBuffers(1, &_normalsBufferId);
+        gl->glBindBuffer(GL_ARRAY_BUFFER, _normalsBufferId);
+        gl->glBufferData(GL_ARRAY_BUFFER, sizeof (glm::vec3) * geometry->normals().size(),
+                        geometry->normals().data(), GL_STATIC_DRAW);
+        gl->glBindBuffer(GL_ARRAY_BUFFER,0);
+    }
 }
 
 RenderData::~RenderData()
@@ -46,32 +52,43 @@ RenderData::~RenderData()
     QOpenGLFunctions *gl = QOpenGLContext::currentContext()->functions();
     gl->glDeleteBuffers(1, &_indicesBufferId);
     gl->glDeleteBuffers(1, &_vertexBufferId);
-    gl->glDeleteBuffers(1, &_normalsBufferId);
-    gl->glDeleteBuffers(1, &_textcoordBufferId);
+    if (_hasNormals) {
+        gl->glDeleteBuffers(1, &_normalsBufferId);
+    }
+    if (_hasTexCoords) {
+        gl->glDeleteBuffers(1, &_textcoordBufferId);
+    }
 }
 
 void RenderData::process()
 {
     QOpenGLFunctions *gl = QOpenGLContext::currentContext()->functions();
     glEnableClientState(GL_VERTEX_ARRAY);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glEnableClientState(GL_NORMAL_ARRAY);
-
     gl->glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferId);
     glVertexPointer(3, GL_FLOAT, 0, nullptr);
 
-    gl->glBindBuffer(GL_ARRAY_BUFFER, _normalsBufferId);
-    glNormalPointer(GL_FLOAT, 0, nullptr);
+    if (_hasNormals) {
+        glEnableClientState(GL_NORMAL_ARRAY);
+        gl->glBindBuffer(GL_ARRAY_BUFFER, _normalsBufferId);
+        glNormalPointer(GL_FLOAT, 0, nullptr);
+    }
 
-    gl->glBindBuffer(GL_ARRAY_BUFFER, _textcoordBufferId);
-    glTexCoordPointer(2, GL_FLOAT, 0, nullptr);
+    if (_hasTexCoords) {
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        gl->glBindBuffer(GL_ARRAY_BUFFER, _textcoordBufferId);
+        glTexCoordPointer(2, GL_FLOAT, 0, nullptr);
+    }
 
     gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBufferId);
     gl->glDrawElements(GL_TRIANGLES, _indicesCount, GL_UNSIGNED_SHORT, nullptr);
 
     glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);
+    if (_hasTexCoords){
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    if (_hasNormals) {
+        glDisableClientState(GL_NORMAL_ARRAY);
+    }
 }
 
 RenderData::Indices *RenderData::getIndices(Geometry::Triangles triangles)
