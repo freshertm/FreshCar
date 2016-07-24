@@ -9,8 +9,8 @@ namespace Ui {
 class MainWindow;
 }
 
-//class V2PerspectiveCamera;
-class V2OrthoCamera;
+class V2PerspectiveCamera;
+//class V2OrthoCamera;
 class V2MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,10 +27,11 @@ private:
     Ui::MainWindow* _ui;
     V2Engine _engine;
 
-    //V2PerspectiveCamera * _camera;
-    V2OrthoCamera * _camera;
+    V2PerspectiveCamera * _camera;
+    //V2OrthoCamera * _camera;
     float _cameraAngle;
     float _cameraRadius;
+    float _cameraSpeed;
 };
 
 #endif // V2MAINWINDOW_H

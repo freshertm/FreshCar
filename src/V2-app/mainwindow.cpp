@@ -3,8 +3,8 @@
 #include "v2appglwindow.h"
 #include "v2scene.h"
 #include "appcube.h"
-//#include "v2perspectivecamera.h"
-#include "v2orthocamera.h"
+#include "v2perspectivecamera.h"
+//#include "v2orthocamera.h"
 #include "v2cameralist.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
@@ -12,7 +12,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _ui(new Ui::MainWindow),
     _engine(),
     _cameraAngle(0.0),
-    _cameraRadius(10.0)
+    _cameraRadius(10.0),
+    _cameraSpeed(0)
 {
     _ui->setupUi(this);
     v2appGLWindow *glWindow = new v2appGLWindow();
@@ -27,17 +28,17 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _engine.registerModule(new Renderer());
 
     V2CameraList *cameras = _engine.module<V2CameraList>();
-    //_camera = new V2PerspectiveCamera(glWindow);
-    _camera = new V2OrthoCamera();
+    _camera = new V2PerspectiveCamera(glWindow);
+    //_camera = new V2OrthoCamera();
 
-    _camera->setFar(1000);
+   /* _camera->setFar(1000);
     _camera->setNear(0.1f);
     _camera->setLeft(-10);
     _camera->setRight(10);
     _camera->setBottom(-7);
-    _camera->setTop(7);
-    //_camera->setFOV(30);
-    //_camera->setClipping(0.1, 1000.0);
+    _camera->setTop(7);*/
+    _camera->setFOV(30);
+    _camera->setClipping(0.1, 1000.0);
     _camera->setPosition(glm::vec3(0,0,-10));
     _camera->setLookPoint(glm::vec3(0,0,0));
 
@@ -59,17 +60,19 @@ void V2MainWindow::onFrame()
     float x = _cameraRadius * sin(_cameraAngle * 3.14f / 180.0f);
     float y = _cameraRadius * cos(_cameraAngle * 3.14f / 180.0f);
     _camera->setPosition(glm::vec3(x,0,y));
-    _cameraAngle += 0.1f;
+    _cameraAngle += _cameraSpeed;
 }
 
 void V2MainWindow::onNewSliderValue(int value)
 {
     //_camera->setFOV(value);
-    _cameraRadius = value;
+    //_cameraRadius = value;
+    _cameraSpeed = 0.02 *(float)value;
 }
 
 void V2MainWindow::onNewSlider2Value(int value)
 {
     //_camera->setFOV(value);
+    _cameraRadius = value;
 }
 
