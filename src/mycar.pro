@@ -165,7 +165,10 @@ SOURCES += V2/private/renderer.cpp \
     V2/v2cameralist.cpp \
     V2/v2perspectivecamera.cpp \
     V2/v2orthocamera.cpp \
-    V2/resources/renderproperties.cpp
+    V2/v2physicsmodule.cpp \
+    V2/v2rigidbody.cpp  \
+    V2/resources/renderproperties.cpp \
+    V2/private/b2physicsmodule.cpp
 
 HEADERS += V2/worldobject.h \
     V2/imodule.h \
@@ -182,7 +185,11 @@ HEADERS += V2/worldobject.h \
     V2/v2camera.h \
     V2/v2renderer.h \
     V2/v2cameralist.h \
-    V2/resources/renderproperties.h
+    V2/resources/renderproperties.h \
+    V2/private/b2physicsmodule.h \
+    V2/resources/v2color.h \
+    V2/v2physicsmodule.h \
+    V2/v2rigidbody.h \
 
     LIBS += opengl32.lib
 }
@@ -250,15 +257,12 @@ FORMS    += mainwindow.ui
 DESTDIR = ../../
 
 HEADERS += \
-    V2/resources/v2color.h \
-    V2-app/objects/ground.h \
-    V2/physics/v2physicsmodule.h \
-    V2/physics/v2rigidbody.h \
-    V2/physics/b2physicsmodule.h
+    V2-app/objects/ground.h
+
+
 
 SOURCES += \
-    V2-app/objects/ground.cpp \
-    V2/physics/v2physicsmodule.cpp \
-    V2/physics/v2rigidbody.cpp \
-    V2/physics/b2physicsmodule.cpp
+    V2-app/objects/ground.cpp
+
+
 

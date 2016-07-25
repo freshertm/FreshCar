@@ -7,7 +7,7 @@
 //#include "v2orthocamera.h"
 #include "v2cameralist.h"
 #include "objects/brick.h"
-#include "physics/v2physicsmodule.h"
+#include "v2physicsmodule.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
