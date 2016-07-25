@@ -253,10 +253,12 @@ HEADERS += \
     V2/resources/v2color.h \
     V2-app/objects/ground.h \
     V2/physics/v2physicsmodule.h \
-    V2/physics/v2rigidbody.h
+    V2/physics/v2rigidbody.h \
+    V2/physics/b2physicsmodule.h
 
 SOURCES += \
     V2-app/objects/ground.cpp \
     V2/physics/v2physicsmodule.cpp \
-    V2/physics/v2rigidbody.cpp
+    V2/physics/v2rigidbody.cpp \
+    V2/physics/b2physicsmodule.cpp
 

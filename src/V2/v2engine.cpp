@@ -6,11 +6,11 @@
 V2Engine::V2Engine()
 {
     setScene(0);   
+    addModule(new Renderer);
 }
 
 V2Engine::~V2Engine()
 {
-
 }
 
 V2Scene *V2Engine::scene()

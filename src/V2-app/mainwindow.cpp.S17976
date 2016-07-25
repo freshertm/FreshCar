@@ -19,18 +19,11 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _prop(new RenderProperties)
 {
     _ui->setupUi(this);
-
     v2appGLWindow *glWindow = new v2appGLWindow();
-    _engine.addModule(glWindow);
-    if (!_engine.initModule<V2Renderer>()) {
-        qDebug() << "Cannot initialize renderer.";
-        return;
-    }
-
     _ui->widget->setLayout(new QVBoxLayout());
     _ui->widget->layout()->addWidget(glWindow->widget());
     //setCentralWidget(glWindow->widget());
-
+    _engine.addModule(glWindow);
     connect(glWindow, &V2Window::paintReadySignal, this, &V2MainWindow::onFrame);
     connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
