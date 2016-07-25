@@ -152,11 +152,11 @@ HEADERS+= QJson/include/QJson/Parser \
 
 v2_engine {
 DEFINES += USE_V2
-INCLUDEPATH += V2 V2/resources
-SOURCES += V2/renderer.cpp \
+INCLUDEPATH += V2 V2/resources V2/private
+SOURCES += V2/private/renderer.cpp \
     V2/worldobject.cpp \
     V2/imodule.cpp \
-    V2/renderdata.cpp \
+    V2/private/renderdata.cpp \
     V2/v2engine.cpp \
     V2/v2scene.cpp \
     V2/v2window.cpp \
@@ -171,10 +171,10 @@ HEADERS += V2/worldobject.h \
     V2/imodule.h \
     V2/resources/geometry.h \
     V2/engineresource.h \
-    V2/renderdata.h \
+    V2/private/renderdata.h \
     V2/v2engine.h \
     V2/v2scene.h \
-    V2/renderer.h \
+    V2/private/renderer.h \
     V2/v2resource.h \
     V2/v2window.h \
     V2/v2perspectivecamera.h \

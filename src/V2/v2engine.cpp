@@ -1,6 +1,7 @@
 #include "v2engine.h"
 #include "imodule.h"
 #include "v2scene.h"
+#include "private/renderer.h"
 
 V2Engine::V2Engine()
 {
@@ -17,15 +18,10 @@ V2Scene *V2Engine::scene()
     return _scene;
 }
 
-bool V2Engine::registerModule(IModule * module)
+bool V2Engine::addAndInitModule(IModule * module)
 {
-    if (!module->init(this))
-    {
-        return false;
-    }
-
-    _modules.append(module);
-    return true;
+    addModule(module);
+    return module->init(this);
 }
 
 bool V2Engine::unregisterModule(IModule *modulePtr)
@@ -55,3 +51,8 @@ void V2Engine::setScene(V2Scene *scene)
     emit sceneChanged(_scene);
 }
 
+void V2Engine::addModule(IModule *module)
+{
+    _modules.append(module);
+    emit moduleAdded(module);
+}

@@ -29,7 +29,9 @@ bool Renderer::init(V2Engine * engine)
 
     V2CameraList * camList = new V2CameraList();
     camList->addRef();
-    engine->registerModule(camList);
+    engine->addModule(camList);
+    engine->initModule<V2CameraList>();
+
     onCameraChanged(camList->currentCamera());
     connect(camList, &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
 

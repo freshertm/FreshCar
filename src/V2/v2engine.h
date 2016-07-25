@@ -16,16 +16,19 @@ public:
     V2Engine();
     ~V2Engine();
     template <class T> T* module();
+    template <class T> bool initModule();
 
     V2Scene * scene();
 
 public slots:
     void setScene(V2Scene *scene);
-
-    bool registerModule(IModule *);
+    void addModule(IModule*);
+    bool addAndInitModule(IModule *);
     bool unregisterModule(IModule *);
 signals:
     void sceneChanged(V2Scene *scene);
+    void moduleAdded(IModule *);
+    void moduleInitialized(IModule*);
 
 private:
     QList<IModule*> _modules;
@@ -44,6 +47,19 @@ T* V2Engine::module()
         }
     }
     return nullptr;
+}
+
+
+template <class T> bool V2Engine::initModule()
+{
+    T* m = this->module<T>();
+    if (m) {
+        if (m->init(this)) {
+            emit moduleInitialized(m);
+            return true;
+        }
+    }
+    return false;
 }
 
 #endif // ENGINE_H
