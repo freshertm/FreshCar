@@ -5,8 +5,12 @@
 #include <memory>
 #include "Box2D.h"
 #include <QThread>
+#include "b2physicsrigidbody.h"
+#include <QHash>
 
 class V2Engine;
+class V2Object;
+class V2Scene;
 class B2PhysicsModule: public V2PhysicsModule
 {
     Q_OBJECT
@@ -16,9 +20,13 @@ public:
     virtual bool init(V2Engine*);
     virtual bool stop(V2Engine*);
 
+private slots:
+    void onSceneChanged(V2Scene *);
+    void onObjectAddedToScene(V2Object *);
 private:
     std::shared_ptr<b2World> _world;
     QThread _thread;
+    QHash<V2Object*, std::shared_ptr<B2PhysicsRigidBody> > _cachedObjectData;
 };
 
 #endif // B2PHYSICSMODULE_H

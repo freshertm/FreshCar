@@ -257,12 +257,14 @@ FORMS    += mainwindow.ui
 DESTDIR = ../../
 
 HEADERS += \
-    V2-app/objects/ground.h
+    V2-app/objects/ground.h \
+    V2/private/b2physicsrigidbody.h
 
 
 
 SOURCES += \
-    V2-app/objects/ground.cpp
+    V2-app/objects/ground.cpp \
+    V2/private/b2physicsrigidbody.cpp
 
 
 
