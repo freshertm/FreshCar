@@ -9,12 +9,12 @@ class V2Object;
 
 class ModuleData{};
 class V2Engine;
-class IModule: public QObject
+class V2Module: public QObject
 {
     Q_OBJECT
 public:
-    IModule(){}
-    virtual ~IModule(){}
+    V2Module(){}
+    virtual ~V2Module(){}
 
     /**
      * Tries to initialize module.

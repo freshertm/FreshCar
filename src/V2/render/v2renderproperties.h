@@ -3,7 +3,7 @@
 #include "v2resource.h"
 #include "v2color.h"
 
-class RenderProperties : public V2Resource
+class V2RenderProperties : public V2Resource
 {
 public:
     bool isWireframe();
@@ -15,7 +15,7 @@ public:
     bool isLightingEnabled();
     void setLighting(bool enabled);
 
-    RenderProperties();
+    V2RenderProperties();
 
 private:
     bool _wireframe;

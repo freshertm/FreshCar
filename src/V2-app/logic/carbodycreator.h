@@ -5,7 +5,7 @@
 #include "Box2D.h"
 #include <QList>
 #include <QVector>
-#include "geometry.h"
+#include "v2geometry.h"
 #include "worldproperties.h"
 
 class CarBodyCreator

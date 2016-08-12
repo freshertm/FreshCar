@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 #include "v2engine.h"
-#include "renderproperties.h"
+#include "v2renderproperties.h"
 
 namespace Ui {
 class MainWindow;
@@ -37,7 +37,7 @@ private:
     float _cameraAngle;
     float _cameraRadius;
     float _cameraSpeed;
-    RenderProperties *_prop;
+    V2RenderProperties *_prop;
 };
 
 #endif // V2MAINWINDOW_H

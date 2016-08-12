@@ -8,7 +8,7 @@
 #include "v2scene.h"
 #include "v2cameralist.h"
 #include "v2camera.h"
-#include "renderproperties.h"
+#include "v2renderproperties.h"
 
 #include <glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -108,7 +108,7 @@ void Renderer::processObject(V2Object * obj)
 
     bool wireFrame = false;
     bool lighting = glIsEnabled(GL_LIGHTING);
-    RenderProperties * prop = obj->resource<RenderProperties>();
+    V2RenderProperties * prop = obj->resource<V2RenderProperties>();
     if (prop != nullptr){
         if (prop->isWireframe()){
             wireFrame = true;

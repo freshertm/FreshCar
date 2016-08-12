@@ -2,7 +2,7 @@
 #define RENDERDATA_H
 
 #include <QOpenGLFunctions>
-#include "geometry.h"
+#include "v2geometry.h"
 #include "v2object.h"
 
 class RenderData: public V2Resource

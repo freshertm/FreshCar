@@ -2,7 +2,7 @@
 
 #include "v2object.h"
 
-bool IModule::enable(V2Engine * engine)
+bool V2Module::enable(V2Engine * engine)
 {
     if (enabled()) {
         return true;
@@ -15,7 +15,7 @@ bool IModule::enable(V2Engine * engine)
     return false;
 }
 
-bool IModule::disable(V2Engine * engine)
+bool V2Module::disable(V2Engine * engine)
 {
     if (!enabled()) {
         return true;
@@ -29,24 +29,24 @@ bool IModule::disable(V2Engine * engine)
     return false;
 }
 
-bool IModule::enabled()
+bool V2Module::enabled()
 {
     return _enabled;
 }
 
-void IModule::addRef()
+void V2Module::addRef()
 {
     ++_refs;
 }
 
-void IModule::release()
+void V2Module::release()
 {
     if (_refs) {
         --_refs;
     }
 }
 
-quint32 IModule::refs()
+quint32 V2Module::refs()
 {
     return _refs;
 }

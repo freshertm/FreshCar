@@ -3,12 +3,12 @@
 
 #include <QMap>
 #include <QList>
-#include "geometry.h"
+#include "v2geometry.h"
 #include "v2resource.h"
 #include <QObject>
 #include <glm.hpp>
 
-class IModule;
+class V2Module;
 class V2Object: public QObject, public V2ResourceContainer
 {
     Q_OBJECT

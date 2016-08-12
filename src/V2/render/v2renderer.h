@@ -4,7 +4,7 @@
 #include <QObject>
 #include "v2module.h"
 
-class V2Renderer : public IModule
+class V2Renderer : public V2Module
 {
     Q_OBJECT
 public:

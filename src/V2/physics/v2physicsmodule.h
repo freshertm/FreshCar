@@ -3,7 +3,7 @@
 
 #include "v2module.h"
 
-class V2PhysicsModule : public IModule
+class V2PhysicsModule : public V2Module
 {
 public:
     V2PhysicsModule();

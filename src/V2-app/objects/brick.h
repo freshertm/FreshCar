@@ -3,7 +3,7 @@
 #include "glm.hpp"
 #include "v2object.h"
 #include <memory>
-#include "renderproperties.h"
+#include "v2renderproperties.h"
 const float brickDepth=10;
 
 
@@ -14,7 +14,7 @@ public:
 
     ~Brick();
 private:
-    std::shared_ptr<RenderProperties> _prop;
+    std::shared_ptr<V2RenderProperties> _prop;
 };
 
 #endif // BRICK_H

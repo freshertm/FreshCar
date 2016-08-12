@@ -172,8 +172,8 @@ HEADERS += \
 INCLUDEPATH += V2/render
 LIBS += opengl32.lib
 HEADERS += \
-    V2/render/geometry.h \
-    V2/render/renderproperties.h \
+    V2/render/v2geometry.h \
+    V2/render/v2renderproperties.h \
     V2/render/v2camera.h \
     V2/render/v2cameralist.h \
     V2/render/v2color.h \
@@ -183,7 +183,7 @@ HEADERS += \
     V2/render/v2window.h
 
 SOURCES += \
-    V2/render/renderproperties.cpp \
+    V2/render/v2renderproperties.cpp \
     V2/render/v2camera.cpp \
     V2/render/v2cameralist.cpp \
     V2/render/v2orthocamera.cpp \

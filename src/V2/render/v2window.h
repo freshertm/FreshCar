@@ -6,7 +6,7 @@
 
 class QMouseEvent;
 class QWheelEvent;
-class V2Window: public IModule
+class V2Window: public V2Module
 {
     Q_OBJECT
 public:

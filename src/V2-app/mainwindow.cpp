@@ -16,7 +16,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _cameraAngle(0.0),
     _cameraRadius(10.0),
     _cameraSpeed(0),
-    _prop(new RenderProperties)
+    _prop(new V2RenderProperties)
 {
     _ui->setupUi(this);
 

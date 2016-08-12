@@ -5,7 +5,7 @@
 
 class V2Camera;
 
-class V2CameraList : public IModule
+class V2CameraList : public V2Module
 {
     Q_OBJECT
 public:

@@ -20,20 +20,20 @@ V2Scene *V2Engine::scene()
     return _scene;
 }
 
-bool V2Engine::addAndInitModule(IModule * module)
+bool V2Engine::addAndInitModule(V2Module * module)
 {
     addModule(module);
     return module->init(this);
 }
 
-bool V2Engine::unregisterModule(IModule *modulePtr)
+bool V2Engine::unregisterModule(V2Module *modulePtr)
 {
     if (0 != modulePtr->refs())
     {
         return false;
     }
 
-    QMutableListIterator<IModule*> i(_modules);
+    QMutableListIterator<V2Module*> i(_modules);
     while (i.hasNext())
     {
         if (i.next() == modulePtr) {
@@ -53,7 +53,7 @@ void V2Engine::setScene(V2Scene *scene)
     emit sceneChanged(_scene);
 }
 
-void V2Engine::addModule(IModule *module)
+void V2Engine::addModule(V2Module *module)
 {
     _modules.append(module);
     emit moduleAdded(module);

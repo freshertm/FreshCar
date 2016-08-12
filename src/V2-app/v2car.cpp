@@ -1,6 +1,6 @@
 #include "v2car.h"
 #include "logic/carbodycreator.h"
-#include "geometry.h"
+#include "v2geometry.h"
 #include "logic/cargenome.h"
 
 V2Car::V2Car(const CarGenome & genome, const WorldProperties& properties)
