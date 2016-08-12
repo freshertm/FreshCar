@@ -1,7 +1,7 @@
 #ifndef APPCUBE_H
 #define APPCUBE_H
 
-#include "worldobject.h"
+#include "v2object.h"
 
 class V2APPCube: public V2Object
 {

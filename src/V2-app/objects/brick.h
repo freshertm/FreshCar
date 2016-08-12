@@ -1,7 +1,7 @@
 #ifndef BRICK_H
 #define BRICK_H
 #include "glm.hpp"
-#include "worldobject.h"
+#include "v2object.h"
 #include <memory>
 #include "renderproperties.h"
 const float brickDepth=10;

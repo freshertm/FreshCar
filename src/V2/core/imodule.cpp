@@ -1,6 +1,6 @@
 #include "imodule.h"
 
-#include "worldobject.h"
+#include "v2object.h"
 
 bool IModule::enable(V2Engine * engine)
 {

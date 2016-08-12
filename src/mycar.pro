@@ -154,7 +154,7 @@ v2_engine {
 DEFINES += USE_V2
 INCLUDEPATH += V2 V2/resources V2/private
 SOURCES += V2/private/renderer.cpp \
-    V2/worldobject.cpp \
+    V2/v2object.cpp \
     V2/imodule.cpp \
     V2/private/renderdata.cpp \
     V2/v2engine.cpp \
@@ -168,9 +168,10 @@ SOURCES += V2/private/renderer.cpp \
     V2/v2physicsmodule.cpp \
     V2/v2rigidbody.cpp  \
     V2/resources/renderproperties.cpp \
-    V2/private/b2physicsmodule.cpp
+    V2/private/b2physicsmodule.cpp \
+    V2/private/b2physicsrigidbody.cpp
 
-HEADERS += V2/worldobject.h \
+HEADERS += V2/v2object.h \
     V2/imodule.h \
     V2/resources/geometry.h \
     V2/engineresource.h \
@@ -190,6 +191,7 @@ HEADERS += V2/worldobject.h \
     V2/resources/v2color.h \
     V2/v2physicsmodule.h \
     V2/v2rigidbody.h \
+    V2/private/b2physicsrigidbody.h
 
     LIBS += opengl32.lib
 }
@@ -200,7 +202,7 @@ SOURCES+= \
     V2-app/v2main.cpp \
     V2-app/mainwindow.cpp \
     V2/carbodycreator.cpp \
-    V2/worldproperties.cpp \
+    V2-app/logic/worldproperties.cpp \
     V2-app/v2car.cpp \
     V2-app/appcube.cpp \
     V2-app/v2appglwindow.cpp \
@@ -210,7 +212,7 @@ SOURCES+= \
 HEADERS += \
     V2-app/mainwindow.h \
     V2/carbodycreator.h \
-    V2/worldproperties.h \
+    V2-app/logic/worldproperties.h \
     V2/cargenome.h \
     V2-app/appcube.h \
     V2-app/v2appglwindow.h \
@@ -222,49 +224,13 @@ FORMS += \
     V2-app/mainwindow.ui
 }
 
-cars_app {
-INCLUDEPATH += V1
-SOURCES+=V1/main.cpp\
-    V1/mainwindow.cpp \
-    V1/world.cpp \
-    V1/renderwidget.cpp \
-    V1/car.cpp \
-    V1/ground.cpp \
-    V1/worldproperties.cpp \
-    V1/carbodycreator.cpp \
-    V1/contactfilter.cpp \
-    V1/history.cpp \
-    V1/historygraph.cpp \
-    V1/glthread.cpp \
-    V1/carfactory.cpp
-
-HEADERS+=V1/mainwindow.h \
-    V1/world.h \
-    V1/renderwidget.h \
-    V1/cargenome.h \
-    V1/car.h \
-    V1/ground.h \
-    V1/worldproperties.h \
-    V1/carbodycreator.h \
-    V1/contactfilter.h \
-    V1/history.h \
-    V1/historygraph.h \
-    V1/glthread.h \
-    V1/carfactory.h
-FORMS    += mainwindow.ui
-}
-
 DESTDIR = ../../
 
 HEADERS += \
-    V2-app/objects/ground.h \
-    V2/private/b2physicsrigidbody.h
-
-
+    V2-app/objects/ground.h
 
 SOURCES += \
-    V2-app/objects/ground.cpp \
-    V2/private/b2physicsrigidbody.cpp
+    V2-app/objects/ground.cpp
 
 
 

@@ -23,10 +23,18 @@ public:
 private slots:
     void onSceneChanged(V2Scene *);
     void onObjectAddedToScene(V2Object *);
+
+    bool runThread();
+    bool stopThread();
+
+    void onThreadRun();
+    void onThreadStop();
+
 private:
     std::shared_ptr<b2World> _world;
-    QThread _thread;
     QHash<V2Object*, std::shared_ptr<B2PhysicsRigidBody> > _cachedObjectData;
+    QThread _thread;
+    bool isRunning;
 };
 
 #endif // B2PHYSICSMODULE_H

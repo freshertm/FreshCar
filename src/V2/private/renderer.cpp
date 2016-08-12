@@ -1,5 +1,5 @@
 #include "renderer.h"
-#include "worldobject.h"
+#include "v2object.h"
 #include <QOpenGLFunctions>
 #include "renderdata.h"
 #include "v2engine.h"

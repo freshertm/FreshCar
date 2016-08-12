@@ -4,7 +4,6 @@
 #include <QObject>
 
 class V2Engine;
-class V2OrthoCamera;
 class V2Window;
 class V2CameraList;
 class V2Camera;
@@ -31,7 +30,7 @@ private:
 
     V2CameraList * _camList;
     V2Window * _window;
-    V2OrthoCamera * _camera;
+    V2Camera * _camera;
     int  _width;
     int _height;
     float _xShift;

@@ -3,7 +3,7 @@
 
 #include <QOpenGLFunctions>
 #include "geometry.h"
-#include "worldobject.h"
+#include "v2object.h"
 
 class RenderData: public V2Resource
 {

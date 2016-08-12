@@ -1,4 +1,4 @@
-#include "worldobject.h"
+#include "v2object.h"
 #include "imodule.h"
 
 V2Object::V2Object(): _scale(1,1,1)
