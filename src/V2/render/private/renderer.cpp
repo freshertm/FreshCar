@@ -65,6 +65,16 @@ bool Renderer::stopModule(V2Engine *engine)
     return true;
 }
 
+bool Renderer::enableModule(V2Engine *engine)
+{
+    return engine->enableModule<V2CameraList>();
+}
+
+bool Renderer::disableModule(V2Engine *engine)
+{
+    return engine->disableModule<V2CameraList>();
+}
+
 void Renderer::windowPaintReady()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);

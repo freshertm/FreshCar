@@ -17,6 +17,10 @@ public:
     ~V2Engine();
     template <class T> T* module();
     template <class T> bool initModule();
+    template <class T> bool stopModule(){}
+
+    template <class T> bool enableModule();
+    template <class T> bool disableModule();
 
     V2Scene * scene();
 
@@ -58,6 +62,25 @@ template <class T> bool V2Engine::initModule()
             emit moduleInitialized(m);
             return true;
         }
+    }
+    return false;
+}
+
+
+template <class T> bool V2Engine::enableModule()
+{
+    T* m = this->module<T>();
+    if (m) {
+        return m->enable(this);
+    }
+    return false;
+}
+
+template <class T> bool V2Engine::disableModule()
+{
+    T* m = this->module<T>();
+    if (m) {
+        return m->disable(this);
     }
     return false;
 }

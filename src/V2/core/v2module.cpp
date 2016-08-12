@@ -12,7 +12,8 @@ bool V2Module::init(V2Engine * engine)
     if (_initialized) {
         return true;
     }
-    return initModule(engine);
+    _initialized = initModule(engine);
+    return _initialized;
 }
 
 bool V2Module::stop(V2Engine * engine)
@@ -20,7 +21,8 @@ bool V2Module::stop(V2Engine * engine)
     if (!_initialized) {
         return true;
     }
-    return stopModule(engine);
+    _initialized = !stopModule(engine);
+    return !_initialized;
 }
 
 bool V2Module::enable(V2Engine * engine)
