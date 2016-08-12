@@ -152,48 +152,75 @@ HEADERS+= QJson/include/QJson/Parser \
 
 v2_engine {
 DEFINES += USE_V2
-INCLUDEPATH += V2 V2/resources V2/private
-SOURCES += V2/private/renderer.cpp \
-    V2/v2object.cpp \
-    V2/imodule.cpp \
-    V2/private/renderdata.cpp \
-    V2/v2engine.cpp \
-    V2/v2scene.cpp \
-    V2/v2window.cpp \
-    V2/v2camera.cpp \
-    V2/v2renderer.cpp \
-    V2/v2cameralist.cpp \
-    V2/v2perspectivecamera.cpp \
-    V2/v2orthocamera.cpp \
-    V2/v2physicsmodule.cpp \
-    V2/v2rigidbody.cpp  \
-    V2/resources/renderproperties.cpp \
-    V2/private/b2physicsmodule.cpp \
-    V2/private/b2physicsrigidbody.cpp
 
-HEADERS += V2/v2object.h \
-    V2/imodule.h \
-    V2/resources/geometry.h \
-    V2/engineresource.h \
-    V2/private/renderdata.h \
-    V2/v2engine.h \
-    V2/v2scene.h \
-    V2/private/renderer.h \
-    V2/v2resource.h \
-    V2/v2window.h \
-    V2/v2perspectivecamera.h \
-    V2/v2orthocamera.h \
-    V2/v2camera.h \
-    V2/v2renderer.h \
-    V2/v2cameralist.h \
-    V2/resources/renderproperties.h \
-    V2/private/b2physicsmodule.h \
-    V2/resources/v2color.h \
-    V2/v2physicsmodule.h \
-    V2/v2rigidbody.h \
-    V2/private/b2physicsrigidbody.h
+INCLUDEPATH += V2/core
+SOURCES += \
+    V2/core/v2engine.cpp \
+    V2/core/v2module.cpp \
+    V2/core/v2object.cpp \
+    V2/core/v2scene.cpp
 
-    LIBS += opengl32.lib
+HEADERS += \
+    V2/core/v2engine.h \
+    V2/core/v2module.h \
+    V2/core/v2object.h \
+    V2/core/v2resource.h \
+    V2/core/v2scene.h
+
+
+
+INCLUDEPATH += V2/render
+LIBS += opengl32.lib
+HEADERS += \
+    V2/render/geometry.h \
+    V2/render/renderproperties.h \
+    V2/render/v2camera.h \
+    V2/render/v2cameralist.h \
+    V2/render/v2color.h \
+    V2/render/v2orthocamera.h \
+    V2/render/v2perspectivecamera.h \
+    V2/render/v2renderer.h \
+    V2/render/v2window.h
+
+SOURCES += \
+    V2/render/renderproperties.cpp \
+    V2/render/v2camera.cpp \
+    V2/render/v2cameralist.cpp \
+    V2/render/v2orthocamera.cpp \
+    V2/render/v2perspectivecamera.cpp \
+    V2/render/v2renderer.cpp \
+    V2/render/v2window.cpp
+
+INCLUDEPATH += V2/render/private
+HEADERS += \
+    V2/render/private/renderer.h \
+    V2/render/private/renderdata.h
+
+SOURCES += \
+    V2/render/private/renderer.cpp \
+    V2/render/private/renderdata.cpp
+
+
+
+INCLUDEPATH += V2/physics
+HEADERS+=\
+    V2/physics/v2physicsmodule.h \
+    V2/physics/v2rigidbody.h
+
+SOURCES+=\
+    V2/physics/v2physicsmodule.cpp \
+    V2/physics/v2rigidbody.cpp
+
+
+
+INCLUDEPATH += V2/physics/private
+HEADERS+=\
+    V2/physics/private/b2physicsmodule.h \
+    V2/physics/private/b2physicsrigidbody.h
+
+SOURCES+=\
+    V2/physics/private/b2physicsmodule.cpp \
+    V2/physics/private/b2physicsrigidbody.cpp
 }
 
 v2_test_app{
@@ -201,7 +228,7 @@ INCLUDEPATH += V2-app
 SOURCES+= \
     V2-app/v2main.cpp \
     V2-app/mainwindow.cpp \
-    V2/carbodycreator.cpp \
+    V2-app/logic/carbodycreator.cpp \
     V2-app/logic/worldproperties.cpp \
     V2-app/v2car.cpp \
     V2-app/appcube.cpp \
@@ -211,9 +238,9 @@ SOURCES+= \
 
 HEADERS += \
     V2-app/mainwindow.h \
-    V2/carbodycreator.h \
+    V2-app/logic/carbodycreator.h \
     V2-app/logic/worldproperties.h \
-    V2/cargenome.h \
+    V2-app/logic/cargenome.h \
     V2-app/appcube.h \
     V2-app/v2appglwindow.h \
     V2-app/v2car.h \
