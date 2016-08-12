@@ -3,10 +3,10 @@
 
 #include "v2module.h"
 
-class V2PhysicsModule : public V2Module
+class V2Physics : public V2Module
 {
 public:
-    V2PhysicsModule();
+    V2Physics();
 };
 
 #endif // V2PHYSICSMODULE_H

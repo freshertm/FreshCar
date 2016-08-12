@@ -17,8 +17,8 @@ class Renderer: public V2Renderer
 public:
     Renderer();
     virtual ~Renderer(){}
-    virtual bool init(V2Engine*);
-    virtual bool stop(V2Engine *);
+    virtual bool initModule(V2Engine*);
+    virtual bool stopModule(V2Engine *);
 
 private slots:
     void windowPaintReady();

@@ -18,7 +18,7 @@ Renderer::Renderer(): V2Renderer(), _currentCamera(nullptr)
 {
 }
 
-bool Renderer::init(V2Engine * engine)
+bool Renderer::initModule(V2Engine * engine)
 {
     V2Window * window = engine->module<V2Window>();
     if (window == nullptr) {
@@ -46,7 +46,7 @@ bool Renderer::init(V2Engine * engine)
     return true;
 }
 
-bool Renderer::stop(V2Engine *engine)
+bool Renderer::stopModule(V2Engine *engine)
 {
     V2Window * window = engine->module<V2Window>();
     disconnect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);
@@ -144,7 +144,6 @@ void Renderer::onCameraChanged(V2Camera *newCamera)
 
     _currentCamera = newCamera;
     connect(newCamera, &V2Camera::cameraChanged,  this, &Renderer::onCameraMove);
-
 
     onCameraMove(newCamera);
 }

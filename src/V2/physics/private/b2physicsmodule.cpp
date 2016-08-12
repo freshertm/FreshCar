@@ -15,12 +15,12 @@ B2PhysicsModule::~B2PhysicsModule()
     stopThread();
 }
 
-bool B2PhysicsModule::init(V2Engine * engine)
+bool B2PhysicsModule::enableModule(V2Engine *)
 {
     return runThread();
 }
 
-bool B2PhysicsModule::stop(V2Engine *)
+bool B2PhysicsModule::disableModule(V2Engine *)
 {
     return stopThread();
 }
@@ -58,7 +58,7 @@ bool B2PhysicsModule::stopThread()
 void B2PhysicsModule::onThreadRun()
 {
     while (isRunning){
-
+        QThread::yieldCurrentThread();
     }
 }
 

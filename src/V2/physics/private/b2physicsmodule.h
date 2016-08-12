@@ -11,14 +11,15 @@
 class V2Engine;
 class V2Object;
 class V2Scene;
-class B2PhysicsModule: public V2PhysicsModule
+class B2PhysicsModule: public V2Physics
 {
     Q_OBJECT
 public:
     B2PhysicsModule();
     virtual ~B2PhysicsModule();
-    virtual bool init(V2Engine*);
-    virtual bool stop(V2Engine*);
+
+    virtual bool enableModule(V2Engine*);
+    virtual bool disableModule(V2Engine*);
 
 private slots:
     void onSceneChanged(V2Scene *);

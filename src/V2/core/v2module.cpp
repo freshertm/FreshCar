@@ -2,8 +2,33 @@
 
 #include "v2object.h"
 
+V2Module::V2Module(): _initialized(false), _enabled(false)
+{
+    blockSignals(true);
+}
+
+bool V2Module::init(V2Engine * engine)
+{
+    if (_initialized) {
+        return true;
+    }
+    return initModule(engine);
+}
+
+bool V2Module::stop(V2Engine * engine)
+{
+    if (!_initialized) {
+        return true;
+    }
+    return stopModule(engine);
+}
+
 bool V2Module::enable(V2Engine * engine)
 {
+    if (!initialized()) {
+        return false;
+    }
+
     if (enabled()) {
         return true;
     }

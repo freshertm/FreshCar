@@ -35,8 +35,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
-    _engine.addAndInitModule(new Renderer());
-    _engine.addAndInitModule(new V2PhysicsModule());
+    _engine.initModule<V2Renderer>();
+    _engine.initModule<V2Physics>();
 
     V2CameraList *cameras = _engine.module<V2CameraList>();
     _camera = new V2PerspectiveCamera(glWindow);

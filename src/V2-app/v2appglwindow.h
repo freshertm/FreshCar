@@ -38,10 +38,6 @@ public:
     virtual int width();
     virtual int height();
 
-  /*  virtual void init();
-    virtual void finalize();
-    virtual void swapBuffers();*/
-
     QWidget * widget();
 
 protected:

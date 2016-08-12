@@ -13,19 +13,21 @@ class V2Module: public QObject
 {
     Q_OBJECT
 public:
-    V2Module(){}
+    V2Module();
     virtual ~V2Module(){}
 
     /**
      * Tries to initialize module.
      * @returns true if successfully initialized.
      * */
-    virtual bool init(V2Engine*){return true;}
+    bool init(V2Engine*);
     /**
      * Tries to stop module.
      * @returns true if module successfully deactivated.
      * */
-    virtual bool stop(V2Engine*){return true;}
+    bool stop(V2Engine*);
+
+    bool initialized() { return _initialized;}
 
     bool enable(V2Engine*);
     bool disable(V2Engine*);
@@ -40,11 +42,14 @@ public:
     /** get current reference counter. **/
     quint32 refs();
 protected:
+    virtual bool initModule(V2Engine*) {return true;}
+    virtual bool stopModule(V2Engine*) {return true;}
     virtual bool enableModule(V2Engine*){return true;}
     virtual bool disableModule(V2Engine*){return true;}
 private:
     quint32 _refs;
     bool _enabled;
+    bool _initialized;
 };
 
 #endif // IMODULE_H

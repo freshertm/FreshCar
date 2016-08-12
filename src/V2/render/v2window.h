@@ -13,8 +13,6 @@ public:
     V2Window();
     virtual ~V2Window();
 
-    virtual void init(){}
-    virtual void finalize(){}
     virtual void swapBuffers(){}
 
     virtual int width()=0;
