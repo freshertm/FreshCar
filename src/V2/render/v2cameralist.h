@@ -1,6 +1,6 @@
 #ifndef V2CAMERALIST_H
 #define V2CAMERALIST_H
-#include "imodule.h"
+#include "v2module.h"
 #include <QObject>
 
 class V2Camera;

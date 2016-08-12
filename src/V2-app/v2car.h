@@ -1,9 +1,9 @@
 #ifndef V2CAR_H
 #define V2CAR_H
 
-#include "worldobject.h"
-#include "cargenome.h"
-#include "worldproperties.h"
+#include "v2object.h"
+#include "logic/cargenome.h"
+#include "logic/worldproperties.h"
 
 class V2Car : public V2Object
 {

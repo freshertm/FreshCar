@@ -2,7 +2,7 @@
 #define V2RENDERER_H
 
 #include <QObject>
-#include "imodule.h"
+#include "v2module.h"
 
 class V2Renderer : public IModule
 {

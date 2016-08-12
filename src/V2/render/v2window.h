@@ -1,7 +1,7 @@
 #ifndef V2WINDOW_H
 #define V2WINDOW_H
 
-#include "imodule.h"
+#include "v2module.h"
 #include "qdebug.h"
 
 class QMouseEvent;

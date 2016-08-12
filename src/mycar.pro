@@ -251,7 +251,7 @@ FORMS += \
     V2-app/mainwindow.ui
 }
 
-DESTDIR = ../../
+DESTDIR = ../bin/
 
 HEADERS += \
     V2-app/objects/ground.h

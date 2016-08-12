@@ -1,4 +1,4 @@
-#include "imodule.h"
+#include "v2module.h"
 
 #include "v2object.h"
 

@@ -1,5 +1,5 @@
 #include "v2engine.h"
-#include "imodule.h"
+#include "v2module.h"
 #include "v2scene.h"
 #include "private/renderer.h"
 #include "private/b2physicsmodule.h"

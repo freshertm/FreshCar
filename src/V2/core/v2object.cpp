@@ -1,5 +1,5 @@
 #include "v2object.h"
-#include "imodule.h"
+#include "v2module.h"
 
 V2Object::V2Object(): _scale(1,1,1)
 {

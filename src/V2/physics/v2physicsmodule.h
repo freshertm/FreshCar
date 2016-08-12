@@ -1,7 +1,7 @@
 #ifndef V2PHYSICSMODULE_H
 #define V2PHYSICSMODULE_H
 
-#include "imodule.h"
+#include "v2module.h"
 
 class V2PhysicsModule : public IModule
 {
