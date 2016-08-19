@@ -1,5 +1,6 @@
 #include "b2physicsmodule.h"
 #include "v2engine.h"
+#include "QApplication"
 
 B2PhysicsModule::B2PhysicsModule():
     _world(std::make_shared<b2World>(b2Vec2(0,-10))),
@@ -7,7 +8,7 @@ B2PhysicsModule::B2PhysicsModule():
 {
     connect(&_thread, &QThread::started, this, &B2PhysicsModule::onThreadRun);
     connect(&_thread, &QThread::finished, this, &B2PhysicsModule::onThreadStop);
-    this->moveToThread(&_thread);
+
 }
 
 B2PhysicsModule::~B2PhysicsModule()
@@ -43,12 +44,14 @@ bool B2PhysicsModule::runThread()
 
     isRunning = true;
     _thread.start();
+    this->moveToThread(&_thread);
     return true;
 }
 
 bool B2PhysicsModule::stopThread()
 {
     if (isRunning){
+        this->moveToThread(QApplication::instance()->thread());
         _thread.quit();
         _thread.wait();
     }
@@ -58,7 +61,7 @@ bool B2PhysicsModule::stopThread()
 void B2PhysicsModule::onThreadRun()
 {
     while (isRunning){
-        QThread::yieldCurrentThread();
+        QThread::sleep(100);
     }
 }
 
