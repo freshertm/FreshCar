@@ -14,7 +14,7 @@ public:
 
     ~Brick();
 private:
-    std::shared_ptr<V2RenderProperties> _prop;
+    //std::shared_ptr<V2RenderProperties> _prop;
 };
 
 #endif // BRICK_H

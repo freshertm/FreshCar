@@ -19,9 +19,11 @@ class V2ResourceContainer{
 public:
     virtual ~V2ResourceContainer(){}
 
-    void setResource(V2Resource* res) {
+    template <class T>
+    void setResource(T* res) {
         //_resources[typeid(*res).hash_code()] = res;
         _resources.insert(typeid(res), res);
+        qDebug() << typeid(res).name() << endl;
     }
 
     template <class T>
@@ -38,13 +40,6 @@ private:
 template <class T>
 T* V2ResourceContainer::resource()
 {
-/*    size_t hashCode = typeid(T).hash_code();
-    if (!_resources.contains(hashCode)) {
-        return nullptr;
-    }
-
-    return dynamic_cast<T*>(_resources[hashCode]);*/
-
     QList<T*> res = resources<T>();
     if (res.size() > 0)
     {
@@ -56,15 +51,18 @@ T* V2ResourceContainer::resource()
 template <class T>
 QList<T*> V2ResourceContainer::resources()
 {
-    QList<V2Resource*> resList =  _resources.values(typeid(T));
-    QList<T*> tList;
 
-    foreach(V2Resource * res , resList) {
-        T* obj = dynamic_cast<T*>(res);
+    qDebug() << typeid(T*).name() << endl;
+    QList<T*> tList;
+    for (auto resIter = _resources.find(typeid(T*));
+         resIter != _resources.end(); ++resIter)
+    {
+        T* obj = dynamic_cast<T*>(*resIter);
         if (nullptr != obj) {
             tList.push_back(obj);
         }
     }
+
     return tList;
 }
 

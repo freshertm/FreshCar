@@ -16,6 +16,7 @@ public:
     void setLighting(bool enabled);
 
     V2RenderProperties();
+    virtual ~V2RenderProperties(){}
 
 private:
     bool _wireframe;

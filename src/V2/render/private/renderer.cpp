@@ -69,7 +69,6 @@ bool Renderer::enableModule(V2Engine *engine)
 {
     onSceneChanged(engine->scene());
     return engine->enableModule<V2CameraList>();
-
 }
 
 bool Renderer::disableModule(V2Engine *engine)
@@ -185,7 +184,7 @@ void Renderer::onSceneChanged(V2Scene *scene)
 
 void Renderer::onObjectAddedToScene(V2Object * object)
 {
-    Geometry * geometry = object->resource<V2Geometry>();
+    Geometry * geometry = object->resource<Geometry>();
     if (geometry == nullptr) {
         return;
     }

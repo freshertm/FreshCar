@@ -1,6 +1,5 @@
 #include "brick.h"
 #include "v2geometry.h"
-#include "v2renderproperties.h"
 
 Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
 {
@@ -53,11 +52,11 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     setResource(geometry);
     setRotation(glm::vec3(0,0,angle));
     setPosition(glm::vec3(position.x, position.y, 0));
-    _prop = std::make_shared<V2RenderProperties>();
-    _prop->setLighting(false);
-    _prop->setColor(V2Color(0,255,0));
-    _prop->setWireframe(true);
-    setResource(_prop.get());
+    V2RenderProperties *prop = new V2RenderProperties();
+    prop->setLighting(false);
+    prop->setColor(V2Color(0,255,0));
+    prop->setWireframe(true);
+    setResource(prop);
 }
 
 Brick::~Brick()
