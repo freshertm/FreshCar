@@ -1,8 +1,6 @@
 #include "v2module.h"
 
-#include "v2object.h"
-
-V2Module::V2Module(): _initialized(false), _enabled(false)
+V2Module::V2Module(): _initialized(false), _enabled(false), _refs(1)
 {
     blockSignals(true);
 }
@@ -21,6 +19,10 @@ bool V2Module::stop(V2Engine * engine)
     if (!_initialized) {
         return true;
     }
+    if (_enabled) {
+        return false;
+    }
+
     _initialized = !stopModule(engine);
     return !_initialized;
 }
@@ -77,19 +79,3 @@ quint32 V2Module::refs()
 {
     return _refs;
 }
-/*
-void IModule::addObject(WorldObject *obj)
-{
-    initObjectData(obj);
-    _objects.push_back(obj);
-}
-
-void IModule::removeObject(WorldObject * obj)
-{
-    for ( QList<WorldObject*>::iterator i =0; i!= _objects.end(); i++)
-        if (*i == obj)
-        {
-            _objects.erase(i);
-            return;
-        }
-}*/
