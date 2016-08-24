@@ -14,7 +14,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _ui(new Ui::MainWindow),
     _engine(),
     _cameraAngle(0.0),
-    _cameraRadius(10.0),
+    _cameraRadius(-53.0),
     _cameraSpeed(0),
     _prop(new V2RenderProperties)
 {
@@ -35,10 +35,11 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
-//    if (!_engine.initModule<V2Physics>())
-//    {
-//        qDebug() << "Cannot init V2Physics module";
-//    };
+    if (!_engine.initModule<V2Physics>())
+    {
+        qDebug() << "Cannot init V2Physics module";
+    };
+
     if (!_engine.initModule<V2Window>())
     {
         qDebug() << "Cannot init V2Window module";
@@ -54,10 +55,10 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
         qDebug() << "Cannot enable V2Window module";
     };
 
-//    if (!_engine.enableModule<V2Physics>())
-//    {
-//        qDebug() << "Cannot enable V2Physics module";
-//    }
+    if (!_engine.enableModule<V2Physics>())
+    {
+        qDebug() << "Cannot enable V2Physics module";
+    }
 
     V2CameraList *cameras = _engine.module<V2CameraList>();
     _camera = new V2PerspectiveCamera(glWindow);

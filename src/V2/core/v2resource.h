@@ -21,9 +21,7 @@ public:
 
     template <class T>
     void setResource(T* res) {
-        //_resources[typeid(*res).hash_code()] = res;
         _resources.insert(typeid(res), res);
-        qDebug() << typeid(res).name() << endl;
     }
 
     template <class T>
@@ -51,8 +49,6 @@ T* V2ResourceContainer::resource()
 template <class T>
 QList<T*> V2ResourceContainer::resources()
 {
-
-    qDebug() << typeid(T*).name() << endl;
     QList<T*> tList;
     for (auto resIter = _resources.find(typeid(T*));
          resIter != _resources.end(); ++resIter)

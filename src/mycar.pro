@@ -254,10 +254,12 @@ FORMS += \
 DESTDIR = ../bin/
 
 HEADERS += \
-    V2-app/objects/ground.h
+    V2-app/objects/ground.h \
+    V2-app/logic/world.h
 
 SOURCES += \
-    V2-app/objects/ground.cpp
+    V2-app/objects/ground.cpp \
+    V2-app/logic/world.cpp
 
 
 

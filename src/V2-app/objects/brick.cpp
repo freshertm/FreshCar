@@ -1,6 +1,8 @@
 #include "brick.h"
 #include "v2geometry.h"
 
+#include "v2rigidbody.h"
+
 Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
 {
     float halfWidth = width / 2.0f;
@@ -55,8 +57,10 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     V2RenderProperties *prop = new V2RenderProperties();
     prop->setLighting(false);
     prop->setColor(V2Color(0,255,0));
-    prop->setWireframe(true);
+    //prop->setWireframe(true);
     setResource(prop);
+
+    setResource(new V2RigidBody());
 }
 
 Brick::~Brick()
