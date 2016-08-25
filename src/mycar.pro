@@ -255,11 +255,13 @@ DESTDIR = ../bin/
 
 HEADERS += \
     V2-app/objects/ground.h \
-    V2-app/logic/world.h
+    V2-app/logic/world.h \
+    V2/physics/v2collider.h
 
 SOURCES += \
     V2-app/objects/ground.cpp \
-    V2-app/logic/world.cpp
+    V2-app/logic/world.cpp \
+    V2/physics/v2collider.cpp
 
 
 
