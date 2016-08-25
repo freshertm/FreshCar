@@ -202,25 +202,14 @@ SOURCES += \
 
 
 
-INCLUDEPATH += V2/physics
+INCLUDEPATH += V2/Box2DPhysics
 HEADERS+=\
-    V2/physics/v2physicsmodule.h \
-    V2/physics/v2rigidbody.h
+    V2/Box2DPhysics/b2physicsmodule.h \
+    V2/Box2DPhysics/b2physicsrigidbody.h
 
 SOURCES+=\
-    V2/physics/v2physicsmodule.cpp \
-    V2/physics/v2rigidbody.cpp
-
-
-
-INCLUDEPATH += V2/physics/private
-HEADERS+=\
-    V2/physics/private/b2physicsmodule.h \
-    V2/physics/private/b2physicsrigidbody.h
-
-SOURCES+=\
-    V2/physics/private/b2physicsmodule.cpp \
-    V2/physics/private/b2physicsrigidbody.cpp
+    V2/physics/b2physicsmodule.cpp \
+    V2/physics/b2physicsrigidbody.cpp
 }
 
 v2_test_app{
