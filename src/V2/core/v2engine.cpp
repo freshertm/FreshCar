@@ -2,13 +2,11 @@
 #include "v2module.h"
 #include "v2scene.h"
 #include "private/renderer.h"
-#include "private/b2physicsmodule.h"
 
 V2Engine::V2Engine()
 {
     setScene(0);   
     addModule(new Renderer);
-    addModule(new B2PhysicsModule);
 }
 
 V2Engine::~V2Engine()

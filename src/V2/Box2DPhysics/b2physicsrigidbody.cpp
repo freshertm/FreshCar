@@ -2,7 +2,7 @@
 #include "Box2D.h"
 using namespace std;
 
-B2PhysicsRigidBody::B2PhysicsRigidBody(std::shared_ptr<b2World> & world, glm::vec2 & position, float angle):
+Box2DPhysicsRigidBody::Box2DPhysicsRigidBody(std::shared_ptr<b2World> & world, glm::vec2 & position, float angle):
     _world(world)
 {
     b2BodyDef bodyDef;
@@ -13,18 +13,18 @@ B2PhysicsRigidBody::B2PhysicsRigidBody(std::shared_ptr<b2World> & world, glm::ve
     _body = world->CreateBody(&bodyDef);
 }
 
-B2PhysicsRigidBody::~B2PhysicsRigidBody()
+Box2DPhysicsRigidBody::~Box2DPhysicsRigidBody()
 {
     _world->DestroyBody(_body);
 }
 
-glm::vec2 B2PhysicsRigidBody::position()
+glm::vec2 Box2DPhysicsRigidBody::position()
 {
     b2Vec2 res = _body->GetPosition();
     return glm::vec2(res.x, res.y);
 }
 
-float B2PhysicsRigidBody::angle()
+float Box2DPhysicsRigidBody::angle()
 {
     return _body->GetAngle();
 }

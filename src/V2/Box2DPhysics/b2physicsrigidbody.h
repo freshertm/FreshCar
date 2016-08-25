@@ -1,17 +1,17 @@
 #ifndef B2PHYSICSRIGIDBODY_H
 #define B2PHYSICSRIGIDBODY_H
 
-#include "v2rigidbody.h"
+#include "v2resource.h"
 
 #include "Box2D.h"
 #include <memory>
 #include "glm/glm.hpp"
 
-class B2PhysicsRigidBody: public V2RigidBody
+class Box2DPhysicsRigidBody: public V2Resource
 {
 public:
-    B2PhysicsRigidBody(std::shared_ptr<b2World> &, glm::vec2 & position, float angle);
-    virtual ~B2PhysicsRigidBody();
+    Box2DPhysicsRigidBody(std::shared_ptr<b2World> &, glm::vec2 & position, float angle);
+    virtual ~Box2DPhysicsRigidBody();
 
     glm::vec2 position();
     float angle();

@@ -1,7 +1,7 @@
 #ifndef B2PHYSICSMODULE_H
 #define B2PHYSICSMODULE_H
 
-#include "v2physicsmodule.h"
+#include "v2module.h"
 #include <memory>
 #include "Box2D.h"
 #include <QThread>
@@ -12,20 +12,18 @@
 class V2Engine;
 class V2Object;
 class V2Scene;
-class B2PhysicsModule: public V2Physics
+class Box2DPhysicsModule: public V2Module
 {
     Q_OBJECT
 public:
-    B2PhysicsModule();
-    virtual ~B2PhysicsModule();
+    Box2DPhysicsModule();
+    virtual ~Box2DPhysicsModule();
 
 protected:
     virtual bool enableModule(V2Engine*);
     virtual bool disableModule(V2Engine*);
     virtual bool initModule(V2Engine *engine);
     virtual bool stopModule(V2Engine *);
-
-
 
 private slots:
     void onSceneChanged(V2Scene *scene);
@@ -41,7 +39,7 @@ private slots:
 
 private:
     std::shared_ptr<b2World> _world;
-    QMap<V2Object*, std::shared_ptr<B2PhysicsRigidBody> > _cachedObjectData;
+    QMap<V2Object*, std::shared_ptr<Box2DPhysicsRigidBody> > _cachedObjectData;
     QThread _thread;
     bool isRunning;
 

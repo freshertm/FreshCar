@@ -7,7 +7,7 @@
 //#include "v2orthocamera.h"
 #include "v2cameralist.h"
 #include "objects/brick.h"
-#include "v2physicsmodule.h"
+#include "b2physicsmodule.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,9 +35,10 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
-    if (!_engine.initModule<V2Physics>())
+
+    if (!_engine.addAndInitModule(new Box2DPhysicsModule()))
     {
-        qDebug() << "Cannot init V2Physics module";
+        qDebug() << "Cannot init Box2DPhysicsModule module";
     };
 
     if (!_engine.initModule<V2Window>())
@@ -55,7 +56,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
         qDebug() << "Cannot enable V2Window module";
     };
 
-    if (!_engine.enableModule<V2Physics>())
+    if (!_engine.enableModule<Box2DPhysicsModule>())
     {
         qDebug() << "Cannot enable V2Physics module";
     }

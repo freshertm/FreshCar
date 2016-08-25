@@ -208,8 +208,8 @@ HEADERS+=\
     V2/Box2DPhysics/b2physicsrigidbody.h
 
 SOURCES+=\
-    V2/physics/b2physicsmodule.cpp \
-    V2/physics/b2physicsrigidbody.cpp
+    V2/Box2DPhysics/b2physicsmodule.cpp \
+    V2/Box2DPhysics/b2physicsrigidbody.cpp
 }
 
 v2_test_app{
@@ -244,13 +244,12 @@ DESTDIR = ../bin/
 
 HEADERS += \
     V2-app/objects/ground.h \
-    V2-app/logic/world.h \
-    V2/physics/v2collider.h
+    V2-app/logic/world.h
+
 
 SOURCES += \
     V2-app/objects/ground.cpp \
-    V2-app/logic/world.cpp \
-    V2/physics/v2collider.cpp
+    V2-app/logic/world.cpp
 
 
 

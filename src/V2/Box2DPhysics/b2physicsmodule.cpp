@@ -7,44 +7,44 @@
 
 #include <QTimer>
 
-B2PhysicsModule::B2PhysicsModule():
+Box2DPhysicsModule::Box2DPhysicsModule():
     _world(std::make_shared<b2World>(b2Vec2(0,-10))),
     isRunning(false)
 {
-    connect(&_thread, &QThread::started, this, &B2PhysicsModule::onThreadRun);
-    connect(&_thread, &QThread::finished, this, &B2PhysicsModule::onThreadStop);
+    connect(&_thread, &QThread::started, this, &Box2DPhysicsModule::onThreadRun);
+    connect(&_thread, &QThread::finished, this, &Box2DPhysicsModule::onThreadStop);
 }
 
-B2PhysicsModule::~B2PhysicsModule()
+Box2DPhysicsModule::~Box2DPhysicsModule()
 {
     stopThread();
 }
 
-bool B2PhysicsModule::enableModule(V2Engine *engine)
+bool Box2DPhysicsModule::enableModule(V2Engine *engine)
 {
     onSceneChanged(engine->scene());
-    connect(engine->scene(), &V2Scene::objectAdded, this, &B2PhysicsModule::onObjectAddedToScene);
+    connect(engine->scene(), &V2Scene::objectAdded, this, &Box2DPhysicsModule::onObjectAddedToScene);
     return runThread();
 }
 
-bool B2PhysicsModule::disableModule(V2Engine *)
+bool Box2DPhysicsModule::disableModule(V2Engine *)
 {
     return stopThread();
 }
 
-bool B2PhysicsModule::initModule(V2Engine * engine)
+bool Box2DPhysicsModule::initModule(V2Engine * engine)
 {
-    connect(engine, &V2Engine::sceneChanged, this, &B2PhysicsModule::onSceneChanged);
+    connect(engine, &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
     return true;
 }
 
-bool B2PhysicsModule::stopModule(V2Engine * engine)
+bool Box2DPhysicsModule::stopModule(V2Engine * engine)
 {
-    disconnect(engine, &V2Engine::sceneChanged, this, &B2PhysicsModule::onSceneChanged);
+    disconnect(engine, &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
     return true;
 }
 
-void B2PhysicsModule::onSceneChanged(V2Scene * scene)
+void Box2DPhysicsModule::onSceneChanged(V2Scene * scene)
 {
     _cachedObjectData.clear();
     foreach(V2Object *obj, scene->objects())
@@ -53,19 +53,19 @@ void B2PhysicsModule::onSceneChanged(V2Scene * scene)
     }
 }
 
-void B2PhysicsModule::onObjectAddedToScene(V2Object * object)
+void Box2DPhysicsModule::onObjectAddedToScene(V2Object * object)
 {
-    V2RigidBody * rb = object->resource<V2RigidBody>();
+    //V2RigidBody * rb = object->resource<V2RigidBody>();
 
-    if (nullptr == rb){
+   /* if (nullptr == rb){
         return;
-    }
+    }*/
 
-    auto ptr = std::make_shared<B2PhysicsRigidBody>(_world, glm::vec2(object->position()), object->rotation().z);
-    _cachedObjectData[object] = ptr;
+   // auto ptr = std::make_shared<Box2DPhysicsRigidBody>(_world, glm::vec2(object->position()), object->rotation().z);
+    //_cachedObjectData[object] = ptr;
 }
 
-bool B2PhysicsModule::runThread()
+bool Box2DPhysicsModule::runThread()
 {
     if (isRunning) {
         return false;
@@ -77,7 +77,7 @@ bool B2PhysicsModule::runThread()
     return true;
 }
 
-bool B2PhysicsModule::stopThread()
+bool Box2DPhysicsModule::stopThread()
 {
     if (isRunning){
         this->moveToThread(QApplication::instance()->thread());
@@ -87,18 +87,18 @@ bool B2PhysicsModule::stopThread()
     return true;
 }
 
-void B2PhysicsModule::onThreadRun()
+void Box2DPhysicsModule::onThreadRun()
 {
     _timer.start();
     performCalcs();
 }
 
-void B2PhysicsModule::onThreadStop()
+void Box2DPhysicsModule::onThreadStop()
 {
     isRunning = false;
 }
 
-void B2PhysicsModule::performCalcs()
+void Box2DPhysicsModule::performCalcs()
 {
     const int32 velocityIterations = 50;
     const int32 positionIterations = 50;
@@ -114,6 +114,6 @@ void B2PhysicsModule::performCalcs()
     }
 
     if (isRunning){
-        QTimer::singleShot(1, this, &B2PhysicsModule::performCalcs);
+        QTimer::singleShot(1, this, &Box2DPhysicsModule::performCalcs);
     }
 }
