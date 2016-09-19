@@ -53,7 +53,7 @@ void Box2DPhysicsModule::onSceneChanged(V2Scene * scene)
     }
 }
 
-void Box2DPhysicsModule::onObjectAddedToScene(V2Object * object)
+void Box2DPhysicsModule::onObjectAddedToScene(V2Object *)
 {
     //V2RigidBody * rb = object->resource<V2RigidBody>();
 
