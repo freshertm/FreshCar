@@ -1,7 +1,7 @@
 TEMPLATE=lib
 CONFIG += staticlib
 TARGET=libQJSon
-DESTDIR=../bin
+DESTDIR=../../bin
 
 INCLUDEPATH += include/QJson
 INCLUDEPATH += src

@@ -3,7 +3,7 @@
 
 #include "v2resource.h"
 
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 #include <memory>
 #include "glm/glm.hpp"
 

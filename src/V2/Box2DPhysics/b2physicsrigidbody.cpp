@@ -1,5 +1,5 @@
 #include "b2physicsrigidbody.h"
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 using namespace std;
 
 Box2DPhysicsRigidBody::Box2DPhysicsRigidBody(std::shared_ptr<b2World> & world, glm::vec2 & position, float angle):

@@ -3,7 +3,7 @@
 
 #include "v2module.h"
 #include <memory>
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 #include <QThread>
 #include "b2physicsrigidbody.h"
 #include <QMap>

@@ -1,7 +1,7 @@
 TEMPLATE=lib
 CONFIG += staticlib
 TARGET=libglm
-DESTDIR=../bin
+DESTDIR=../../bin
 
 
 SOURCES=detail/glm.cpp

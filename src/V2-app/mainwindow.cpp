@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "renderer.h"
+#include "v2renderer.h"
 #include "v2appglwindow.h"
 #include "v2scene.h"
 #include "appcube.h"

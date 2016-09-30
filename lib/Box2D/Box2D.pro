@@ -1,7 +1,7 @@
 TEMPLATE=lib
 CONFIG += staticlib
 TARGET=libBox2d
-DESTDIR=../bin
+DESTDIR=../../bin
 
 #To avoid compile error with cannot 'include file Box2d/...'
 INCLUDEPATH += ../
