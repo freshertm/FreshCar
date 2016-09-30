@@ -4,7 +4,7 @@
 #include <QtCore/qtypeinfo.h>
 #include <QVector>
 #include "v2resource.h"
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 struct TexCoord
 {

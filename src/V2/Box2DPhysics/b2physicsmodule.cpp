@@ -1,6 +1,6 @@
 #include "b2physicsmodule.h"
 #include "v2engine.h"
-#include "QApplication"
+#include <QApplication>
 
 #include "b2physicsrigidbody.h"
 #include "v2object.h"

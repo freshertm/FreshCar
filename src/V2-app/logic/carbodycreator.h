@@ -2,7 +2,6 @@
 #define CARBODYCREATOR_H
 
 #include "cargenome.h"
-#include "Box2D.h"
 #include <QList>
 #include <QVector>
 #include "v2geometry.h"
@@ -11,7 +10,7 @@
 class CarBodyCreator
 {
 public:
-    typedef QVector<b2Vec2> VerticeList;
+    //typedef QVector<b2Vec2> VerticeList;
     typedef QVector<Triangle> TriangleList;
     typedef QList<quint32> FreeEdgeList;
 
@@ -31,7 +30,7 @@ private:
 
 private:
     void putEdge(const Edge &edge);
-    bool hasVertice(const b2Vec2&, int * id = NULL) const;
+    //bool hasVertice(const b2Vec2&, int * id = NULL) const;
     bool hasEdge(const Edge& edge, int * id = NULL) const;
     bool hasTriangle(const Triangle &);
 };

@@ -1,7 +1,7 @@
 #include "carbodycreator.h"
 #include <QDebug>
 #include <QList>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 CarBodyCreator::CarBodyCreator(const CarGenome& carGenome, const WorldProperties &properties)
 {

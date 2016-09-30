@@ -2,7 +2,7 @@
 #define V2CAMERA_H
 
 #include <QObject>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 class V2Camera: public QObject
 {

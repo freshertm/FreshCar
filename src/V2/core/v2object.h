@@ -6,7 +6,7 @@
 #include "v2geometry.h"
 #include "v2resource.h"
 #include <QObject>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 class V2Module;
 class V2Object: public QObject, public V2ResourceContainer
