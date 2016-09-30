@@ -27,34 +27,7 @@ INCLUDEPATH += glm
 INCLUDEPATH += lib/Box2D
 
 qjson_lib {
-INCLUDEPATH += QJson/include/QJson
-INCLUDEPATH += QJson/src
-SOURCES+= QJson/src/json_parser.cc \
-    QJson/src/json_scanner.cc \
-    QJson/src/json_scanner.cpp \
-    QJson/src/parser.cpp \
-    QJson/src/parserrunnable.cpp \
-    QJson/src/qobjecthelper.cpp \
-    QJson/src/serializer.cpp \
-    QJson/src/serializerrunnable.cpp
 
-HEADERS+= QJson/include/QJson/Parser \
-    QJson/include/QJson/QObjectHelper \
-    QJson/include/QJson/Serializer \
-    QJson/src/FlexLexer.h \
-    QJson/src/json_parser.hh \
-    QJson/src/json_scanner.h \
-    QJson/src/location.hh \
-    QJson/src/parser.h \
-    QJson/src/parser_p.h \
-    QJson/src/parserrunnable.h \
-    QJson/src/position.hh \
-    QJson/src/qjson_debug.h \
-    QJson/src/qjson_export.h \
-    QJson/src/qobjecthelper.h \
-    QJson/src/serializer.h \
-    QJson/src/serializerrunnable.h \
-    QJson/src/stack.hh
 }
 
 v2_engine {
