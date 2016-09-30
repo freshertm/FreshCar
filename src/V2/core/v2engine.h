@@ -5,6 +5,7 @@
 #include "v2resource.h"
 #include <QObject>
 #include "v2scene.h"
+#include <typeindex>
 
 class V2Module;
 class V2Object;
@@ -16,7 +17,10 @@ public:
     V2Engine();
     ~V2Engine();
     template <class T> T* module();
+    V2Module * moduleByType(const std::type_index & ti);
     template <class T> bool initModule();
+    bool initModule(V2Module *module);
+
     template <class T> bool stopModule(){}
 
     template <class T> bool enableModule();
@@ -57,13 +61,7 @@ T* V2Engine::module()
 template <class T> bool V2Engine::initModule()
 {
     T* m = this->module<T>();
-    if (m) {
-        if (m->init(this)) {
-            emit moduleInitialized(m);
-            return true;
-        }
-    }
-    return false;
+    return initModule(m);
 }
 
 

@@ -18,6 +18,8 @@ public:
     Renderer();
     virtual ~Renderer(){}
 
+    virtual QList<std::type_index> dependencies() const;
+
 protected:
     virtual bool initModule(V2Engine*);
     virtual bool stopModule(V2Engine *);

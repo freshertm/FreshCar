@@ -18,6 +18,14 @@ Renderer::Renderer(): V2Renderer(), _currentCamera(nullptr)
 {
 }
 
+QList<std::type_index> Renderer::dependencies() const
+{
+    QList<std::type_index> list;
+    list.append(typeid(V2CameraList));
+    list.append(typeid(V2Window));
+    return list;
+}
+
 bool Renderer::initModule(V2Engine * engine)
 {
     V2Window * window = engine->module<V2Window>();

@@ -3,18 +3,22 @@
 
 #include <QList>
 #include <QObject>
+#include <typeindex>
 
 class ObjectData;
 class V2Object;
 
 class ModuleData{};
 class V2Engine;
+
 class V2Module: public QObject
 {
     Q_OBJECT
 public:
     V2Module();
     virtual ~V2Module(){}
+
+    virtual QList<std::type_index> dependencies() const;
 
     /**
      * Tries to initialize module.

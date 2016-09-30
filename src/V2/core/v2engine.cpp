@@ -13,6 +13,40 @@ V2Engine::~V2Engine()
 {
 }
 
+V2Module *V2Engine::moduleByType(const std::type_index &ti)
+{
+    foreach(V2Module *module, _modules)
+    {
+        if (std::type_index(typeid(module)) == ti) {
+            return module;
+        }
+    }
+    return nullptr;
+}
+
+bool V2Engine::initModule(V2Module *module)
+{
+    if (!module) {
+        return false;
+    }
+    foreach(auto & type, module->dependencies())
+    {
+        auto * subModule = moduleByType(type);
+        if (!subModule) {
+            qDebug() << "Cannot find module \"" << type.name() << "\"";
+            return false;
+        }
+        if (!initModule(subModule)){
+            return false;
+        }
+    }
+    if (module->init(this)) {
+        emit moduleInitialized(module);
+        return true;
+    }
+    return false;
+}
+
 V2Scene *V2Engine::scene()
 {
     return _scene;
