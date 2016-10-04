@@ -28,9 +28,9 @@ private slots:
 private:
     void updateCamera();
 
-    V2CameraList * _camList;
-    V2Window * _window;
-    V2Camera * _camera;
+    std::shared_ptr<V2CameraList> _camList;
+    std::shared_ptr<V2Window> _window;
+    std::shared_ptr<V2Camera> _camera;
     int  _width;
     int _height;
     float _xShift;

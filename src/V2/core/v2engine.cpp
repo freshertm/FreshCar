@@ -6,32 +6,28 @@
 V2Engine::V2Engine()
 {
     setScene(0);   
-    addModule(new Renderer);
+    addModule(std::make_shared<Renderer>());
 }
 
 V2Engine::~V2Engine()
 {
 }
 
-V2Module *V2Engine::moduleByType(const std::type_index &ti)
+std::shared_ptr<V2Module>V2Engine::moduleByType(const std::type_index &ti)
 {
-    foreach(V2Module *module, _modules)
-    {
-        if (std::type_index(typeid(module)) == ti) {
-            return module;
-        }
-    }
-    return nullptr;
+    if (_modulesMap.contains(ti))
+        return _modulesMap[ti];
+    return std::shared_ptr<V2Module>();
 }
 
-bool V2Engine::initModule(V2Module *module)
+bool V2Engine::initModule(std::shared_ptr<V2Module> module)
 {
     if (!module) {
         return false;
     }
     foreach(auto & type, module->dependencies())
     {
-        auto * subModule = moduleByType(type);
+        auto &subModule = moduleByType(type);
         if (!subModule) {
             qDebug() << "Cannot find module \"" << type.name() << "\"";
             return false;
@@ -41,7 +37,7 @@ bool V2Engine::initModule(V2Module *module)
         }
     }
     if (module->init(this)) {
-        emit moduleInitialized(module);
+        emit moduleInitialized(module.get());
         return true;
     }
     return false;
@@ -52,15 +48,9 @@ V2Scene *V2Engine::scene()
     return _scene;
 }
 
-bool V2Engine::addAndInitModule(V2Module * module)
-{
-    addModule(module);
-    return module->init(this);
-}
-
 bool V2Engine::unregisterModule(V2Module *modulePtr)
 {
-    if (0 != modulePtr->refs())
+    /*if (0 != modulePtr->refs())
     {
         return false;
     }
@@ -72,7 +62,7 @@ bool V2Engine::unregisterModule(V2Module *modulePtr)
             i.remove();
             return true;
         }
-    }
+    }*/
     return false;
 }
 
@@ -85,8 +75,3 @@ void V2Engine::setScene(V2Scene *scene)
     emit sceneChanged(_scene);
 }
 
-void V2Engine::addModule(V2Module *module)
-{
-    _modules.append(module);
-    emit moduleAdded(module);
-}

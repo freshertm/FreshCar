@@ -28,23 +28,23 @@ QList<std::type_index> Renderer::dependencies() const
 
 bool Renderer::initModule(V2Engine * engine)
 {
-    V2Window * window = engine->module<V2Window>();
+    std::shared_ptr<V2Window> window = engine->module<V2Window>();
     if (window == nullptr) {
         qDebug() << "Renderer init(): can't find window.";
         return false;
     }
     window->addRef(); // window can't be unloaded until render is working.
 
-    V2CameraList * camList = new V2CameraList();
+    auto camList = std::make_shared<V2CameraList>();
     camList->addRef();
     engine->addModule(camList);
     engine->initModule<V2CameraList>();
 
     onCameraChanged(camList->currentCamera());
-    connect(camList, &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
+    connect(camList.get(), &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
 
-    connect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);
-    connect(window, &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
+    connect(window.get(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
+    connect(window.get(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
 
     connect(engine, &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
     onSceneChanged(engine->scene());
@@ -56,18 +56,10 @@ bool Renderer::initModule(V2Engine * engine)
 
 bool Renderer::stopModule(V2Engine *engine)
 {
-    V2Window * window = engine->module<V2Window>();
-    disconnect(window, &V2Window::resizeSignal, this, &Renderer::resizeEvent);
-    disconnect(window, &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
+    auto window = engine->module<V2Window>();
+    disconnect(window.get(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
+    disconnect(window.get(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
     disconnect(engine, &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
-    window->release();
-
-    V2CameraList * camList = engine->module<V2CameraList>();
-    Q_ASSERT(camList != nullptr);
-    camList->release();
-    if (engine->unregisterModule(camList)){
-        delete camList;
-    }
 
     qDebug() << "Renderer stop() complete.";
     return true;
