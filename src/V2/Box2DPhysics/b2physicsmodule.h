@@ -20,14 +20,14 @@ public:
     virtual ~Box2DPhysicsModule();
 
 protected:
-    virtual bool enableModule(V2Engine*);
-    virtual bool disableModule(V2Engine*);
-    virtual bool initModule(V2Engine *engine);
-    virtual bool stopModule(V2Engine *);
+    virtual bool enableModule(QSharedPointer<V2Engine>&);
+    virtual bool disableModule(QSharedPointer<V2Engine>&);
+    virtual bool initModule(QSharedPointer<V2Engine>&);
+    virtual bool stopModule(QSharedPointer<V2Engine>&);
 
 private slots:
-    void onSceneChanged(V2Scene *scene);
-    void onObjectAddedToScene(V2Object *);
+    void onSceneChanged(QSharedPointer<V2Scene> &scene);
+    void onObjectAddedToScene(const QSharedPointer<V2Object> &);
 
     bool runThread();
     bool stopThread();
@@ -38,8 +38,8 @@ private slots:
     void performCalcs();
 
 private:
-    std::shared_ptr<b2World> _world;
-    QMap<V2Object*, std::shared_ptr<Box2DPhysicsRigidBody> > _cachedObjectData;
+    QSharedPointer<b2World> _world;
+    QMap<V2Object* , QSharedPointer<Box2DPhysicsRigidBody>> _cachedObjectData;
     QThread _thread;
     bool isRunning;
 

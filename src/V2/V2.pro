@@ -23,7 +23,6 @@ HEADERS += \
 
 
 INCLUDEPATH += render
-LIBS += opengl32.lib
 HEADERS += \
     render/v2geometry.h \
     render/v2renderproperties.h \
@@ -54,6 +53,9 @@ SOURCES += \
     render/private/renderdata.cpp
 
 
+INCLUDEPATH += physics
+SOURCES+=physics/v2rigidbody2d.cpp
+HEADERS+=physics/v2rigidbody2d.h
 
 INCLUDEPATH += Box2DPhysics
 HEADERS+=\

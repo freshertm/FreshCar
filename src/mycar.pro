@@ -16,6 +16,7 @@ QMAKE_LFLAGS+= /INCREMENTAL:NO
 
 INCLUDEPATH += V2/core
 INCLUDEPATH += V2/render
+INCLUDEPATH += V2/physics
 INCLUDEPATH += V2/Box2DPhysics
 INCLUDEPATH += ../lib
 
@@ -54,3 +55,5 @@ LIBS += ../bin/libQJson.lib \
  ../bin/libv2.lib \
  ../bin/libglm.lib \
  ../bin/libBox2d.lib
+
+LIBS += opengl32.lib

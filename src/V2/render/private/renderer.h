@@ -4,11 +4,11 @@
 #include "v2renderer.h"
 #include <QObject>
 #include <QHash>
+#include "v2window.h"
+#include "v2Camera.h"
 
-class V2Window;
 
 class V2Object;
-class V2Camera;
 class V2Scene;
 class RenderData;
 class Renderer: public V2Renderer
@@ -21,33 +21,33 @@ public:
     virtual QList<std::type_index> dependencies() const;
 
 protected:
-    virtual bool initModule(V2Engine*);
-    virtual bool stopModule(V2Engine *);
+    virtual bool initModule(QSharedPointer<V2Engine>&);
+    virtual bool stopModule(QSharedPointer<V2Engine> &);
 
-    virtual bool enableModule(V2Engine *);
-    virtual bool disableModule(V2Engine *);
+    virtual bool enableModule(QSharedPointer<V2Engine>&);
+    virtual bool disableModule(QSharedPointer<V2Engine>&);
 
 private slots:
     void windowPaintReady();
     void resizeEvent(int width, int height);
 
 private slots:   
-    void onSceneChanged(V2Scene *);
-    void onObjectAddedToScene(V2Object *);
+    void onSceneChanged(QSharedPointer<V2Scene> &);
+    void onObjectAddedToScene(const QSharedPointer<V2Object> &);
 
-    void onCameraChanged(V2Camera *newCamera);
-    void onCameraMove(V2Camera *);
-
-private:
-    V2Window * _window;
-    V2Camera *_camera;
-
-    QHash<V2Object*, RenderData *> _cachedObjectData;
+    void onCameraChanged(const QSharedPointer<V2Camera> &newCamera);
+    void onCameraMove(const QSharedPointer<V2Camera>&);
 
 private:
-    void processObject(V2Object *);
+    QSharedPointer<V2Window> _window;
+    QSharedPointer<V2Camera> _camera;
 
-    V2Camera* _currentCamera;
+    QMap<QSharedPointer<V2Object>, QSharedPointer<RenderData>> _cachedObjectData;
+
+private:
+    void processObject(const QSharedPointer<V2Object> &);
+
+    QSharedPointer<V2Camera> _currentCamera;
 };
 
 #endif // RENDERER_H

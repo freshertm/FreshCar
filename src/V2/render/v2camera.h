@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <glm/glm.hpp>
+#include <QSharedPointer>
 
-class V2Camera: public QObject
+class V2Camera: public QObject, public QEnableSharedFromThis<V2Camera>
 {
     Q_OBJECT
 public:
@@ -30,7 +31,7 @@ protected:
     void updateCamera();
 
 signals:
-    void cameraChanged(V2Camera *);
+    void cameraChanged(const QSharedPointer<V2Camera>&);
 
 private:
     glm::mat4 _cameraMatrix;

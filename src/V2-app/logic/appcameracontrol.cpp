@@ -9,20 +9,20 @@ void AppCameraControl::onMouseWheel(int diff)
 
 }
 
-AppCameraControl::AppCameraControl(V2Engine * engine):
+AppCameraControl::AppCameraControl(QSharedPointer<V2Engine> &engine):
     _xShift(0.0f),
     _yShift(0.0f)
 {
     _camList = engine->module<V2CameraList>();
-    Q_ASSERT(_camList != 0);
+    Q_ASSERT(_camList.isNull());
 
-    connect(_camList, &V2CameraList::newCameraSelected, this, &AppCameraControl::onCameraChanged);
+    connect(_camList.data(), &V2CameraList::newCameraSelected, this, &AppCameraControl::onCameraChanged);
     _camList->addRef();
 
     _window = engine->module<V2Window>();
-    Q_ASSERT(_window != 0);
+    Q_ASSERT(_window.isNull());
 
-    connect(_window, &V2Window::resizeSignal, this, &AppCameraControl::onResize);
+    connect(_window.data(), &V2Window::resizeSignal, this, &AppCameraControl::onResize);
     _window->addRef();
     _width = _window->width();
     _height = _window->height();
@@ -34,10 +34,10 @@ AppCameraControl::~AppCameraControl()
     _camList->release();
 }
 
-void AppCameraControl::onCameraChanged(V2Camera * camera)
+void AppCameraControl::onCameraChanged(const QSharedPointer<V2Camera> &camera)
 {
-    V2OrthoCamera * cam = dynamic_cast<V2OrthoCamera*>(camera);
-    Q_ASSERT(cam != nullptr);
+    auto cam = qSharedPointerDynamicCast<V2OrthoCamera>(camera);
+    Q_ASSERT(!cam.isNull());
     _camera = cam;
 }
 

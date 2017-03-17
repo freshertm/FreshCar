@@ -3,9 +3,8 @@
 
 #include <QList>
 #include <QObject>
+#include "v2object.h"
 
-
-class V2Object;
 class V2Scene: public QObject
 {
     Q_OBJECT
@@ -13,15 +12,15 @@ public:
     V2Scene();
     ~V2Scene();
 
-    void addObject(V2Object *);
-    const QList<V2Object*> objects();
+    void addObject(QSharedPointer<V2Object>&);
+    const QList<QSharedPointer<V2Object>> objects();
 
 signals:
-    void objectAdded(V2Object*);
+    void objectAdded(QSharedPointer<V2Object>&);
     //void objectRemoved(WorldObject*);
 
 private:
-    QList<V2Object*> _objects;
+    QList<QSharedPointer<V2Object>> _objects;
 };
 
 #endif // V2SCENE_H

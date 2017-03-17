@@ -5,24 +5,25 @@
 
 V2Engine::V2Engine()
 {
-    setScene(0);   
-    addModule(std::make_shared<Renderer>());
+    setScene(QSharedPointer<V2Scene>::create());
+    auto qwe = QSharedPointer<Renderer>::create();
+    addModule(qwe);
 }
 
 V2Engine::~V2Engine()
 {
 }
 
-std::shared_ptr<V2Module>V2Engine::moduleByType(const std::type_index &ti)
+QSharedPointer<V2Module>V2Engine::moduleByType(const std::type_index &ti)
 {
     if (_modulesMap.contains(ti))
         return _modulesMap[ti];
-    return std::shared_ptr<V2Module>();
+    return QSharedPointer<V2Module>();
 }
 
-bool V2Engine::initModule(std::shared_ptr<V2Module> module)
+bool V2Engine::initModule(QSharedPointer<V2Module> &module)
 {
-    if (!module) {
+    if (module.isNull()) {
         return false;
     }
     foreach(auto & type, module->dependencies())
@@ -36,20 +37,24 @@ bool V2Engine::initModule(std::shared_ptr<V2Module> module)
             return false;
         }
     }
-    if (module->init(this)) {
-        emit moduleInitialized(module.get());
+    if (module->init(sharedFromThis())) {
+        emit moduleInitialized(module);
         return true;
     }
     return false;
 }
 
-V2Scene *V2Engine::scene()
+QSharedPointer<V2Scene> V2Engine::scene()
 {
     return _scene;
 }
 
-bool V2Engine::unregisterModule(V2Module *modulePtr)
+bool V2Engine::unregisterModule(std::type_index & t)
 {
+    auto module = moduleByType(t);
+    if (module.isNull()) {
+        return false;
+    }
     /*if (0 != modulePtr->refs())
     {
         return false;
@@ -66,10 +71,10 @@ bool V2Engine::unregisterModule(V2Module *modulePtr)
     return false;
 }
 
-void V2Engine::setScene(V2Scene *scene)
+void V2Engine::setScene(QSharedPointer<V2Scene> & scene)
 {
-    if (scene == nullptr){
-        scene = new V2Scene();
+    if (scene.isNull()){
+        scene = QSharedPointer<V2Scene>::create();
     }
     _scene = scene;
     emit sceneChanged(_scene);

@@ -50,15 +50,15 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
 
     QVector<TexCoord> texcoords;
 
-    Geometry * geometry = new Geometry(vertices, normals,triangles, texcoords);
-    setResource(geometry);
+    auto geometry = QSharedPointer<Geometry>::create(vertices, normals,triangles, texcoords);
+    addAgent(geometry);
     setRotation(glm::vec3(0,0,angle));
     setPosition(glm::vec3(position.x, position.y, 0));
-    V2RenderProperties *prop = new V2RenderProperties();
+    auto prop = QSharedPointer<V2RenderProperties>::create();
     prop->setLighting(false);
     prop->setColor(V2Color(0,255,0));
     //prop->setWireframe(true);
-    setResource(prop);
+    addAgent(prop);
     //setResource(new Box2DPhysicsRigidBody());
 }
 

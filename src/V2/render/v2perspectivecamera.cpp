@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "v2window.h"
 
-V2PerspectiveCamera::V2PerspectiveCamera(V2Window * window):
+V2PerspectiveCamera::V2PerspectiveCamera(QSharedPointer<V2Window> &window):
     _window(window), _fov(90.0f), _near(0.01f), _far(100.0f), _aspect(1.0f)
 {
     Q_ASSERT(window != nullptr);
@@ -17,14 +17,14 @@ V2PerspectiveCamera::~V2PerspectiveCamera()
 
 bool V2PerspectiveCamera::enable()
 {
-    connect(_window, &V2Window::resizeSignal, this, &V2PerspectiveCamera::onResize);
+    connect(_window.data(), &V2Window::resizeSignal, this, &V2PerspectiveCamera::onResize);
     onResize(_window->width(), _window->height());
     return true;
 }
 
 bool V2PerspectiveCamera::disable()
 {
-    disconnect(_window, &V2Window::resizeSignal, this, &V2PerspectiveCamera::onResize);
+    disconnect(_window.data(), &V2Window::resizeSignal, this, &V2PerspectiveCamera::onResize);
     return true;
 }
 

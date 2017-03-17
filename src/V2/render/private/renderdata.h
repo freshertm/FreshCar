@@ -8,7 +8,7 @@
 class RenderData: public V2Resource
 {
 public:
-    RenderData(const Geometry * geometry);
+    RenderData(const QSharedPointer<Geometry>& geometry);
     ~RenderData();
     virtual void process();
 

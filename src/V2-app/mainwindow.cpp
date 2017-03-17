@@ -20,7 +20,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
 {
     _ui->setupUi(this);
 
-    v2appGLWindow *glWindow = new v2appGLWindow();
+    auto glWindow = QSharedPointer<v2appGLWindow>::create();
     _engine.addModule(glWindow);
     if (!_engine.initModule<V2Renderer>()) {
         qDebug() << "Cannot initialize renderer.";
@@ -31,12 +31,14 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _ui->widget->layout()->addWidget(glWindow->widget());
     //setCentralWidget(glWindow->widget());
 
-    connect(glWindow, &V2Window::paintReadySignal, this, &V2MainWindow::onFrame);
+    connect(glWindow.data(), &V2Window::paintReadySignal, this, &V2MainWindow::onFrame);
     connect(_ui->horizontalSlider, &QSlider::valueChanged, this, &V2MainWindow::onNewSliderValue);
     connect(_ui->horizontalSlider_2, &QSlider::valueChanged, this, &V2MainWindow::onNewSlider2Value);
 
 
-    if (!_engine.addAndInitModule(new Box2DPhysicsModule()))
+    auto box2d = QSharedPointer<Box2DPhysicsModule>::create();
+    _engine.addModule(box2d);
+    if (!_engine.initModule<Box2DPhysicsModule>())
     {
         qDebug() << "Cannot init Box2DPhysicsModule module";
     };
@@ -61,8 +63,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
         qDebug() << "Cannot enable V2Physics module";
     }
 
-    V2CameraList *cameras = _engine.module<V2CameraList>();
-    _camera = new V2PerspectiveCamera(glWindow);
+    auto cameras = _engine.module<V2CameraList>();
+    _camera = QSharedPointer<V2PerspectiveCamera>::create(qSharedPointerDynamicCast<V2Window>(glWindow));
     //_camera = new V2OrthoCamera();
 
    /* _camera->setFar(1000);
@@ -76,11 +78,10 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _camera->setPosition(glm::vec3(0,0,-10));
     _camera->setLookPoint(glm::vec3(0,0,0));
 
-    cameras->setCurrent(_camera);
+    cameras->setCurrent(qSharedPointerDynamicCast<V2Camera>(_camera));
     //V2APPCube *cube = new V2APPCube(10);
 
-    V2Object *brick = new Brick(glm::vec2(0,0), 0, 20, 3);
-    _engine.scene()->addObject(brick);
+    _engine.scene()->addObject(QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3)));
 }
 
 V2MainWindow::~V2MainWindow()

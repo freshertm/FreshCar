@@ -3,7 +3,7 @@
 
 V2CameraList::V2CameraList()
 {
-    _current = new V2Camera();
+    _current = QSharedPointer<V2Camera>::create();
 }
 
 V2CameraList::~V2CameraList()
@@ -11,12 +11,12 @@ V2CameraList::~V2CameraList()
 
 }
 
-V2Camera *V2CameraList::currentCamera()
+const QSharedPointer<V2Camera> &V2CameraList::currentCamera()
 {
     return _current;
 }
 
-void V2CameraList::setCurrent(V2Camera * camera)
+void V2CameraList::setCurrent(QSharedPointer<V2Camera> &camera)
 {
     Q_ASSERT(camera != nullptr);
     _current->disable();

@@ -26,27 +26,27 @@ QList<std::type_index> Renderer::dependencies() const
     return list;
 }
 
-bool Renderer::initModule(V2Engine * engine)
+bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
 {
-    std::shared_ptr<V2Window> window = engine->module<V2Window>();
+    auto window = engine->module<V2Window>();
     if (window == nullptr) {
         qDebug() << "Renderer init(): can't find window.";
         return false;
     }
     window->addRef(); // window can't be unloaded until render is working.
 
-    auto camList = std::make_shared<V2CameraList>();
+    auto camList = QSharedPointer<V2CameraList>::create();
     camList->addRef();
     engine->addModule(camList);
     engine->initModule<V2CameraList>();
 
     onCameraChanged(camList->currentCamera());
-    connect(camList.get(), &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
+    connect(camList.data(), &V2CameraList::newCameraSelected, this, &Renderer::onCameraChanged);
 
-    connect(window.get(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
-    connect(window.get(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
+    connect(window.data(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
+    connect(window.data(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
 
-    connect(engine, &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
+    connect(engine.data(), &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
     onSceneChanged(engine->scene());
 
     glClearColor(0, 0, 0, 1.0);
@@ -54,24 +54,24 @@ bool Renderer::initModule(V2Engine * engine)
     return true;
 }
 
-bool Renderer::stopModule(V2Engine *engine)
+bool Renderer::stopModule(QSharedPointer<V2Engine> &engine)
 {
     auto window = engine->module<V2Window>();
-    disconnect(window.get(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
-    disconnect(window.get(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
-    disconnect(engine, &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
+    disconnect(window.data(), &V2Window::resizeSignal, this, &Renderer::resizeEvent);
+    disconnect(window.data(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
+    disconnect(engine.data(), &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
 
     qDebug() << "Renderer stop() complete.";
     return true;
 }
 
-bool Renderer::enableModule(V2Engine *engine)
+bool Renderer::enableModule(QSharedPointer<V2Engine> &engine)
 {
     onSceneChanged(engine->scene());
     return engine->enableModule<V2CameraList>();
 }
 
-bool Renderer::disableModule(V2Engine *engine)
+bool Renderer::disableModule(QSharedPointer<V2Engine> &engine)
 {
     return engine->disableModule<V2CameraList>();
 }
@@ -79,7 +79,7 @@ bool Renderer::disableModule(V2Engine *engine)
 void Renderer::windowPaintReady()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    foreach(V2Object *object, _cachedObjectData.keys()){
+    foreach(const auto &object, _cachedObjectData.keys()){
         glLoadIdentity();
         processObject(object);
     }
@@ -96,13 +96,13 @@ void Renderer::resizeEvent(int width, int height)
     qDebug() << "Render resize "<<width<<"x"<<height;
 }
 
-void Renderer::processObject(V2Object * obj)
+void Renderer::processObject(const QSharedPointer<V2Object> &obj)
 {
-    RenderData* data = _cachedObjectData[obj];
-    if (data == nullptr){
-        Geometry * geometry = obj->resource<Geometry>();
-        Q_ASSERT(geometry != nullptr);
-        data = new RenderData(geometry);
+    auto data = _cachedObjectData[obj];
+    if (data.isNull()){
+        auto geometry = obj->agent<Geometry>();
+        Q_ASSERT( !geometry.isNull() );
+        data = QSharedPointer<RenderData>::create(geometry);
         _cachedObjectData[obj] = data;
     }
 
@@ -119,8 +119,8 @@ void Renderer::processObject(V2Object * obj)
 
     bool wireFrame = false;
     bool lighting = glIsEnabled(GL_LIGHTING);
-    V2RenderProperties * prop = obj->resource<V2RenderProperties>();
-    if (prop != nullptr){
+    QSharedPointer<V2RenderProperties> &prop = obj->agent<V2RenderProperties>();
+    if (!prop.isNull()){
         if (prop->isWireframe()){
             wireFrame = true;
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
@@ -147,19 +147,19 @@ void Renderer::processObject(V2Object * obj)
     }
 }
 
-void Renderer::onCameraChanged(V2Camera *newCamera)
+void Renderer::onCameraChanged(const QSharedPointer<V2Camera> &newCamera)
 {
-    if (_currentCamera != nullptr) {
-        disconnect(_currentCamera, &V2Camera::cameraChanged, this, &Renderer::onCameraMove);
+    if (_currentCamera.isNull()) {
+        disconnect(_currentCamera.data(), &V2Camera::cameraChanged, this, &Renderer::onCameraMove);
     }
 
     _currentCamera = newCamera;
-    connect(newCamera, &V2Camera::cameraChanged,  this, &Renderer::onCameraMove);
+    connect(newCamera.data(), &V2Camera::cameraChanged,  this, &Renderer::onCameraMove);
 
     onCameraMove(newCamera);
 }
 
-void Renderer::onCameraMove(V2Camera* camera)
+void Renderer::onCameraMove(const QSharedPointer<V2Camera> &camera)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -167,31 +167,28 @@ void Renderer::onCameraMove(V2Camera* camera)
     glMatrixMode(GL_MODELVIEW);
 }
 
-void Renderer::onSceneChanged(V2Scene *scene)
+void Renderer::onSceneChanged(QSharedPointer<V2Scene> &scene)
 {
-    //disconnect(_sceneConnection);
-    foreach(RenderData * renderData,  _cachedObjectData.values()) {
-        delete renderData;
-    }
     _cachedObjectData.clear();
 
-    connect(scene, &V2Scene::objectAdded, this, &Renderer::onObjectAddedToScene);
+    connect(scene.data(), &V2Scene::objectAdded, this, &Renderer::onObjectAddedToScene);
 
-    foreach(V2Object *object , scene->objects()){
+    foreach(auto &object , scene->objects()){
         onObjectAddedToScene(object);
     }
 }
 
-void Renderer::onObjectAddedToScene(V2Object * object)
+void Renderer::onObjectAddedToScene(const QSharedPointer<V2Object> &object)
 {
-    Geometry * geometry = object->resource<Geometry>();
-    if (geometry == nullptr) {
+    auto geometry = object->agent<Geometry>();
+    if (geometry.isNull()) {
         return;
     }
 
     if (_cachedObjectData.contains(object)){
         return;
     }
-    _cachedObjectData[object] = nullptr;
+
+    _cachedObjectData[object] = QSharedPointer<RenderData>();
 }
 

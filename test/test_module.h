@@ -12,6 +12,7 @@ public:
     ~Test_Module();
 
 private slots:
+    /*
     void testInitSimple();
     void testStopSimple();
     void testInitClass();
@@ -20,6 +21,7 @@ private slots:
     void testDisableSimple();
 
     void testRefs();
+    */
 };
 
 #endif // TEST_MODULE_H

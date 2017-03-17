@@ -10,7 +10,7 @@ Test_Module::~Test_Module()
 {
 
 }
-
+/*
 void Test_Module::testInitSimple()
 {
     V2Module module;
@@ -76,4 +76,4 @@ void Test_Module::testRefs()
     module.release();
     QCOMPARE(module.refs(), 1U);
 }
-
+*/

@@ -24,17 +24,17 @@ public:
      * Tries to initialize module.
      * @returns true if successfully initialized.
      * */
-    bool init(V2Engine*);
+    bool init(QSharedPointer<V2Engine> &);
     /**
      * Tries to stop module.
      * @returns true if module successfully deactivated.
      * */
-    bool stop(V2Engine*);
+    bool stop(QSharedPointer<V2Engine> &);
 
     bool initialized() { return _initialized;}
 
-    bool enable(V2Engine*);
-    bool disable(V2Engine*);
+    bool enable(QSharedPointer<V2Engine> &);
+    bool disable(QSharedPointer<V2Engine> &);
     bool enabled();
 
     /** Add reference to module to prevent unloading. */
@@ -46,10 +46,10 @@ public:
     /** get current reference counter. **/
     quint32 refs();
 protected:
-    virtual bool initModule(V2Engine*) {return true;}
-    virtual bool stopModule(V2Engine*) {return true;}
-    virtual bool enableModule(V2Engine*){return true;}
-    virtual bool disableModule(V2Engine*){return true;}
+    virtual bool initModule(QSharedPointer<V2Engine>&) {return true;}
+    virtual bool stopModule(QSharedPointer<V2Engine>&) {return true;}
+    virtual bool enableModule(QSharedPointer<V2Engine>&){return true;}
+    virtual bool disableModule(QSharedPointer<V2Engine>&){return true;}
 private:
     quint32 _refs;
     bool _enabled;

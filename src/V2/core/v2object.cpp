@@ -9,11 +9,6 @@ V2Object::~V2Object()
 {   
 }
 
-const Geometry *V2Object::geometry()
-{
-    return resource<Geometry>();
-}
-
 void V2Object::setPosition(const glm::vec3 &newPosition)
 {
     _position = newPosition;
@@ -32,17 +27,17 @@ void V2Object::setScale(const glm::vec3 &newScale)
     emit scaleChanged(_scale);
 }
 
-const glm::vec3 &V2Object::position()
+const glm::vec3 &V2Object::position() const
 {
     return _position;
 }
 
-const glm::vec3 &V2Object::rotation()
+const glm::vec3 &V2Object::rotation() const
 {
     return _rotation;
 }
 
-const glm::vec3 &V2Object::scale()
+const glm::vec3 &V2Object::scale() const
 {
     return _scale;
 }

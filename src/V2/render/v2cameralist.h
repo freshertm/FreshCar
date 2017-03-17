@@ -1,9 +1,8 @@
 #ifndef V2CAMERALIST_H
 #define V2CAMERALIST_H
 #include "v2module.h"
-#include <QObject>
-
-class V2Camera;
+#include <QSharedPointer>
+#include <v2camera.h>
 
 class V2CameraList : public V2Module
 {
@@ -13,15 +12,15 @@ public:
     ~V2CameraList();
 
 
-    V2Camera * currentCamera();
+    const QSharedPointer<V2Camera>& currentCamera();
 
 public slots:
-    void setCurrent(V2Camera *);
+    void setCurrent(QSharedPointer<V2Camera>&);
 
 signals:
-    void newCameraSelected(V2Camera *);
+    void newCameraSelected(const QSharedPointer<V2Camera>&);
 private:
-    V2Camera* _current;
+    QSharedPointer<V2Camera> _current;
 
 };
 

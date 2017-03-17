@@ -4,11 +4,12 @@
 
 #include "b2physicsrigidbody.h"
 #include "v2object.h"
+#include "v2rigidbody2d.h"
 
 #include <QTimer>
 
 Box2DPhysicsModule::Box2DPhysicsModule():
-    _world(std::make_shared<b2World>(b2Vec2(0,-10))),
+    _world(QSharedPointer<b2World>::create(b2Vec2(0,-10))),
     isRunning(false)
 {
     connect(&_thread, &QThread::started, this, &Box2DPhysicsModule::onThreadRun);
@@ -20,49 +21,47 @@ Box2DPhysicsModule::~Box2DPhysicsModule()
     stopThread();
 }
 
-bool Box2DPhysicsModule::enableModule(V2Engine *engine)
+bool Box2DPhysicsModule::enableModule(QSharedPointer<V2Engine>& engine)
 {
     onSceneChanged(engine->scene());
-    connect(engine->scene(), &V2Scene::objectAdded, this, &Box2DPhysicsModule::onObjectAddedToScene);
+    connect(engine->scene().data(), &V2Scene::objectAdded, this, &Box2DPhysicsModule::onObjectAddedToScene);
     return runThread();
 }
 
-bool Box2DPhysicsModule::disableModule(V2Engine *)
+bool Box2DPhysicsModule::disableModule(QSharedPointer<V2Engine>& engine)
 {
     return stopThread();
 }
 
-bool Box2DPhysicsModule::initModule(V2Engine * engine)
+bool Box2DPhysicsModule::initModule(QSharedPointer<V2Engine>& engine)
 {
-    connect(engine, &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
+    connect(engine.data(), &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
     return true;
 }
 
-bool Box2DPhysicsModule::stopModule(V2Engine * engine)
+bool Box2DPhysicsModule::stopModule(QSharedPointer<V2Engine> &engine)
 {
-    disconnect(engine, &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
+    disconnect(engine.data(), &V2Engine::sceneChanged, this, &Box2DPhysicsModule::onSceneChanged);
     return true;
 }
 
-void Box2DPhysicsModule::onSceneChanged(V2Scene * scene)
+void Box2DPhysicsModule::onSceneChanged(QSharedPointer<V2Scene>& scene)
 {
     _cachedObjectData.clear();
-    foreach(V2Object *obj, scene->objects())
+    foreach(auto &obj, scene->objects())
     {
         onObjectAddedToScene(obj);
     }
 }
 
-void Box2DPhysicsModule::onObjectAddedToScene(V2Object *)
+void Box2DPhysicsModule::onObjectAddedToScene(const QSharedPointer<V2Object>& object)
 {
-    //V2RigidBody * rb = object->resource<V2RigidBody>();
-
-   /* if (nullptr == rb){
+    auto &rb = object->agent<V2RigidBody2D>();
+    if (rb.isNull()){
         return;
-    }*/
-
-   // auto ptr = std::make_shared<Box2DPhysicsRigidBody>(_world, glm::vec2(object->position()), object->rotation().z);
-    //_cachedObjectData[object] = ptr;
+    }
+    auto ptr = QSharedPointer<Box2DPhysicsRigidBody>::create(_world, rb, glm::vec2(object->position()), object->rotation().z);
+    _cachedObjectData[object.data()] = ptr;
 }
 
 bool Box2DPhysicsModule::runThread()
@@ -105,8 +104,8 @@ void Box2DPhysicsModule::performCalcs()
     _world->Step((double)_timer.elapsed() / 1000.0, velocityIterations, positionIterations);
     _timer.start();
 
-    foreach(V2Object * obj, _cachedObjectData.keys()){
-        auto body = _cachedObjectData[obj];
+    foreach(auto &obj, _cachedObjectData.keys()){
+        auto body = obj->agent<Box2DPhysicsRigidBody>();
         obj->setPosition(glm::vec3(body->position(), 0));
         glm::vec3 rotation = obj->rotation();
         rotation.z = body->angle();

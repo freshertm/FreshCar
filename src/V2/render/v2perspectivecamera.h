@@ -8,7 +8,7 @@ class V2PerspectiveCamera : public V2Camera
 {
     Q_OBJECT
 public:
-    V2PerspectiveCamera(V2Window *);
+    V2PerspectiveCamera(QSharedPointer<V2Window>&);
     virtual ~V2PerspectiveCamera();
 
     virtual bool enable();
@@ -29,7 +29,7 @@ private:
     float _near;
     float _far;
     float _aspect;
-    V2Window* _window;
+    QSharedPointer<V2Window> _window;
 };
 
 #endif // V2PERSPECTIVECAMERA_H

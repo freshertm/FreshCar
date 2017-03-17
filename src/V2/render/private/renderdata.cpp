@@ -1,7 +1,7 @@
 #include "renderdata.h"
 
 
-RenderData::RenderData(const Geometry *geometry): _hasNormals(false), _hasTexCoords(false){
+RenderData::RenderData(const QSharedPointer<Geometry> &geometry): _hasNormals(false), _hasTexCoords(false){
     QOpenGLContext * context = QOpenGLContext::currentContext();
     QOpenGLFunctions *gl = context->functions();
 

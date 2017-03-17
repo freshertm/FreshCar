@@ -72,6 +72,6 @@ void V2Camera::updateCamera()
     _cameraMatrix = projectionMatrix * matrix;
     //printMatrix(_cameraMatrix);
 
-    emit cameraChanged(this);
+    emit cameraChanged(sharedFromThis());
 }
 

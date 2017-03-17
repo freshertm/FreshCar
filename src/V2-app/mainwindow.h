@@ -32,7 +32,7 @@ private:
     Ui::MainWindow* _ui;
     V2Engine _engine;
 
-    V2PerspectiveCamera * _camera;
+    QSharedPointer<V2PerspectiveCamera> _camera;
     //V2OrthoCamera * _camera;
     float _cameraAngle;
     float _cameraRadius;

@@ -50,6 +50,6 @@ V2APPCube::V2APPCube(float size): V2Object()
 
     QVector<TexCoord> texcoords;
 
-    Geometry * geometry = new Geometry(vertices, normals,triangles, texcoords);
-    setResource(geometry);
+    auto geometry = QSharedPointer<Geometry>::create(vertices, normals,triangles, texcoords);
+    addAgent(geometry);
 }

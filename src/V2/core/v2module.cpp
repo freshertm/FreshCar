@@ -10,7 +10,7 @@ QList<std::type_index> V2Module::dependencies() const
     return QList<std::type_index>();
 }
 
-bool V2Module::init(V2Engine * engine)
+bool V2Module::init(QSharedPointer<V2Engine> &engine)
 {
     if (_initialized) {
         return true;
@@ -19,7 +19,7 @@ bool V2Module::init(V2Engine * engine)
     return _initialized;
 }
 
-bool V2Module::stop(V2Engine * engine)
+bool V2Module::stop(QSharedPointer<V2Engine> &engine)
 {
     if (!_initialized) {
         return true;
@@ -32,7 +32,7 @@ bool V2Module::stop(V2Engine * engine)
     return !_initialized;
 }
 
-bool V2Module::enable(V2Engine * engine)
+bool V2Module::enable(QSharedPointer<V2Engine> &engine)
 {
     if (!initialized()) {
         return false;
@@ -49,7 +49,7 @@ bool V2Module::enable(V2Engine * engine)
     return false;
 }
 
-bool V2Module::disable(V2Engine * engine)
+bool V2Module::disable(QSharedPointer<V2Engine> &engine)
 {
     if (!enabled()) {
         return true;
