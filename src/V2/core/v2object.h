@@ -3,7 +3,6 @@
 
 #include <QMap>
 #include <QList>
-#include "v2geometry.h"
 #include "v2resource.h"
 #include <QObject>
 #include <glm/glm.hpp>
@@ -23,8 +22,6 @@ public:
     V2Object();
     ~V2Object();
 
-    const Geometry * geometry();
-
     void setPosition(const glm::vec3& newPosition);
     void setRotation(const glm::vec3& newRotation);
     void setScale(const glm::vec3& newScale);
@@ -32,7 +29,7 @@ public:
     const glm::vec3& rotation() const;
     const glm::vec3& scale() const;
 
-    template <class T> QSharedPointer<T>& agent() const;
+    template <class T> QSharedPointer<T> agent() const;
     template <class T> void addAgent(QSharedPointer<T>&);
 
 signals:
@@ -49,9 +46,15 @@ private:
 
 
 
-template <class T> QSharedPointer<T>& V2Object::agent() const{
+template <class T> QSharedPointer<T> V2Object::agent() const{
     if ( _agentMap.find(typeid(T)) != _agentMap.end() ) {
         return qSharedPointerDynamicCast<T>(_agentMap[typeid(T)]);
+    }
+    for (auto &v :_agentMap) {
+        auto ag = qSharedPointerDynamicCast<T>(v);
+        if (!ag.isNull()) {
+            return ag;
+        }
     }
     return QSharedPointer<T>();
 }

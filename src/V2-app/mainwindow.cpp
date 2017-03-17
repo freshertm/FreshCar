@@ -12,17 +12,17 @@
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
     _ui(new Ui::MainWindow),
-    _engine(),
+    _engine(QSharedPointer<V2Engine>::create()),
     _cameraAngle(0.0),
     _cameraRadius(-53.0),
     _cameraSpeed(0),
-    _prop(new V2RenderProperties)
+    _prop(QSharedPointer<V2RenderProperties>::create())
 {
     _ui->setupUi(this);
 
     auto glWindow = QSharedPointer<v2appGLWindow>::create();
-    _engine.addModule(glWindow);
-    if (!_engine.initModule<V2Renderer>()) {
+    _engine->addModule(glWindow);
+    if (!_engine->initModule<V2Renderer>()) {
         qDebug() << "Cannot initialize renderer.";
         return;
     }
@@ -37,33 +37,33 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
 
 
     auto box2d = QSharedPointer<Box2DPhysicsModule>::create();
-    _engine.addModule(box2d);
-    if (!_engine.initModule<Box2DPhysicsModule>())
+    _engine->addModule(box2d);
+    if (!_engine->initModule<Box2DPhysicsModule>())
     {
         qDebug() << "Cannot init Box2DPhysicsModule module";
     };
 
-    if (!_engine.initModule<V2Window>())
+    if (!_engine->initModule<V2Window>())
     {
         qDebug() << "Cannot init V2Window module";
     };
 
-    if (!_engine.enableModule<V2Renderer>())
+    if (!_engine->enableModule<V2Renderer>())
     {
         qDebug() << "Cannot enable V2Renderer module";
     };
 
-    if (!_engine.enableModule<V2Window>())
+    if (!_engine->enableModule<V2Window>())
     {
         qDebug() << "Cannot enable V2Window module";
     };
 
-    if (!_engine.enableModule<Box2DPhysicsModule>())
+    if (!_engine->enableModule<Box2DPhysicsModule>())
     {
         qDebug() << "Cannot enable V2Physics module";
     }
 
-    auto cameras = _engine.module<V2CameraList>();
+    auto cameras = _engine->module<V2CameraList>();
     _camera = QSharedPointer<V2PerspectiveCamera>::create(qSharedPointerDynamicCast<V2Window>(glWindow));
     //_camera = new V2OrthoCamera();
 
@@ -81,7 +81,7 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     cameras->setCurrent(qSharedPointerDynamicCast<V2Camera>(_camera));
     //V2APPCube *cube = new V2APPCube(10);
 
-    _engine.scene()->addObject(QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3)));
+    _engine->scene()->addObject(QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3)));
 }
 
 V2MainWindow::~V2MainWindow()

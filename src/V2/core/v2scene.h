@@ -16,7 +16,7 @@ public:
     const QList<QSharedPointer<V2Object>> objects();
 
 signals:
-    void objectAdded(QSharedPointer<V2Object>&);
+    void objectAdded(QSharedPointer<V2Object>);
     //void objectRemoved(WorldObject*);
 
 private:

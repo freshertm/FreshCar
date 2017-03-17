@@ -5,10 +5,10 @@ V2Module::V2Module(): _initialized(false), _enabled(false), _refs(1)
     blockSignals(true);
 }
 
-QList<std::type_index> V2Module::dependencies() const
+/*QList<std::type_index> V2Module::dependencies() const
 {
     return QList<std::type_index>();
-}
+}*/
 
 bool V2Module::init(QSharedPointer<V2Engine> &engine)
 {

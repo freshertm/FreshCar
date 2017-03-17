@@ -18,18 +18,23 @@ Renderer::Renderer(): V2Renderer(), _currentCamera(nullptr)
 {
 }
 
-QList<std::type_index> Renderer::dependencies() const
+/*QList<std::type_index> Renderer::dependencies() const
 {
     QList<std::type_index> list;
     list.append(typeid(V2CameraList));
     list.append(typeid(V2Window));
     return list;
-}
+}*/
 
 bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
 {
+    if (!engine->initModule<V2Window>()) {
+        qDebug() << "Renderer::initModule cannot initialize V2Window";
+        return false;
+    };
+
     auto window = engine->module<V2Window>();
-    if (window == nullptr) {
+    if (window.isNull()) {
         qDebug() << "Renderer init(): can't find window.";
         return false;
     }

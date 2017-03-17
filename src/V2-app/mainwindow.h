@@ -30,14 +30,14 @@ private slots:
 
 private:
     Ui::MainWindow* _ui;
-    V2Engine _engine;
+    QSharedPointer<V2Engine> _engine;
 
     QSharedPointer<V2PerspectiveCamera> _camera;
     //V2OrthoCamera * _camera;
     float _cameraAngle;
     float _cameraRadius;
     float _cameraSpeed;
-    V2RenderProperties *_prop;
+    QSharedPointer<V2RenderProperties> _prop;
 };
 
 #endif // V2MAINWINDOW_H

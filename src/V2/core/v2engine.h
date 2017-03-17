@@ -8,9 +8,6 @@
 #include <typeindex>
 #include <QMap>
 
-class V2Module;
-class V2Object;
-
 class V2Engine: public QObject, public QEnableSharedFromThis<V2Engine>
 {
     Q_OBJECT

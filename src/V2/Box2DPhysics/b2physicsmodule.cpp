@@ -8,12 +8,15 @@
 
 #include <QTimer>
 
+Q_DECLARE_METATYPE(QSharedPointer<V2Engine>);
+
 Box2DPhysicsModule::Box2DPhysicsModule():
     _world(QSharedPointer<b2World>::create(b2Vec2(0,-10))),
     isRunning(false)
 {
-    connect(&_thread, &QThread::started, this, &Box2DPhysicsModule::onThreadRun);
-    connect(&_thread, &QThread::finished, this, &Box2DPhysicsModule::onThreadStop);
+    qRegisterMetaType<QSharedPointer<V2Engine>>("QSharedPointer<V2Engine>");
+    //connect(&_thread, &QThread::started, this, &Box2DPhysicsModule::onThreadRun);
+    //connect(&_thread, &QThread::finished, this, &Box2DPhysicsModule::onThreadStop);
 }
 
 Box2DPhysicsModule::~Box2DPhysicsModule()
@@ -54,14 +57,14 @@ void Box2DPhysicsModule::onSceneChanged(QSharedPointer<V2Scene>& scene)
     }
 }
 
-void Box2DPhysicsModule::onObjectAddedToScene(const QSharedPointer<V2Object>& object)
+void Box2DPhysicsModule::onObjectAddedToScene(const QSharedPointer<V2Object> object)
 {
-    auto &rb = object->agent<V2RigidBody2D>();
+    auto rb = object->agent<V2RigidBody2D>();
     if (rb.isNull()){
         return;
     }
     auto ptr = QSharedPointer<Box2DPhysicsRigidBody>::create(_world, rb, glm::vec2(object->position()), object->rotation().z);
-    _cachedObjectData[object.data()] = ptr;
+    _cachedObjectData[object] = ptr;
 }
 
 bool Box2DPhysicsModule::runThread()
@@ -71,17 +74,19 @@ bool Box2DPhysicsModule::runThread()
     }
 
     isRunning = true;
-    _thread.start();
-    this->moveToThread(&_thread);
+    //_thread.start();
+    //this->moveToThread(&_thread);
+    onThreadRun();
     return true;
 }
 
 bool Box2DPhysicsModule::stopThread()
 {
+    onThreadStop();
     if (isRunning){
-        this->moveToThread(QApplication::instance()->thread());
-        _thread.quit();
-        _thread.wait();
+        //this->moveToThread(QApplication::instance()->thread());
+       // _thread.quit();
+       // _thread.wait();
     }
     return true;
 }
@@ -104,12 +109,12 @@ void Box2DPhysicsModule::performCalcs()
     _world->Step((double)_timer.elapsed() / 1000.0, velocityIterations, positionIterations);
     _timer.start();
 
-    foreach(auto &obj, _cachedObjectData.keys()){
-        auto body = obj->agent<Box2DPhysicsRigidBody>();
-        obj->setPosition(glm::vec3(body->position(), 0));
-        glm::vec3 rotation = obj->rotation();
+    foreach(auto &object, _cachedObjectData.keys()){
+        auto body = _cachedObjectData[object];
+        object->setPosition(glm::vec3(body->position(), 0));
+        glm::vec3 rotation = object->rotation();
         rotation.z = body->angle();
-        obj->setRotation(rotation);
+        object->setRotation(rotation);
     }
 
     if (isRunning){

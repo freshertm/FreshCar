@@ -3,7 +3,7 @@
 
 #include <QtCore/qtypeinfo.h>
 #include <QVector>
-#include "v2resource.h"
+#include "v2object.h"
 #include <glm/glm.hpp>
 
 struct TexCoord
@@ -47,7 +47,7 @@ struct texcoord_t
     qint32 u,v;
 };
 
-class Geometry: public V2Resource
+class Geometry: public V2ObjectAgent
 {
 public:
     Geometry(){}

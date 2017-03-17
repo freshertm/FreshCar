@@ -26,7 +26,7 @@ bool V2Engine::initModule(QSharedPointer<V2Module> &module)
     if (module.isNull()) {
         return false;
     }
-    foreach(auto & type, module->dependencies())
+    /*foreach(auto & type, module->dependencies())
     {
         auto &subModule = moduleByType(type);
         if (!subModule) {
@@ -36,7 +36,7 @@ bool V2Engine::initModule(QSharedPointer<V2Module> &module)
         if (!initModule(subModule)){
             return false;
         }
-    }
+    }*/
     if (module->init(sharedFromThis())) {
         emit moduleInitialized(module);
         return true;

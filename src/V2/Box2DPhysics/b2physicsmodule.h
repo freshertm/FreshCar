@@ -27,7 +27,7 @@ protected:
 
 private slots:
     void onSceneChanged(QSharedPointer<V2Scene> &scene);
-    void onObjectAddedToScene(const QSharedPointer<V2Object> &);
+    void onObjectAddedToScene(const QSharedPointer<V2Object> object);
 
     bool runThread();
     bool stopThread();
@@ -39,8 +39,8 @@ private slots:
 
 private:
     QSharedPointer<b2World> _world;
-    QMap<V2Object* , QSharedPointer<Box2DPhysicsRigidBody>> _cachedObjectData;
-    QThread _thread;
+    QMap<QSharedPointer<V2Object> , QSharedPointer<Box2DPhysicsRigidBody>> _cachedObjectData;
+    //QThread _thread;
     bool isRunning;
 
     QElapsedTimer _timer;

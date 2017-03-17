@@ -1,7 +1,7 @@
 #include "brick.h"
 #include "v2geometry.h"
 
-#include "b2physicsmodule.h"
+#include "v2rigidbody2d.h"
 
 Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
 {
@@ -59,7 +59,7 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     prop->setColor(V2Color(0,255,0));
     //prop->setWireframe(true);
     addAgent(prop);
-    //setResource(new Box2DPhysicsRigidBody());
+    addAgent(QSharedPointer<V2RigidBody2D>::create(V2RigidBody2D::DynamicBody));
 }
 
 Brick::~Brick()

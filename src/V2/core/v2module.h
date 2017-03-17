@@ -18,7 +18,7 @@ public:
     V2Module();
     virtual ~V2Module(){}
 
-    virtual QList<std::type_index> dependencies() const;
+    //virtual QList<std::type_index> dependencies() const;
 
     /**
      * Tries to initialize module.

@@ -18,7 +18,7 @@ public:
     Renderer();
     virtual ~Renderer(){}
 
-    virtual QList<std::type_index> dependencies() const;
+    //virtual QList<std::type_index> dependencies() const;
 
 protected:
     virtual bool initModule(QSharedPointer<V2Engine>&);
