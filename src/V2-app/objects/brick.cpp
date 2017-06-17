@@ -59,7 +59,8 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     prop->setColor(V2Color(0,255,0));
     //prop->setWireframe(true);
     addAgent(prop);
-    addAgent(QSharedPointer<V2RigidBody2D>::create(V2RigidBody2D::DynamicBody));
+    auto ag = QSharedPointer<V2RigidBody2D>::create(V2RigidBody2D::DynamicBody);
+    addAgent(ag);
 }
 
 Brick::~Brick()

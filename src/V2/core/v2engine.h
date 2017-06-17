@@ -56,7 +56,7 @@ QSharedPointer<T> V2Engine::module()
     }
 
     for(auto &k : _modulesMap) {
-        auto &module = qSharedPointerDynamicCast<T>(k);
+        auto module = qSharedPointerDynamicCast<T>(k);
         if (!module.isNull()) {
             return module;
         }
@@ -77,7 +77,8 @@ template <class T> bool V2Engine::enableModule()
 {
     auto m = this->module<T>();
     if (!m.isNull()) {
-        return m->enable(sharedFromThis());
+        auto shPtr = sharedFromThis();
+        return m->enable(shPtr);
     }
     return false;
 }
@@ -86,7 +87,8 @@ template <class T> bool V2Engine::disableModule()
 {
     auto m = this->module<T>();
     if (m.isNull()) {
-        return m->disable(sharedFromThis());
+        auto shPtr = sharedFromThis();
+        return m->disable(shPtr);
     }
     return false;
 }

@@ -64,7 +64,8 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     }
 
     auto cameras = _engine->module<V2CameraList>();
-    _camera = QSharedPointer<V2PerspectiveCamera>::create(qSharedPointerDynamicCast<V2Window>(glWindow));
+    auto win = qSharedPointerDynamicCast<V2Window>(glWindow);
+    _camera = QSharedPointer<V2PerspectiveCamera>::create(win);
     //_camera = new V2OrthoCamera();
 
    /* _camera->setFar(1000);
@@ -78,10 +79,11 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     _camera->setPosition(glm::vec3(0,0,-10));
     _camera->setLookPoint(glm::vec3(0,0,0));
 
-    cameras->setCurrent(qSharedPointerDynamicCast<V2Camera>(_camera));
+    auto camera = qSharedPointerDynamicCast<V2Camera>(_camera);
+    cameras->setCurrent(camera);
     //V2APPCube *cube = new V2APPCube(10);
-
-    _engine->scene()->addObject(QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3)));
+    auto cube = QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3));
+    _engine->scene()->addObject(cube);
 }
 
 V2MainWindow::~V2MainWindow()

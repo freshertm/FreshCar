@@ -26,7 +26,8 @@ Box2DPhysicsModule::~Box2DPhysicsModule()
 
 bool Box2DPhysicsModule::enableModule(QSharedPointer<V2Engine>& engine)
 {
-    onSceneChanged(engine->scene());
+    auto scene = engine->scene();
+    onSceneChanged(scene);
     connect(engine->scene().data(), &V2Scene::objectAdded, this, &Box2DPhysicsModule::onObjectAddedToScene);
     return runThread();
 }
@@ -63,7 +64,8 @@ void Box2DPhysicsModule::onObjectAddedToScene(const QSharedPointer<V2Object> obj
     if (rb.isNull()){
         return;
     }
-    auto ptr = QSharedPointer<Box2DPhysicsRigidBody>::create(_world, rb, glm::vec2(object->position()), object->rotation().z);
+    glm::vec2 pos = glm::vec2(object->position());
+    auto ptr = QSharedPointer<Box2DPhysicsRigidBody>::create(_world, rb, pos, object->rotation().z);
     _cachedObjectData[object] = ptr;
 }
 

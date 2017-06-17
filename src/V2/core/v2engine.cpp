@@ -5,7 +5,8 @@
 
 V2Engine::V2Engine()
 {
-    setScene(QSharedPointer<V2Scene>::create());
+    auto scenePtr = QSharedPointer<V2Scene>::create();
+    setScene(scenePtr);
     auto qwe = QSharedPointer<Renderer>::create();
     addModule(qwe);
 }
@@ -37,7 +38,8 @@ bool V2Engine::initModule(QSharedPointer<V2Module> &module)
             return false;
         }
     }*/
-    if (module->init(sharedFromThis())) {
+    auto shPtr = sharedFromThis();
+    if (module->init(shPtr)) {
         emit moduleInitialized(module);
         return true;
     }

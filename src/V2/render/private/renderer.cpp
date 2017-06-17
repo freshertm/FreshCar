@@ -52,7 +52,8 @@ bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
     connect(window.data(), &V2Window::paintReadySignal, this, &Renderer::windowPaintReady);
 
     connect(engine.data(), &V2Engine::sceneChanged, this, &Renderer::onSceneChanged);
-    onSceneChanged(engine->scene());
+    auto scene = engine->scene();
+    onSceneChanged(scene);
 
     glClearColor(0, 0, 0, 1.0);
     qDebug() << "Renderer init() complete.";
@@ -72,7 +73,8 @@ bool Renderer::stopModule(QSharedPointer<V2Engine> &engine)
 
 bool Renderer::enableModule(QSharedPointer<V2Engine> &engine)
 {
-    onSceneChanged(engine->scene());
+    auto scene = engine->scene();
+    onSceneChanged(scene);
     return engine->enableModule<V2CameraList>();
 }
 
@@ -124,7 +126,7 @@ void Renderer::processObject(const QSharedPointer<V2Object> &obj)
 
     bool wireFrame = false;
     bool lighting = glIsEnabled(GL_LIGHTING);
-    QSharedPointer<V2RenderProperties> &prop = obj->agent<V2RenderProperties>();
+    QSharedPointer<V2RenderProperties> prop = obj->agent<V2RenderProperties>();
     if (!prop.isNull()){
         if (prop->isWireframe()){
             wireFrame = true;
