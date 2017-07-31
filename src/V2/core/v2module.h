@@ -22,18 +22,27 @@ public:
 
     /**
      * Tries to initialize module.
-     * @returns true if successfully initialized.
+     * @return true if successfully initialized.
      * */
     bool init(QSharedPointer<V2Engine> &);
     /**
      * Tries to stop module.
-     * @returns true if module successfully deactivated.
+     * @return true if module successfully deactivated.
      * */
     bool stop(QSharedPointer<V2Engine> &);
 
     bool initialized() { return _initialized;}
 
+    /**
+     * @brief Enables this module. After that module active and can operate opjects. Calls enableModule() to get DErived class initialized.
+     * @return true if successfull.
+     */
     bool enable(QSharedPointer<V2Engine> &);
+
+    /**
+     * @brief Disable the module. After that module cannot operate opjects.
+     * @return true if successfull.
+     */
     bool disable(QSharedPointer<V2Engine> &);
     bool enabled();
 
