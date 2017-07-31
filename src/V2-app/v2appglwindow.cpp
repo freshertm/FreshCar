@@ -30,3 +30,28 @@ QWidget *v2appGLWindow::widget()
     return pImpl;
 }
 
+
+
+void v2appGLWindowImpl::wheelEvent(QWheelEvent * ev)
+{
+    emit wheelSignal(ev);
+    ev->accept();
+}
+
+void v2appGLWindowImpl::mouseMoveEvent(QMouseEvent * event)
+{
+    emit mouseMoveSignal(event);
+    event->accept();
+}
+
+void v2appGLWindowImpl::mousePressEvent(QMouseEvent * ev)
+{
+    emit mousePressSignal(ev);
+    ev->accept();
+}
+
+void v2appGLWindowImpl::mouseReleaseEvent(QMouseEvent *ev)
+{
+    emit mouseReleaseEvent(ev);
+    ev->accept();
+}

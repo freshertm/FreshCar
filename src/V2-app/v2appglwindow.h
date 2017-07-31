@@ -15,8 +15,11 @@ signals:
     void resizeSignal(int width, int height);
     //void closeSignal();
     void showSignal();
-    //void mouseMoveSignal(const QMouseEvent*);
-    //void wheelSignal(const QWheelEvent*);
+    void mouseMoveSignal(const QMouseEvent*);
+    void wheelSignal(const QWheelEvent*);
+    void mousePressSignal(QMouseEvent *);
+    void mouseMoveSignal(QMouseEvent *);
+    void mouseReleaseSignal(QMouseEvent *);
     void paintReadySignal();
 protected:
     virtual void initializeGL(){emit showSignal();}
@@ -25,6 +28,11 @@ protected:
         emit paintReadySignal();
         QTimer::singleShot(1, this, &v2appGLWindowImpl::updateGL);
     }
+
+    virtual void wheelEvent(QWheelEvent * ev);
+    virtual void mouseMoveEvent(QMouseEvent *);
+    virtual void mousePressEvent(QMouseEvent *);
+    virtual void mouseReleaseEvent(QMouseEvent *);
 
 };
 
