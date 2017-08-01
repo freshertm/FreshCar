@@ -55,7 +55,7 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     setRotation(glm::vec3(0,0,angle));
     setPosition(glm::vec3(position.x, position.y, 0));
     auto prop = QSharedPointer<V2RenderProperties>::create();
-    prop->setLighting(false);
+    prop->setLighting(true);
     prop->setColor(V2Color(0,255,0));
     //prop->setWireframe(true);
     addAgent(prop);

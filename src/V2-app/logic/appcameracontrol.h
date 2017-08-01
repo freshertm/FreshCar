@@ -18,27 +18,24 @@ public:
 
 signals:
 
-public slots:
-
 private slots:
-    void onMouseWheel(int diff);
+    void onMouseWheel(const QWheelEvent *);
     void onCameraChanged(const QSharedPointer<V2Camera>&);
-    void onResize(int width, int height);
-    void onMouseDown(int x, int y);
-    void onMouseMove(int x, int y);
-    void onMouseRelease(int x, int y);
+    void onMouseDown(const QMouseEvent *);
+    void onMouseMove(const QMouseEvent *);
+    void onMouseRelease(const QMouseEvent *);
 private:
-    void updateCamera();
+    void updateCamera(const QPoint &diff);
 
     QSharedPointer<V2CameraList> _camList;
     QSharedPointer<V2Window> _window;
     QSharedPointer<V2Camera> _camera;
-    int  _width;
-    int _height;
-    float _xShift;
-    float _yShift;
-    int _mouseXPos;
-    int _mouseYPos;
+    float _xShift = 0;
+    float _yShift = 0;
+    float _distance=100;
+
+    QPoint _mouseClickPoint;
+    bool _mousePressed;
 };
 
 #endif // APPCAMERACONTROL_H

@@ -1,6 +1,6 @@
 #ifndef BRICK_H
 #define BRICK_H
-#include <glm/glm.hpp>
+
 #include "v2object.h"
 #include <memory>
 #include "v2renderproperties.h"

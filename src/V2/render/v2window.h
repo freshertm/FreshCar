@@ -23,6 +23,8 @@ signals:
     void closeSignal();
     void showSignal();
     void mouseMoveSignal(const QMouseEvent*);
+    void mousePressSignal(const QMouseEvent*);
+    void mouseReleaseSignal(const QMouseEvent*);
     void wheelSignal(const QWheelEvent*);
     void paintReadySignal();
 };

@@ -6,6 +6,8 @@
 #include "v2engine.h"
 #include "v2renderproperties.h"
 
+#include "logic/appcameracontrol.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -38,6 +40,8 @@ private:
     float _cameraRadius;
     float _cameraSpeed;
     QSharedPointer<V2RenderProperties> _prop;
+
+    QSharedPointer<AppCameraControl> _camControl;
 };
 
 #endif // V2MAINWINDOW_H

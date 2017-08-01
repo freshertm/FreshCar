@@ -83,7 +83,12 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     cameras->setCurrent(camera);
     //V2APPCube *cube = new V2APPCube(10);
     auto cube = QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3));
+
+    //auto cube = QSharedPointer<V2Object>::create(glm::vec2(0,0), 0, 20, 3);
     _engine->scene()->addObject(cube);
+
+    _camControl = QSharedPointer<AppCameraControl>(new AppCameraControl(_engine));
+    //_camControl = QSharedPointer<AppCameraControl>::create(_engine);
 }
 
 V2MainWindow::~V2MainWindow()
@@ -96,10 +101,10 @@ V2MainWindow::~V2MainWindow()
 void V2MainWindow::onFrame()
 {
     //const float radius = 10.0;
-    float x = _cameraRadius * sin(_cameraAngle * 3.14f / 180.0f);
-    float y = _cameraRadius * cos(_cameraAngle * 3.14f / 180.0f);
-    _camera->setPosition(glm::vec3(x,0,y));
-    _cameraAngle += _cameraSpeed;
+    //float x = _cameraRadius * sin(_cameraAngle * 3.14f / 180.0f);
+    //float y = _cameraRadius * cos(_cameraAngle * 3.14f / 180.0f);
+    //_camera->setPosition(glm::vec3(x,0,y));
+    //_cameraAngle += _cameraSpeed;
 }
 
 void V2MainWindow::onNewSliderValue(int value)

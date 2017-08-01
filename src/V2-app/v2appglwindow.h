@@ -17,9 +17,8 @@ signals:
     void showSignal();
     void mouseMoveSignal(const QMouseEvent*);
     void wheelSignal(const QWheelEvent*);
-    void mousePressSignal(QMouseEvent *);
-    void mouseMoveSignal(QMouseEvent *);
-    void mouseReleaseSignal(QMouseEvent *);
+    void mousePressSignal(const QMouseEvent *);
+    void mouseReleaseSignal(const QMouseEvent *);
     void paintReadySignal();
 protected:
     virtual void initializeGL(){emit showSignal();}
@@ -47,15 +46,6 @@ public:
     virtual int height();
 
     QWidget * widget();
-
-protected:
-   /* virtual void initializeGL();
-    virtual void resizeGL(int w, int h);
-    virtual void paintGL();
-    virtual void wheelEvent(QWheelEvent *);
-    virtual void mousePressEvent(QMouseEvent *);
-    virtual void mouseMoveEvent(QMouseEvent *);
-    virtual void mouseReleaseEvent(QMouseEvent *);   */
 
 private:
     v2appGLWindowImpl *pImpl;

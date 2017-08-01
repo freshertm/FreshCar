@@ -8,6 +8,11 @@ v2appGLWindow::v2appGLWindow(): pImpl(new v2appGLWindowImpl())
     connect(pImpl, &v2appGLWindowImpl::showSignal, this, &V2Window::showSignal);
     connect(pImpl, &v2appGLWindowImpl::resizeSignal, this, &V2Window::resizeSignal);
     connect(pImpl, &v2appGLWindowImpl::paintReadySignal, this, &V2Window::paintReadySignal);
+
+    connect(pImpl, &v2appGLWindowImpl::mouseMoveSignal, this, &V2Window::mouseMoveSignal);
+    connect(pImpl, &v2appGLWindowImpl::mousePressSignal, this, &V2Window::mousePressSignal);
+    connect(pImpl, &v2appGLWindowImpl::mouseReleaseSignal, this, &V2Window::mouseReleaseSignal);
+    connect(pImpl, &v2appGLWindowImpl::wheelSignal, this, &V2Window::wheelSignal);
 }
 
 v2appGLWindow::~v2appGLWindow()
@@ -30,8 +35,6 @@ QWidget *v2appGLWindow::widget()
     return pImpl;
 }
 
-
-
 void v2appGLWindowImpl::wheelEvent(QWheelEvent * ev)
 {
     emit wheelSignal(ev);
@@ -52,6 +55,6 @@ void v2appGLWindowImpl::mousePressEvent(QMouseEvent * ev)
 
 void v2appGLWindowImpl::mouseReleaseEvent(QMouseEvent *ev)
 {
-    emit mouseReleaseEvent(ev);
+    emit mouseReleaseSignal(ev);
     ev->accept();
 }

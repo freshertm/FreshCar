@@ -27,7 +27,8 @@ SOURCES+= \
     V2-app/appcube.cpp \
     V2-app/v2appglwindow.cpp \
     V2-app/objects/brick.cpp \
-    V2-app/logic/appcameracontrol.cpp
+    V2-app/logic/appcameracontrol.cpp \
+    V2-app/objects/cube.cpp
     #V2-app/v2car.cpp \
     #V2-app/logic/worldproperties.cpp \
     #V2-app/objects/ground.cpp \
@@ -39,7 +40,8 @@ HEADERS += \
     V2-app/appcube.h \
     V2-app/v2appglwindow.h \
     V2-app/objects/brick.h \
-    V2-app/logic/appcameracontrol.h
+    V2-app/logic/appcameracontrol.h \
+    V2-app/objects/cube.h
     V2-app/objects/ground.h \
     #V2-app/logic/world.h
     #V2-app/logic/worldproperties.h \
