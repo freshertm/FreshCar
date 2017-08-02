@@ -23,7 +23,11 @@ private:
     bool _hasTexCoords;
 
     typedef QVector<quint16> Indices;
+    typedef QVector<glm::vec3> Vertexes;
+
     Indices *getIndices(Geometry::Triangles triangles);
+    Indices *getNormals(Geometry::Triangles triangles);
+
 };
 
 

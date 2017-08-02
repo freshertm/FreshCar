@@ -55,6 +55,15 @@ bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
     auto scene = engine->scene();
     onSceneChanged(scene);
 
+    _lightManager = QSharedPointer<V2LightManager>::create();
+    engine->addModule(_lightManager);
+    engine->initModule<V2LightManager>();
+    engine->enableModule<V2LightManager>();
+    connect(_lightManager.data(), &V2LightManager::lightSettingsChanged, this, &Renderer::onLightSettingsChanged);
+
+    //glDisable(GL_DEPTH_TEST);
+    //glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_AUTO_NORMAL);
     glClearColor(0, 0, 0, 1.0);
     qDebug() << "Renderer init() complete.";
     return true;
@@ -86,6 +95,10 @@ bool Renderer::disableModule(QSharedPointer<V2Engine> &engine)
 void Renderer::windowPaintReady()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    if (_lightManagerSettingsChanged) {
+        updateLightSettings();
+        _lightManagerSettingsChanged = false;
+    }
     foreach(const auto &object, _cachedObjectData.keys()){
         glLoadIdentity();
         processObject(object);
@@ -94,11 +107,6 @@ void Renderer::windowPaintReady()
 
 void Renderer::resizeEvent(int width, int height)
 {
-    glDisable(GL_DEPTH_TEST);
-    glClearColor(0,0,0,1);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_AUTO_NORMAL);
     glViewport(0,0,width, height);
     qDebug() << "Render resize "<<width<<"x"<<height;
 }
@@ -133,11 +141,11 @@ void Renderer::processObject(const QSharedPointer<V2Object> &obj)
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
         }
         glColor3ub(prop->color().r(),prop->color().g(),prop->color().b());
-        if (prop->isLightingEnabled()) {
+        /*if (prop->isLightingEnabled() && !lighting) {
             glEnable(GL_LIGHTING);
         } else {
             glDisable(GL_LIGHTING);
-        }
+        }*/
     }
 
     data->process();
@@ -146,10 +154,33 @@ void Renderer::processObject(const QSharedPointer<V2Object> &obj)
         if (wireFrame){
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
         }
-        if (lighting) {
+        /*if (lighting) {
             glEnable(GL_LIGHTING);
         }else {
             glDisable(GL_LIGHTING);
+        }*/
+    }
+}
+
+void Renderer::updateLightSettings()
+{
+    if (_lightManager->isLightingEnabled()) {
+        glEnable(GL_LIGHTING);
+        qDebug() << "Global Lighting On";
+    } else
+    {
+        glDisable(GL_LIGHTING);
+        qDebug() << "Global Lighting Off";
+    }
+
+    for (int i=0; i<_lightManager->maxLights(); ++i ){
+        if (_lightManager->isLightEnabled(i)) {
+            glEnable(GL_LIGHT0 + i);
+            qDebug() << "Light: "<< i << " On";
+        }
+        else {
+            glDisable(GL_LIGHT0 + i);
+            qDebug() << "Light: "<< i << " Off";
         }
     }
 }
@@ -172,6 +203,11 @@ void Renderer::onCameraMove(const QSharedPointer<V2Camera> &camera)
     glLoadIdentity();
     glLoadMatrixf(glm::value_ptr(camera->matrix()));
     glMatrixMode(GL_MODELVIEW);
+}
+
+void Renderer::onLightSettingsChanged()
+{
+    _lightManagerSettingsChanged = true;
 }
 
 void Renderer::onSceneChanged(QSharedPointer<V2Scene> &scene)

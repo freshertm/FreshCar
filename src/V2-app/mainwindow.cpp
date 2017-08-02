@@ -8,6 +8,7 @@
 #include "v2cameralist.h"
 #include "objects/brick.h"
 #include "b2physicsmodule.h"
+#include "v2lightmanager.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -123,10 +124,20 @@ void V2MainWindow::onNewSlider2Value(int value)
 
 void V2MainWindow::on_checkBox_clicked(bool checked)
 {
-   // _prop->setWireframe(checked);
+    _engine->module<V2LightManager>()->setLightEnabled(0,checked);
 }
 
 void V2MainWindow::on_checkBox_2_clicked(bool checked)
 {
-    //_prop->setLighting(checked);
+    _engine->module<V2LightManager>()->setLightEnabled(1,checked);
+}
+
+void V2MainWindow::on_checkBox_9_clicked(bool checked)
+{
+    _engine->module<V2LightManager>()->setLightingEnabled(checked);
+}
+
+void V2MainWindow::on_checkBox_3_clicked(bool checked)
+{
+    _engine->module<V2LightManager>()->setLightEnabled(2,checked);
 }

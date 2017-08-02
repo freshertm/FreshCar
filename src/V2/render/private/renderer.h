@@ -6,6 +6,7 @@
 #include <QHash>
 #include "v2window.h"
 #include "v2Camera.h"
+#include "v2lightmanager.h"
 
 
 class V2Object;
@@ -38,6 +39,8 @@ private slots:
     void onCameraChanged(const QSharedPointer<V2Camera> &newCamera);
     void onCameraMove(const QSharedPointer<V2Camera>&);
 
+    void onLightSettingsChanged();
+
 private:
     QSharedPointer<V2Window> _window;
     QSharedPointer<V2Camera> _camera;
@@ -46,8 +49,13 @@ private:
 
 private:
     void processObject(const QSharedPointer<V2Object> &);
+    void updateLightSettings();
 
     QSharedPointer<V2Camera> _currentCamera;
+    QSharedPointer<V2LightManager> _lightManager;
+
+    bool _lightManagerSettingsChanged = true;
+    bool _globalLightingEnable = false;
 };
 
 #endif // RENDERER_H

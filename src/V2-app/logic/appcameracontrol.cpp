@@ -14,7 +14,7 @@ void AppCameraControl::onMouseWheel(const QWheelEvent *ev)
         _distance = min_distance;
     }
     updateCamera(QPoint());
-    qDebug() << "camera distance: " << _distance;
+    //qDebug() << "camera distance: " << _distance;
 }
 
 AppCameraControl::AppCameraControl(QSharedPointer<V2Engine> &engine):
@@ -55,7 +55,7 @@ void AppCameraControl::onCameraChanged(const QSharedPointer<V2Camera> &camera)
 
 void AppCameraControl::onMouseDown(const QMouseEvent * ev)
 {
-    qDebug() << "AppCameraControl::onMouseDown";
+    //qDebug() << "AppCameraControl::onMouseDown";
     _mouseClickPoint = ev->pos();
     _mousePressed = true;
 }
@@ -75,7 +75,7 @@ void AppCameraControl::onMouseRelease(const QMouseEvent *ev)
     if (!_mousePressed) {
         return;
     }
-    qDebug() << "AppCameraControl::onMouseRelease";
+    //qDebug() << "AppCameraControl::onMouseRelease";
     updateCamera(ev->pos() - _mouseClickPoint);
     _mouseClickPoint = ev->pos();
     _mousePressed = false;
@@ -90,5 +90,5 @@ void AppCameraControl::updateCamera(const QPoint &diff)
     _camera->setPosition(pos);
     _camera->setLookPoint(eye);
 
-    qDebug() << "Camera update pos: (" << _xShift <<", " << _yShift << ")";
+    //qDebug() << "Camera update pos: (" << _xShift <<", " << _yShift << ")";
 }
