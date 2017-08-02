@@ -1,20 +1,23 @@
 #include "renderdata.h"
 
 
-RenderData::RenderData(const QSharedPointer<Geometry> &geometry): _hasNormals(false), _hasTexCoords(false){
+RenderData::RenderData(const QSharedPointer<Geometry> &geometry): _hasNormals(false), _hasTexCoords(false), _useIndices(false){
     QOpenGLContext * context = QOpenGLContext::currentContext();
     QOpenGLFunctions *gl = context->functions();
 
-    // push indices
-    gl->glGenBuffers(1, &_indicesBufferId);
-    gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBufferId);
+    if (geometry->style() == Geometry::Indices){
+        _useIndices = true;
+        // push indices
+        gl->glGenBuffers(1, &_indicesBufferId);
+        gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBufferId);
 
-    Indices* indices = getIndices(geometry->triangles());
-    _indicesCount = indices->size();
-    gl->glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof (quint32) * _indicesCount,
-                    indices->data(), GL_STATIC_DRAW);
-    gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-    delete indices;
+        Indices* indices = getIndices(geometry->triangles());
+        _indicesCount = indices->size();
+        gl->glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof (quint32) * _indicesCount,
+                        indices->data(), GL_STATIC_DRAW);
+        gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+        delete indices;
+    }
 
 
     // push vertexes
@@ -23,7 +26,7 @@ RenderData::RenderData(const QSharedPointer<Geometry> &geometry): _hasNormals(fa
     gl->glBufferData(GL_ARRAY_BUFFER,sizeof (glm::vec3) * geometry->vertexes().size(),
                     geometry->vertexes().data(), GL_STATIC_DRAW);
     gl->glBindBuffer(GL_ARRAY_BUFFER,0);
-
+    _verticesCount = geometry->vertexes().size();
 
     if (geometry->texcoords().size() > 0){
         _hasTexCoords = true;
@@ -78,10 +81,12 @@ void RenderData::process()
         gl->glBindBuffer(GL_ARRAY_BUFFER, _textcoordBufferId);
         glTexCoordPointer(2, GL_FLOAT, 0, nullptr);
     }
-
-    gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBufferId);
-    gl->glDrawElements(GL_TRIANGLES, _indicesCount, GL_UNSIGNED_SHORT, nullptr);
-
+    if (_useIndices){
+        gl->glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBufferId);
+        gl->glDrawElements(GL_TRIANGLES, _indicesCount, GL_UNSIGNED_SHORT, nullptr);
+    } else {
+        gl->glDrawArrays(GL_TRIANGLES,0,_verticesCount);
+    }
     glDisableClientState(GL_VERTEX_ARRAY);
     if (_hasTexCoords){
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);

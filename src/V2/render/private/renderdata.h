@@ -28,6 +28,9 @@ private:
     Indices *getIndices(Geometry::Triangles triangles);
     Indices *getNormals(Geometry::Triangles triangles);
 
+    bool _useIndices = false;
+    uint32_t _verticesCount = 0;
+
 };
 
 

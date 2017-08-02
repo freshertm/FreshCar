@@ -61,9 +61,11 @@ bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
     engine->enableModule<V2LightManager>();
     connect(_lightManager.data(), &V2LightManager::lightSettingsChanged, this, &Renderer::onLightSettingsChanged);
 
-    //glDisable(GL_DEPTH_TEST);
+    glDepthRange(0,100000);
+    glDepthFunc(GL_GREATER);
+    glEnable(GL_DEPTH_TEST);
     //glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_AUTO_NORMAL);
+    //glEnable(GL_AUTO_NORMAL);
     glClearColor(0, 0, 0, 1.0);
     qDebug() << "Renderer init() complete.";
     return true;

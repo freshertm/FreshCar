@@ -46,6 +46,8 @@ private:
     QSharedPointer<V2RenderProperties> _prop;
 
     QSharedPointer<AppCameraControl> _camControl;
+
+    QSharedPointer<V2Object> _brick;
 };
 
 #endif // V2MAINWINDOW_H

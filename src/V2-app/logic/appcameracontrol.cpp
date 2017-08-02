@@ -85,8 +85,9 @@ void AppCameraControl::updateCamera(const QPoint &diff)
 {
     _xShift += coef* diff.x();
     _yShift += coef* diff.y();
-    glm::vec3 pos(_xShift, _yShift, -_distance);
-    glm::vec3 eye(_xShift, _yShift, 0.0f);
+    glm::vec3 pos(-_xShift, _yShift, _distance);
+    //glm::vec3 eye(-_xShift, _yShift, 0.0f);
+    glm::vec3 eye(0, 0, 0.0f);
     _camera->setPosition(pos);
     _camera->setLookPoint(eye);
 

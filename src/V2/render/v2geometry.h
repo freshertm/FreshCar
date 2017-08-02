@@ -51,6 +51,7 @@ class Geometry: public V2ObjectAgent
 {
 public:
     Geometry(){}
+    enum Style{Indices, TriangleStrip };
 
     Geometry(const QVector<glm::vec3> &vertexes,
              const QVector<glm::vec3> &normals,
@@ -59,29 +60,44 @@ public:
         _vertexes(vertexes),
         _normals(normals),
         _triangles(triangles),
-        _texcoords(texture_coords)
+        _texcoords(texture_coords),
+        _style(Indices)
+    {}
+
+    Geometry(const QVector<glm::vec3> &vertexes,
+             const QVector<glm::vec3> &normals,
+             const QVector<TexCoord> &texture_coords):
+        _vertexes(vertexes),
+        _normals(normals),
+        _texcoords(texture_coords),
+        _style(TriangleStrip)
     {}
 
     typedef QVector<glm::vec3> Vertexes;
     typedef QVector<Triangle> Triangles;
     typedef QVector<TexCoord> TexCoords;
 
-    const Vertexes vertexes() const {
+
+
+    const Vertexes& vertexes() const {
         return _vertexes;
     }
 
-    const Vertexes normals() const {
+    const Vertexes& normals() const {
         return _normals;
     }
 
-    const Triangles triangles() const {
+    const Triangles& triangles() const {
         return _triangles;
     }
 
-    const TexCoords texcoords() const {
+    const TexCoords& texcoords() const {
         return _texcoords;
     }
 
+    Style style() const {
+        return _style;
+    }
 
 
 private:
@@ -89,6 +105,7 @@ private:
     Vertexes _normals;
     Triangles _triangles;
     TexCoords _texcoords;
+    Style     _style;
 };
 
 #endif // GEOMETRY

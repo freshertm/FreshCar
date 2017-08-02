@@ -84,10 +84,10 @@ V2MainWindow::V2MainWindow(QWidget *parent) :
     auto camera = qSharedPointerDynamicCast<V2Camera>(_camera);
     cameras->setCurrent(camera);
     //V2APPCube *cube = new V2APPCube(10);
-    auto cube = QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 3));
+    _brick = QSharedPointer<V2Object>(new Brick(glm::vec2(0,0), 0, 20, 15));
 
     //auto cube = QSharedPointer<V2Object>::create(glm::vec2(0,0), 0, 20, 3);
-    _engine->scene()->addObject(cube);
+    _engine->scene()->addObject(_brick);
 
     _camControl = QSharedPointer<AppCameraControl>(new AppCameraControl(_engine));
     //_camControl = QSharedPointer<AppCameraControl>::create(_engine);
@@ -107,6 +107,7 @@ void V2MainWindow::onFrame()
     //float y = _cameraRadius * cos(_cameraAngle * 3.14f / 180.0f);
     //_camera->setPosition(glm::vec3(x,0,y));
     //_cameraAngle += _cameraSpeed;
+    _brick->setRotation(_brick->rotation() + glm::vec3(0.1,0,0));
 }
 
 void V2MainWindow::onNewSliderValue(int value)
