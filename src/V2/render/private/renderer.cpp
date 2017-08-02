@@ -55,6 +55,11 @@ bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
     auto scene = engine->scene();
     onSceneChanged(scene);
 
+    float ambient[4] = {0.5, 0.5, 0.5, 1};
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
+    glDisable(GL_LIGHT0);
+    glEnable(GL_COLOR_MATERIAL);
+
     glClearColor(0, 0, 0, 1.0);
     qDebug() << "Renderer init() complete.";
     return true;

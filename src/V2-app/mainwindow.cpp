@@ -7,6 +7,7 @@
 //#include "v2orthocamera.h"
 #include "v2cameralist.h"
 #include "objects/brick.h"
+#include "objects/cube.h"
 #include "b2physicsmodule.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
@@ -123,6 +124,11 @@ void V2MainWindow::onNewSlider2Value(int value)
 
 void V2MainWindow::on_checkBox_clicked(bool checked)
 {
+
+    auto cube = QSharedPointer<V2Object>(new Cube(glm::vec2(0,40), 0,  1));
+
+    //auto cube = QSharedPointer<V2Object>::create(glm::vec2(0,0), 0, 20, 3);
+    _engine->scene()->addObject(cube);
    // _prop->setWireframe(checked);
 }
 
