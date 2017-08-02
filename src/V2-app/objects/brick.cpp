@@ -25,12 +25,13 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     //front
 
     QVector<glm::vec3> vert = {
-        v0,v1,v2, v0,v3,v2,  //front
-        v1,v5,v6, v6,v2,v1,  //top
-       /* v7,v6,v5, v5,v4,v7,  //back
-        v4,v0,v3, v3,v7,v4,  //bottom
-        v4,v5,v1, v1,v0,v4,  //left
-        v3,v2,v6, v6,v7,v3 */ };
+        //v0,v1,v2, v0,v3,v2,    //back
+        v1,v5,v6, v6,v2,v1,    //right
+        v7,v6,v5, v5,v4,v7,    //front
+        //v4,v0,v3, v3,v7,v4,    //left
+        //v4,v5,v1, v1,v0,v4,    //top
+        v3,v2,v6, v6,v7,v3     //bottom
+     };
 
     vertices.append(vert);
 
@@ -42,12 +43,16 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
     glm::vec3 normLeft  (-1,0,0);
     glm::vec3 normRight(1,0,0);
 
-    QVector<glm::vec3> norm = { normFront, normFront, normFront, normFront, normFront, normFront,
-                                normTop, normTop,normTop, normTop,normTop,normTop,
-                                normBack,normBack,normBack, normBack,normBack,normBack,
-                                normBottom,normBottom,normBottom,normBottom,normBottom,normBottom,
-                                normLeft, normLeft, normLeft, normLeft, normLeft, normLeft,
-                                normRight,normRight, normRight, normRight, normRight, normRight };
+    QVector<glm::vec3> norm = {
+        //normBack,normBack,normBack, normBack,normBack,normBack,
+        normRight,normRight, normRight, normRight, normRight, normRight,
+        normFront, normFront, normFront, normFront, normFront, normFront,
+
+        //normLeft, normLeft, normLeft, normLeft, normLeft, normLeft,
+        //normTop, normTop,normTop, normTop,normTop,normTop,
+        normBottom,normBottom,normBottom,normBottom,normBottom,normBottom,
+
+                                 };
     normals.append(norm);
 
     //vertices.append(); //2

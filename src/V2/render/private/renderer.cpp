@@ -62,7 +62,7 @@ bool Renderer::initModule(QSharedPointer<V2Engine> &engine)
     connect(_lightManager.data(), &V2LightManager::lightSettingsChanged, this, &Renderer::onLightSettingsChanged);
 
     glDepthRange(0,100000);
-    glDepthFunc(GL_GREATER);
+    glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
     //glEnable(GL_COLOR_MATERIAL);
     //glEnable(GL_AUTO_NORMAL);
