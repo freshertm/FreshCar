@@ -9,6 +9,7 @@
 #include "objects/brick.h"
 #include "objects/cube.h"
 #include "b2physicsmodule.h"
+#include "v2lightmanager.h"
 
 V2MainWindow::V2MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -124,15 +125,25 @@ void V2MainWindow::onNewSlider2Value(int value)
 
 void V2MainWindow::on_checkBox_clicked(bool checked)
 {
+    _engine->module<V2LightManager>()->setLightEnabled(0,checked);
+    //auto cube = QSharedPointer<V2Object>(new Cube(glm::vec2(0,40), 0,  1));
 
-    auto cube = QSharedPointer<V2Object>(new Cube(glm::vec2(0,40), 0,  1));
-
-    //auto cube = QSharedPointer<V2Object>::create(glm::vec2(0,0), 0, 20, 3);
-    _engine->scene()->addObject(cube);
+    ////auto cube = QSharedPointer<V2Object>::create(glm::vec2(0,0), 0, 20, 3);
+    //_engine->scene()->addObject(cube);
    // _prop->setWireframe(checked);
 }
 
 void V2MainWindow::on_checkBox_2_clicked(bool checked)
 {
-    //_prop->setLighting(checked);
+    _engine->module<V2LightManager>()->setLightEnabled(1,checked);
+}
+
+void V2MainWindow::on_checkBox_9_clicked(bool checked)
+{
+    _engine->module<V2LightManager>()->setLightingEnabled(checked);
+}
+
+void V2MainWindow::on_checkBox_3_clicked(bool checked)
+{
+    _engine->module<V2LightManager>()->setLightEnabled(2,checked);
 }

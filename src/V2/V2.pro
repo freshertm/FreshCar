@@ -11,14 +11,16 @@ SOURCES += \
     core/v2engine.cpp \
     core/v2module.cpp \
     core/v2object.cpp \
-    core/v2scene.cpp
+    core/v2scene.cpp \
+    render/v2lightmanager.cpp
 
 HEADERS += \
     core/v2engine.h \
     core/v2module.h \
     core/v2object.h \
     core/v2resource.h \
-    core/v2scene.h
+    core/v2scene.h \
+    render/v2lightmanager.h
 
 
 

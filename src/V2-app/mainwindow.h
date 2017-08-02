@@ -30,6 +30,10 @@ private slots:
 
     void on_checkBox_2_clicked(bool checked);
 
+    void on_checkBox_9_clicked(bool checked);
+
+    void on_checkBox_3_clicked(bool checked);
+
 private:
     Ui::MainWindow* _ui;
     QSharedPointer<V2Engine> _engine;

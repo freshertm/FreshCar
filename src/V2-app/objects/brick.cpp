@@ -22,6 +22,8 @@ Brick::Brick(const glm::vec2 &position, float angle, float width, float height)
 
 
     QVector<glm::vec3> normals;
+    normals.push_back(glm::vec3(0,0,1));
+    normals.push_back(glm::vec3(0,0,1));
 
     QVector<Triangle> triangles;
     //front

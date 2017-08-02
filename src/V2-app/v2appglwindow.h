@@ -25,7 +25,8 @@ protected:
     virtual void resizeGL(int w, int h){ emit resizeSignal(w,h); }
     virtual void paintGL(){
         emit paintReadySignal();
-        QTimer::singleShot(1, this, &v2appGLWindowImpl::updateGL);
+        QTimer::singleShot(10, this, &QGLWidget::updateGL);
+        //updateGL();
     }
 
     virtual void wheelEvent(QWheelEvent * ev);
