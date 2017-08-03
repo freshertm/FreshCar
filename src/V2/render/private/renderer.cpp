@@ -148,6 +148,11 @@ void Renderer::processObject(const QSharedPointer<V2Object> &obj)
         } else {
             glDisable(GL_LIGHTING);
         }*/
+
+        if (prop->isShowNormals()) {
+            auto geometry = obj->agent<Geometry>();
+            renderNormals(geometry);
+        }
     }
 
     data->process();
@@ -210,6 +215,17 @@ void Renderer::onCameraMove(const QSharedPointer<V2Camera> &camera)
 void Renderer::onLightSettingsChanged()
 {
     _lightManagerSettingsChanged = true;
+}
+
+void Renderer::renderNormals(Geometry & geo)
+{
+    QVector<glm::vec3> points;
+
+
+    QOpenGLContext * context = QOpenGLContext::currentContext();
+    QOpenGLFunctions *gl = context->functions();
+
+    gl->glDrawArrays(GL_LINES,0, points->size());
 }
 
 void Renderer::onSceneChanged(QSharedPointer<V2Scene> &scene)

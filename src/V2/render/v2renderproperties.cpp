@@ -30,6 +30,16 @@ void V2RenderProperties::setLighting(bool enabled)
     _lighting = enabled;
 }
 
+bool V2RenderProperties::isShowNormals()
+{
+    return _showNormals;
+}
+
+void V2RenderProperties::setShowNormals(bool enabled)
+{
+    _showNormals = enabled;
+}
+
 V2RenderProperties::V2RenderProperties():
    _wireframe(false), _lighting(true)
 {

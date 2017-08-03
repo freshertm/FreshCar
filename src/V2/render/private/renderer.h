@@ -7,6 +7,7 @@
 #include "v2window.h"
 #include "v2Camera.h"
 #include "v2lightmanager.h"
+#include <v2geometry.h>
 
 
 class V2Object;
@@ -44,6 +45,8 @@ private slots:
 private:
     QSharedPointer<V2Window> _window;
     QSharedPointer<V2Camera> _camera;
+
+    void renderNormals(Geometry&);
 
     QMap<QSharedPointer<V2Object>, QSharedPointer<RenderData>> _cachedObjectData;
 
