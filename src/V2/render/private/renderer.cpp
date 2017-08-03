@@ -220,10 +220,25 @@ void Renderer::onLightSettingsChanged()
 void Renderer::renderNormals(Geometry & geo)
 {
     QVector<glm::vec3> points;
-
+    auto &normals = geo.normals();
+    auto &verts = geo.vertexes();
+    int minNumber = min(normals.size(), verts.size());
+    points.reserve(minNumber * 2);
+    for (int i=0; i< minNumber; ++i) {
+        auto &vert = verts[i];
+        auto &norm = normals[i];
+        points.push_back(vert, vert+norm);
+    }
 
     QOpenGLContext * context = QOpenGLContext::currentContext();
     QOpenGLFunctions *gl = context->functions();
+
+    GLuint ls;
+    gl->glGenBuffers(1, &ls);
+    gl->glBindBuffer(GL_ARRAY_BUFFER, ls);
+    gl->glBufferData(GL_ARRAY_BUFFER,sizeof (glm::vec3) * points.size(),
+                    points.data(), GL_STATIC_DRAW);
+    gl->glBindBuffer(GL_ARRAY_BUFFER,0);
 
     gl->glDrawArrays(GL_LINES,0, points->size());
 }
