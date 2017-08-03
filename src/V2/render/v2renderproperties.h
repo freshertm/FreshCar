@@ -15,6 +15,9 @@ public:
     bool isLightingEnabled();
     void setLighting(bool enabled);
 
+    bool isShowNormals();
+    void setShowNormals(bool enabled);
+
     V2RenderProperties();
     virtual ~V2RenderProperties(){}
 
@@ -22,6 +25,7 @@ private:
     bool _wireframe;
     V2Color _color;
     bool _lighting;
+    bool _showNormals;
 };
 
 #endif // RENDERPROPERTIES_H
