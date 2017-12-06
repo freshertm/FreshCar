@@ -10,6 +10,8 @@
 #include "v2camera.h"
 #include "v2renderproperties.h"
 
+#include <algorithm>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -217,17 +219,18 @@ void Renderer::onLightSettingsChanged()
     _lightManagerSettingsChanged = true;
 }
 
-void Renderer::renderNormals(Geometry & geo)
+void Renderer::renderNormals(QSharedPointer<Geometry> & geo)
 {
     QVector<glm::vec3> points;
-    auto &normals = geo.normals();
-    auto &verts = geo.vertexes();
-    int minNumber = min(normals.size(), verts.size());
+    auto &normals = geo->normals();
+    auto &verts = geo->vertexes();
+    int minNumber = std::min(normals.size(), verts.size());
     points.reserve(minNumber * 2);
     for (int i=0; i< minNumber; ++i) {
         auto &vert = verts[i];
         auto &norm = normals[i];
-        points.push_back(vert, vert+norm);
+        points.push_back(vert);
+        points.push_back(vert+norm);
     }
 
     QOpenGLContext * context = QOpenGLContext::currentContext();
@@ -240,7 +243,7 @@ void Renderer::renderNormals(Geometry & geo)
                     points.data(), GL_STATIC_DRAW);
     gl->glBindBuffer(GL_ARRAY_BUFFER,0);
 
-    gl->glDrawArrays(GL_LINES,0, points->size());
+    gl->glDrawArrays(GL_LINES,0, points.size());
 }
 
 void Renderer::onSceneChanged(QSharedPointer<V2Scene> &scene)
