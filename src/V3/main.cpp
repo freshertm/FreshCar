@@ -1,15 +1,23 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <Qt3DQuickExtras/qt3dquickwindow.h>
 #include <QGuiApplication>
+#include <Qt3DExtras>
+
+#include "gamelogic.h"
+#include "display.h"
 
 int main(int argc, char* argv[])
 {
     QGuiApplication app(argc, argv);
-    Qt3DExtras::Quick::Qt3DQuickWindow view;
-    view.setSource(QUrl("qrc:/main.qml"));
-    view.show();
+    Qt3DExtras::Qt3DWindow * view = new Qt3DExtras::Qt3DWindow();
 
-    return app.exec();
+    Display *display = new Display(view);
+    view->show();
+
+    auto result = app.exec();
+
+    delete display;
+    delete view;
+
 }
