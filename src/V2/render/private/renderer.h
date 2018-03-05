@@ -46,7 +46,7 @@ private:
     QSharedPointer<V2Window> _window;
     QSharedPointer<V2Camera> _camera;
 
-    void renderNormals(Geometry&);
+    void renderNormals(QSharedPointer<Geometry>);
 
     QMap<QSharedPointer<V2Object>, QSharedPointer<RenderData>> _cachedObjectData;
 
