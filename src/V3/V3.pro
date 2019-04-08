@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     gamelogic.cpp \
     display.cpp \
     gameobject.cpp \
-    scene.cpp
+    scene.cpp \
+    gameobjectfactory.cpp
 
 RESOURCES += qml.qrc
 
@@ -37,6 +38,7 @@ HEADERS += \
     gamelogic.h \
     display.h \
     gameobject.h \
-    scene.h
+    scene.h \
+    gameobjectfactory.h
 
 INCLUDEPATH += ../../lib
